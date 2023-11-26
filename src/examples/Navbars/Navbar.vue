@@ -64,12 +64,12 @@
               </div>
             </a>
           </li>
-          <li class="px-3 nav-item d-flex align-items-center">
+          <!-- <li class="px-3 nav-item d-flex align-items-center">
             <a class="p-0 nav-link text-white" @click="toggleConfigurator">
               <i class="cursor-pointer fa fa-cog fixed-plugin-button-nav"></i>
             </a>
-          </li>
-          <li
+          </li> -->
+          <!-- <li
             class="nav-item dropdown d-flex align-items-center"
             :class="this.$store.state.isRTL ? 'ps-2' : 'pe-2'"
           >
@@ -191,7 +191,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -205,7 +205,7 @@ export default {
   name: "navbar",
   data() {
     return {
-      showMenu: false
+      showMenu: false,
     };
   },
   props: ["minNav", "textWhite"],
@@ -219,15 +219,15 @@ export default {
     toggleSidebar() {
       this.toggleSidebarColor("bg-white");
       this.navbarMinimize();
-    }
+    },
   },
   components: {
-    Breadcrumbs
+    Breadcrumbs,
   },
   computed: {
     currentRouteName() {
       return this.$route.name;
-    }
-  }
+    },
+  },
 };
 </script>

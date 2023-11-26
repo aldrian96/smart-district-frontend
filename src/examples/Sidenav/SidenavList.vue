@@ -28,7 +28,7 @@
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <sidenav-item
           url="/billing"
           :class="getRoute() === 'billing' ? 'active' : ''"
@@ -38,7 +38,7 @@
             <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
           </template>
         </sidenav-item>
-      </li>
+      </li> -->
 
       <li class="mt-3 nav-item">
         <h6

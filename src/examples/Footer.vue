@@ -7,7 +7,7 @@
             class="text-sm text-center copyright text-muted"
             :class="this.$store.state.isRTL ? 'text-lg-end' : 'text-lg-start'"
           >
-            ©
+            <!-- ©
             {{ new Date().getFullYear() }}, made with
             <i class="fa fa-heart"></i> by
             <a
@@ -16,11 +16,11 @@
               target="_blank"
               >Creative Tim</a
             >
-            for a better web.
+            for a better web. -->
           </div>
         </div>
         <div class="col-lg-6">
-          <ul
+          <!-- <ul
             class="nav nav-footer justify-content-center justify-content-lg-end"
           >
             <li class="nav-item">
@@ -55,7 +55,7 @@
                 >License</a
               >
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </div>
