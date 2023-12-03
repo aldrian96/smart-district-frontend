@@ -60,7 +60,7 @@
             <carousel />
           </div> -->
         </div>
-        <div class="row mt-4">
+        <!-- <div class="row mt-4">
           <div class="col-lg-7 mb-lg-0 mb-4">
             <div class="card">
               <div class="p-3 pb-0 card-header">
@@ -112,7 +112,7 @@
           <div class="col-lg-5">
             <categories-card />
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -121,7 +121,7 @@
 import Card from "@/examples/Cards/Card.vue";
 import GradientLineChart from "@/examples/Charts/GradientLineChart.vue";
 // import Carousel from "./components/Carousel.vue";
-import CategoriesCard from "./components/CategoriesCard.vue";
+// import CategoriesCard from "./components/CategoriesCard.vue";
 
 import US from "@/assets/img/icons/flags/US.png";
 import DE from "@/assets/img/icons/flags/DE.png";
@@ -136,27 +136,27 @@ export default {
         money: {
           title: "Jumlah Pengaduan",
           value: "325",
-          iconClass: "ni ni-money-coins",
+          iconClass: "ni ni-bullet-list-67",
           iconBackground: "bg-gradient-primary",
         },
         users: {
           title: "Pengaduan Selesai",
           value: "112",
-          iconClass: "ni ni-world",
-          iconBackground: "bg-gradient-danger",
+          iconClass: "ni ni-check-bold",
+          iconBackground: "bg-gradient-success",
         },
         clients: {
           title: "Pengaduan Diproses",
           value: "150",
-          iconClass: "ni ni-paper-diploma",
+          iconClass: "ni ni-archive-2",
           percentageColor: "text-danger",
-          iconBackground: "bg-gradient-success",
+          iconBackground: "bg-gradient-warning",
         },
         sales: {
           title: "Pengaduan Ditolak",
           value: "62",
-          iconClass: "ni ni-cart",
-          iconBackground: "bg-gradient-warning",
+          iconClass: "ni ni-fat-remove",
+          iconBackground: "bg-gradient-danger",
         },
       },
       sales: {
@@ -195,7 +195,7 @@ export default {
     Card,
     GradientLineChart,
 
-    CategoriesCard,
+    // CategoriesCard,
   },
 };
 </script>

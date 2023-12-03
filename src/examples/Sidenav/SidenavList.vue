@@ -6,9 +6,9 @@
     <ul class="navbar-nav">
       <li class="nav-item">
         <sidenav-item
-          url="/dashboard-default"
-          :class="getRoute() === 'dashboard-default' ? 'active' : ''"
-          navText="Dashboard"
+          url="/dashboard"
+          :class="getRoute() === 'dashboard' ? 'active' : ''"
+          navText="Dashboarddddd"
         >
           <template v-slot:icon>
             <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
@@ -17,14 +17,23 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/pengaduan"
+          url="/dashboard/pengaduan"
           :class="getRoute() === 'pengaduan' ? 'active' : ''"
           navText="Pengaduan"
         >
           <template v-slot:icon>
-            <i
-              class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"
-            ></i>
+            <i class="ni ni-archive-2 text-warning text-sm opacity-10"></i>
+          </template>
+        </sidenav-item>
+      </li>
+      <li class="nav-item">
+        <sidenav-item
+          url="/dashboard/pengaduanku"
+          :class="getRoute() === 'pengaduanKu' ? 'active' : ''"
+          navText="Pengaduanku"
+        >
+          <template v-slot:icon>
+            <i class="ni ni-archive-2 text-warning text-sm opacity-10"></i>
           </template>
         </sidenav-item>
       </li>
@@ -41,24 +50,13 @@
       </li> -->
 
       <li class="mt-3 nav-item">
-        <h6
-          v-if="this.$store.state.isRTL"
-          class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
-          :class="this.$store.state.isRTL ? 'me-4' : 'ms-2'"
-        >
-          صفحات المرافق
-        </h6>
-        <h6
-          v-else
-          class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
-          :class="this.$store.state.isRTL ? 'me-4' : 'ms-2'"
-        >
+        <h6 class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6">
           ACCOUNT PAGES
         </h6>
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/profile"
+          url="/dashboard/profile"
           :class="getRoute() === 'profile' ? 'active' : ''"
           navText="Profile"
         >
@@ -69,7 +67,7 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/signin"
+          url="/dashboard/signin"
           :class="getRoute() === 'signin' ? 'active' : ''"
           navText="Sign In"
         >
@@ -80,7 +78,7 @@
       </li>
       <li class="nav-item">
         <sidenav-item
-          url="/signup"
+          url="/dashboard/signup"
           :class="getRoute() === 'signup' ? 'active' : ''"
           navText="Sign Up"
         >
@@ -120,8 +118,14 @@ export default {
   methods: {
     getRoute() {
       const routeArr = this.$route.path.split("/");
-      return routeArr[1];
+      return routeArr[2] ?? "dashboard";
     },
+  },
+
+  mounted() {
+    setInterval(() => {
+      console.log(this.getRoute() == "dashboard");
+    }, 1000);
   },
 };
 </script>

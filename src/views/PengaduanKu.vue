@@ -4,7 +4,15 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header pb-0">
-            <h6>Tabel Pengaduan</h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <h6>Tabel Pengaduan</h6>
+              <button
+                class="btn btn-success d-flex align-items-center"
+                @click="router.push({ name: 'Tambah' })"
+              >
+                <i class="ni ni-fat-add fs-4"></i> Tambah Pengaduan
+              </button>
+            </div>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
@@ -32,6 +40,7 @@
                     >
                       Status Pengaduan
                     </th>
+                    <th class="text-center text-secondary opacity-7"></th>
                     <th class="text-center text-secondary opacity-7"></th>
                   </tr>
                 </thead>
@@ -87,6 +96,15 @@
                         class="text-secondary font-weight-bold text-xs text-center"
                         data-toggle="tooltip"
                         data-original-title="Detail user"
+                        >Edit</a
+                      >
+                    </td>
+                    <td class="align-middle">
+                      <a
+                        href="javascript:;"
+                        class="text-secondary font-weight-bold text-xs text-center"
+                        data-toggle="tooltip"
+                        data-original-title="Detail user"
                         >Detail</a
                       >
                     </td>
@@ -107,7 +125,9 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 const dataTable = ref([
   {
     judul: "Jalan Rusak",
@@ -131,5 +151,7 @@ const dataTable = ref([
     status: "Belum Diproses",
   },
 ]);
+const router = useRouter();
+
 console.log(dataTable);
 </script>
