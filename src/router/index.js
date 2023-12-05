@@ -14,7 +14,7 @@ const routes = [
     component: DashboardLayout,
     children: [
       {
-        path: "/dashboard",
+        path: "/dashboard/",
         name: "Dashboard",
         component: Dashboard,
       },
@@ -25,7 +25,7 @@ const routes = [
       },
       {
         path: "pengaduanku",
-        name: "PengaduanKu",
+        name: "Pengaduanku",
         component: PengaduanKu,
       },
       {

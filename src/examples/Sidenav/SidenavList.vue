@@ -5,33 +5,21 @@
   >
     <ul class="navbar-nav">
       <li class="nav-item">
-        <sidenav-item
-          url="/dashboard"
-          :class="getRoute() === 'dashboard' ? 'active' : ''"
-          navText="Dashboarddddd"
-        >
+        <sidenav-item url="/dashboard" navText="Dashboard">
           <template v-slot:icon>
             <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
           </template>
         </sidenav-item>
       </li>
       <li class="nav-item">
-        <sidenav-item
-          url="/dashboard/pengaduan"
-          :class="getRoute() === 'pengaduan' ? 'active' : ''"
-          navText="Pengaduan"
-        >
+        <sidenav-item url="/dashboard/pengaduan" navText="Pengaduan">
           <template v-slot:icon>
             <i class="ni ni-archive-2 text-warning text-sm opacity-10"></i>
           </template>
         </sidenav-item>
       </li>
       <li class="nav-item">
-        <sidenav-item
-          url="/dashboard/pengaduanku"
-          :class="getRoute() === 'pengaduanKu' ? 'active' : ''"
-          navText="Pengaduanku"
-        >
+        <sidenav-item url="/dashboard/pengaduanku" navText="Pengaduanku">
           <template v-slot:icon>
             <i class="ni ni-archive-2 text-warning text-sm opacity-10"></i>
           </template>
@@ -55,33 +43,21 @@
         </h6>
       </li>
       <li class="nav-item">
-        <sidenav-item
-          url="/dashboard/profile"
-          :class="getRoute() === 'profile' ? 'active' : ''"
-          navText="Profile"
-        >
+        <sidenav-item url="/dashboard/profile" navText="Profile">
           <template v-slot:icon>
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
           </template>
         </sidenav-item>
       </li>
       <li class="nav-item">
-        <sidenav-item
-          url="/dashboard/signin"
-          :class="getRoute() === 'signin' ? 'active' : ''"
-          navText="Sign In"
-        >
+        <sidenav-item url="/dashboard/signin" navText="Sign In">
           <template v-slot:icon>
             <i class="ni ni-single-copy-04 text-danger text-sm opacity-10"></i>
           </template>
         </sidenav-item>
       </li>
       <li class="nav-item">
-        <sidenav-item
-          url="/dashboard/signup"
-          :class="getRoute() === 'signup' ? 'active' : ''"
-          navText="Sign Up"
-        >
+        <sidenav-item url="/dashboard/signup" navText="Sign Up">
           <template v-slot:icon>
             <i class="ni ni-collection text-info text-sm opacity-10"></i>
           </template>
@@ -97,35 +73,7 @@
     /> -->
   </div>
 </template>
-<script>
+<script setup>
+/* eslint-disable */
 import SidenavItem from "./SidenavItem.vue";
-
-export default {
-  name: "SidenavList",
-  props: {
-    cardBg: String,
-  },
-  data() {
-    return {
-      title: "Argon Dashboard 2",
-      controls: "dashboardsExamples",
-      isActive: "active",
-    };
-  },
-  components: {
-    SidenavItem,
-  },
-  methods: {
-    getRoute() {
-      const routeArr = this.$route.path.split("/");
-      return routeArr[2] ?? "dashboard";
-    },
-  },
-
-  mounted() {
-    setInterval(() => {
-      console.log(this.getRoute() == "dashboard");
-    }, 1000);
-  },
-};
 </script>
