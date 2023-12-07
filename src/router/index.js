@@ -4,11 +4,13 @@ import Pengaduan from "../views/Pengaduan.vue";
 import Profile from "../views/Profile.vue";
 import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
+import Home from "../views/Home.vue";
 import PengaduanKu from "../views/PengaduanKu.vue";
 import TambahPengaduan from "../views/TambahPengaduan.vue";
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
 
 const routes = [
+  { path: '/', component: Home },
   {
     path: "/dashboard",
     component: DashboardLayout,
