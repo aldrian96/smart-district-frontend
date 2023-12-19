@@ -10,7 +10,7 @@ import TambahPengaduan from "../views/TambahPengaduan.vue";
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
 
 const routes = [
-  { path: '/', component: Home },
+  { path: '/', Name: "home", component: Home, },
   {
     path: "/dashboard",
     component: DashboardLayout,
