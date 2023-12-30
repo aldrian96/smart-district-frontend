@@ -11,7 +11,17 @@ import DashboardLayout from "../views/layout/DashboardLayout.vue";
 import LandingPage from "../views/LandingPage.vue";
 
 const routes = [
-  { path: '/', Name: "home", component: Home, },
+  {
+    path: '/',
+    component: DashboardLayout,
+    children: [
+      {
+        path: '/',
+        Name: "Home",
+        component: Home,
+      }
+    ],
+  },
   {
     path: "/",
     name: "LandingPage",
