@@ -33,6 +33,7 @@
                       Status Pengaduan
                     </th>
                     <th class="text-center text-secondary opacity-7"></th>
+                    <th class="text-center text-secondary opacity-7"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -40,9 +41,9 @@
                     <td>
                       <div class="d-flex p-2">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ row.judul }}</h6>
+                          <h6 class="mb-0 text-sm">{{ row.title }}</h6>
                           <p class="text-xs text-secondary mb-0">
-                            {{ row.deskripsi }}
+                            {{ truncateText(row.body, 50) }}
                           </p>
                         </div>
                       </div>
@@ -51,16 +52,22 @@
                       <span
                         class="badge badge-sm"
                         :class="{
-                          'bg-gradient-info': row.prioritas == 'Low',
-                          'bg-gradient-warning': row.prioritas == 'Medium',
-                          'bg-gradient-danger': row.prioritas == 'High',
+                          'bg-gradient-info': row.priority == 'low',
+                          'bg-gradient-warning': row.priority == 'medium',
+                          'bg-gradient-danger': row.priority == 'high',
                         }"
-                        >{{ row.prioritas }}</span
+                        >{{ row.priority }}</span
                       >
                     </td>
                     <td class="align-middle text-center text-sm">
                       <p class="text-xs font-weight-bold mb-0">
-                        {{ row.tanggal }}
+                        {{
+                          new Date(row.created_at).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })
+                        }}
                       </p>
                     </td>
 
@@ -69,9 +76,8 @@
                         class="badge badge-sm"
                         :class="{
                           'bg-gradient-success': row.status == 'Selesai',
-                          'bg-gradient-warning': row.status == 'Diproses',
-                          'bg-gradient-secondary':
-                            row.status == 'Belum Diproses',
+                          'bg-gradient-warning':
+                            row.status == 'Sedang di Proses',
                         }"
                         >{{ row.status }}</span
                       >
@@ -81,6 +87,15 @@
                   >23/04/18</span
                 >
               </td> -->
+                    <td class="align-middle">
+                      <a
+                        href="javascript:;"
+                        class="text-secondary font-weight-bold text-xs text-center"
+                        data-toggle="tooltip"
+                        data-original-title="Detail user"
+                        >Edit</a
+                      >
+                    </td>
                     <td class="align-middle">
                       <a
                         href="javascript:;"
@@ -107,29 +122,23 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-const dataTable = ref([
-  {
-    judul: "Jalan Rusak",
-    prioritas: "High",
-    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
-    status: "Selesai",
-  },
-  {
-    judul: "Fasilitas Rusak",
-    prioritas: "Medium",
-    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
-    status: "Diproses",
-  },
-  {
-    judul: "Jalan Rusak",
-    prioritas: "Low",
-    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
-    status: "Belum Diproses",
-  },
-]);
-console.log(dataTable);
+/* eslint-disable */
+import { onMounted, ref } from "vue";
+import axios from "axios";
+import { GetReports } from "../api.js";
+// Ngambil data di .env
+// const { VITE_CLIENT_KEY } = import.meta.env;
+
+const dataTable = ref([]);
+
+// Triple Dot
+const truncateText = (text, maxLength) => {
+  return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+};
+
+onMounted(async () => {
+  // Login("superadmin@smartdistrict.com", "123456");
+  dataTable.value = await GetReports();
+  console.log(dataTable.value);
+});
 </script>

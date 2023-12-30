@@ -5,7 +5,8 @@ import router from "./router";
 import "./assets/css/nucleo-icons.css";
 import "./assets/css/nucleo-svg.css";
 import ArgonDashboard from "./argon-dashboard";
-
+import "@/assets/main.css";
+import "boxicons";
 const appInstance = createApp(App);
 appInstance.use(store);
 appInstance.use(router);

@@ -130,27 +130,77 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 const dataTable = ref([
   {
-    judul: "Jalan Rusak",
+    judul: "Kerusakan Lampu Jalan",
     prioritas: "High",
     deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
-    status: "Selesai",
-  },
-  {
-    judul: "Fasilitas Rusak",
-    prioritas: "Medium",
-    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
+    tanggal: "15 Februari 2023",
     status: "Diproses",
   },
   {
-    judul: "Jalan Rusak",
-    prioritas: "Low",
+    judul: "Kebersihan Lingkungan",
+    prioritas: "Medium",
     deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
+    tanggal: "20 Februari 2023",
     status: "Belum Diproses",
   },
+  {
+    judul: "Kebocoran Pipa Air",
+    prioritas: "Low",
+    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
+    tanggal: "25 Februari 2023",
+    status: "Belum Diproses",
+  },
+  {
+    judul: "Pohon Tumbang",
+    prioritas: "High",
+    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
+    tanggal: "5 Maret 2023",
+    status: "Selesai",
+  },
+  {
+    judul: "Kerusakan Saluran Drainase",
+    prioritas: "Medium",
+    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
+    tanggal: "10 Maret 2023",
+    status: "Diproses",
+  },
+  {
+    judul: "Kebisingan Lingkungan",
+    prioritas: "Low",
+    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
+    tanggal: "15 Maret 2023",
+    status: "Belum Diproses",
+  },
+  {
+    judul: "Gangguan Listrik",
+    prioritas: "High",
+    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
+    tanggal: "20 Maret 2023",
+    status: "Diproses",
+  },
+  {
+    judul: "Kerusakan Jaringan Telekomunikasi",
+    prioritas: "Medium",
+    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
+    tanggal: "25 Maret 2023",
+    status: "Belum Diproses",
+  },
+  {
+    judul: "Pemotongan Pohon Illegal",
+    prioritas: "Low",
+    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
+    tanggal: "1 April 2023",
+    status: "Belum Diproses",
+  },
+  {
+    judul: "Banjir Kecil",
+    prioritas: "High",
+    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
+    tanggal: "5 April 2023",
+    status: "Selesai",
+  },
 ]);
+
 const router = useRouter();
 
 console.log(dataTable);

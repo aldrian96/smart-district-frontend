@@ -63,17 +63,36 @@
           </template>
         </sidenav-item>
       </li>
+      <li class="nav-item">
+        <sidenav-item url="/dashboard/signin" navText="Logout">
+          <template v-slot:icon>
+            <i class="ni ni-collection text-info text-sm opacity-10"></i>
+          </template>
+        </sidenav-item>
+      </li>
     </ul>
   </div>
   <div class="pt-3 mx-3 mt-3 sidenav-footer">
-    <!-- <sidenav-card
-      :class="cardBg"
-      textPrimary="Need Help?"
-      textSecondary="Please check our docs"
-    /> -->
+    <button
+      class="mt-4"
+      variant="gradient"
+      color="danger"
+      size="lg"
+      @click="logout"
+    >
+      Logout
+    </button>
   </div>
 </template>
 <script setup>
 /* eslint-disable */
+import { Logout } from "../../api";
 import SidenavItem from "./SidenavItem.vue";
+
+const logout = async () => {
+  // Lakukan proses logout
+  await Logout();
+  // Redirect ke halaman login atau halaman awal setelah logout
+  router.push("/login");
+};
 </script>

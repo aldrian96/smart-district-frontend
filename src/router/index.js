@@ -7,8 +7,14 @@ import Signin from "../views/Signin.vue";
 import PengaduanKu from "../views/PengaduanKu.vue";
 import TambahPengaduan from "../views/TambahPengaduan.vue";
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
+import LandingPage from "../views/LandingPage.vue";
 
 const routes = [
+  {
+    path: "/",
+    name: "LandingPage",
+    component: LandingPage,
+  },
   {
     path: "/dashboard",
     component: DashboardLayout,
@@ -22,6 +28,7 @@ const routes = [
         path: "pengaduan",
         name: "Pengaduan",
         component: Pengaduan,
+        meta: { requiredAuth: true },
       },
       {
         path: "pengaduanku",
@@ -33,7 +40,6 @@ const routes = [
         name: "Tambah",
         component: TambahPengaduan,
       },
-
       {
         path: "profile",
         name: "Profile",
