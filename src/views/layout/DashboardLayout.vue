@@ -15,14 +15,14 @@
     class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
   >
     <!-- nav -->
-    <!-- <navbar
+    <navbar
       :class="[navClasses]"
       :textWhite="
         this.$store.state.isAbsolute ? 'text-white opacity-8' : 'text-white'
       "
       :minNav="navbarMinimize"
       v-if="this.$store.state.showNavbar"
-    /> -->
+    />
     <router-view />
     <app-footer v-show="this.$store.state.showFooter" />
     <!-- <configurator
@@ -37,7 +37,7 @@
 <script>
 import Sidenav from "@/examples/Sidenav";
 // import Configurator from "@/examples/Configurator.vue";
-// import Navbar from "@/examples/Navbars/Navbar.vue";
+import Navbar from "@/examples/Navbars/Navbar.vue";
 import AppFooter from "@/examples/Footer.vue";
 import { mapMutations } from "vuex";
 
@@ -46,7 +46,7 @@ export default {
   components: {
     Sidenav,
     // Configurator,
-    // Navbar,
+    Navbar,
     AppFooter,
   },
   methods: {
