@@ -171,14 +171,22 @@
                     >Sign up</argon-button
                   >
                 </div>
-                <p class="text-sm mt-3 mb-0">
+                <p class="text-sm mt-3 mb-0 text-center">
                   Already have an account?
-                  <a
-                    href="/dashboard/signin"
+                  <router-link
+                    to="/dashboard/signin"
                     class="text-dark font-weight-bolder"
-                    >Sign in</a
+                    >Sign in</router-link
                   >
                 </p>
+                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                  <router-link
+                    to="/"
+                    class="text-info text-gradient font-weight-bold"
+                  >
+                    Kembali
+                  </router-link>
+                </div>
               </form>
             </div>
           </div>

@@ -22,8 +22,11 @@ export async function Login(email, password) {
       email,
       password,
     });
-
     sessionStorage.setItem("smartdistrict-token", response.data.token);
+    sessionStorage.setItem(
+      "smartdistrict-userinfo",
+      JSON.stringify(response.data.user_info)
+    );
     return true;
   } catch (error) {
     console.error("Error:", error);
@@ -44,6 +47,7 @@ export async function Logout() {
 
     // Hapus token autentikasi dari sessionStorage
     sessionStorage.removeItem("smartdistrict-token");
+    sessionStorage.removeItem("smartdistrict-userinfo");
     return true;
   } catch (error) {
     console.error("Error:", error);

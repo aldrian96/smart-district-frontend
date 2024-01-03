@@ -34,6 +34,7 @@
                       name="password"
                       size="lg"
                       v-model="password"
+                      @keyup.enter="Signin"
                     />
                   </div>
 
@@ -45,6 +46,7 @@
                       fullWidth
                       size="lg"
                       @click="Signin"
+                      :disabled="isLoading"
                       >Sign in</argon-button
                     >
                   </div>
@@ -52,12 +54,21 @@
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
                     Don't have an account?
-                    <a
-                      href="/dashboard/signup"
+                    <router-link
+                      to="/dashboard/signup"
                       class="text-success text-gradient font-weight-bold"
-                      >Sign up</a
                     >
+                      Sign up
+                    </router-link>
                   </p>
+                </div>
+                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                  <router-link
+                    to="/"
+                    class="text-info text-gradient font-weight-bold"
+                  >
+                    Kembali
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -99,6 +110,7 @@ import ArgonSwitch from "@/components/ArgonSwitch.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 const body = document.getElementsByTagName("body")[0];
 import { Login } from "../api.js";
+
 import ArgonAlert from "../components/ArgonAlert.vue";
 
 export default {
@@ -114,6 +126,7 @@ export default {
       email: null,
       password: null,
       loginFailed: false,
+      isLoading: false,
     };
   },
   created() {
@@ -126,17 +139,22 @@ export default {
   methods: {
     async Signin() {
       try {
+        if (this.isLoading) return;
         let result = await Login(this.email, this.password);
+        this.isLoading = true;
         if (result) {
           console.log("Berhasil");
+
           this.$router.push("/dashboard");
         } else {
           console.log("Error");
           this.loginFailed = true;
         }
+        this.isLoading = false;
       } catch (error) {
         console.error("Error:", error);
         this.loginFailed = true;
+        this.isLoading = false;
       }
     },
   },

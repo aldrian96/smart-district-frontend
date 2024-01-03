@@ -128,6 +128,8 @@
 /* eslint-disable */
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+const router = useRouter();
+
 const dataTable = ref([
   {
     judul: "Kerusakan Lampu Jalan",
@@ -200,8 +202,6 @@ const dataTable = ref([
     status: "Selesai",
   },
 ]);
-
-const router = useRouter();
 
 console.log(dataTable);
 </script>

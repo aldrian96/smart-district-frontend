@@ -6,9 +6,7 @@
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
               <p class="mb-0">Tambah Pengaduan</p>
-              <argon-button color="success" size="sm" class="ms-auto"
-                >Tambah</argon-button
-              >
+              <hr />
             </div>
           </div>
           <div class="card-body">
@@ -72,6 +70,16 @@
                 <argon-input type="text" />
               </div>
             </div>
+            <div class="d-flex align-items-center">
+              <button
+                to="/dashboard/pengaduanku"
+                class="btn btn-secondary btn-sm me-2"
+                @click="router.push({ name: 'Pengaduanku' })"
+              >
+                Kembali
+              </button>
+              <button class="btn btn-success btn-sm">Tambah</button>
+            </div>
           </div>
         </div>
       </div>
@@ -81,11 +89,14 @@
 
 <script setup>
 /* eslint-disable */
+import { useRouter } from "vue-router";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { reactive, ref } from "vue";
+
+const router = useRouter();
 
 const model = reactive({
   judul: null,
