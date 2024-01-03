@@ -11,14 +11,14 @@
           </template>
         </sidenav-item>
       </li>
-      <li v-if="user_role == 'admin'" class="nav-item">
+      <li v-if="user_role == 'admin,superadmin'" class="nav-item">
         <sidenav-item url="/dashboard/pengaduan" navText="Pengaduan">
           <template v-slot:icon>
             <i class="ni ni-archive-2 text-warning text-sm opacity-10"></i>
           </template>
         </sidenav-item>
       </li>
-      <li v-if="user_role == 'user'" class="nav-item">
+      <li v-if="user_role == 'user,superadmin'" class="nav-item">
         <sidenav-item url="/dashboard/pengaduanku" navText="Pengaduanku">
           <template v-slot:icon>
             <i class="ni ni-archive-2 text-warning text-sm opacity-10"></i>

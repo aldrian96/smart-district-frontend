@@ -69,9 +69,7 @@ const props = defineProps({
             <router-link to="/" class="nav-link" exact>Home</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/list-pengaduan" class="nav-link"
-              >List Pengaduan</router-link
-            >
+            <router-link to="#" class="nav-link">List Pengaduan</router-link>
           </li>
         </ul>
         <ul v-if="isLoggedIn" class="navbar-nav ms-auto">
