@@ -77,31 +77,32 @@ const props = defineProps({
         <ul v-if="isLoggedIn" class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
             <button
-              class="btn btn-dark dropdown-toggle"
+              class="btn mb-0 btn-dark dropdown-toggle"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               <i class="fa fa-user-circle me-1"></i> {{ user_name }}
             </button>
-            <ul class="dropdown-menu dropdown-menu-light">
+            <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end">
               <li class="nav-item">
                 <router-link to="/dashboard" class="nav-link">
-                  Dashboard
+                  <i class="fas fa-tachometer-alt me-1"></i> Dashboard
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/dashboard/profile" class="nav-link">
-                  Profile
+                  <i class="fas fa-user-circle me-1"></i> Profile
                 </router-link>
               </li>
+
               <li><hr class="dropdown-divider" /></li>
 
               <li class="nav-item">
-                <button @click="logout" class="nav-link btn btn-danger">
+                <span @click="logout" class="nav-link">
                   <i class="fa fa-sign-out me-1"></i>
                   Logout
-                </button>
+                </span>
               </li>
             </ul>
           </li>
@@ -117,13 +118,13 @@ const props = defineProps({
           <li class="nav-item">
             <router-link
               to="/dashboard/signin"
-              class="btn btn-outline-dark me-2"
+              class="btn btn-outline-dark me-2 mb-0"
             >
               <i class="fa fa-sign-in me-1"></i> SIGN IN
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/dashboard/signup" class="btn btn-dark">
+            <router-link to="/dashboard/signup" class="btn btn-dark mb-0">
               <i class="fa fa-user-plus me-1"></i> SIGN UP
             </router-link>
           </li>

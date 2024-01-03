@@ -11,15 +11,52 @@
           </div>
           <div class="card-body">
             <!-- <p class="text-uppercase text-sm">Informasi Pengaduan</p> -->
-            <div class="row mb-7">
+            <div class="row mb-3">
               <div class="col-12">
                 <label for="example-text-input" class="form-control-label"
                   >JUDUL PENGADUAN</label
                 >
-                <argon-input type="text" v-model="model.judul" />
+                <argon-input
+                  type="text"
+                  v-model="model.judul"
+                  placeholder="Masukan Judul Pengaduan"
+                />
               </div>
-
-              <div class="col-12">
+              <div class="mb-3">
+                <label class="form-label">DESKRIPSI</label>
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  placeholder="Jelaskan Tentang Pengaduan Kamu"
+                  v-model="model.deskripsi"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">SARAN DAN SOLUSI</label>
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  placeholder="Jika Kamu Mempunyai Saran dan Solusi Bisa Tulis Disini Ya"
+                  v-model="model.saranSolusi"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="formFile" class="form-label">BUKTI PENGADUAN</label>
+                <input class="form-control" type="file" id="formFile" />
+              </div>
+              <div class="mb-3">
+                <label for="formCategory">PILIH KATEGORI</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Kategori Pengaduan</option>
+                  <option value="1">Location</option>
+                  <option value="2">Normal</option>
+                </select>
+              </div>
+            </div>
+            <!-- Quill EDITOR -->
+            <!-- <div class="col-12">
                 <label for="example-text-input" class="form-control-label"
                   >DESKRIPSI</label
                 >
@@ -29,47 +66,28 @@
                   v-model:content="model.deskripsi"
                   contentType="html"
                 />
-              </div>
-            </div>
-            {{ model.deskripsi }}
+              </div> -->
+            <!-- {{ model.deskripsi }} -->
 
-            <!-- <hr class="horizontal dark" /> -->
+            <div class="row mb-3">
+              <img src="@/assets/img/coblong.jpg" class="img-fluid" alt="" />
+            </div>
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <label for="example-text-input" class="form-control-label"
-                  >SARAN DAN SOLUSI</label
-                >
+                  >Latitude
+                </label>
                 <argon-input type="text" />
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <label for="example-text-input" class="form-control-label"
-                  >City</label
-                >
-                <argon-input type="text" />
-              </div>
-              <div class="col-md-4">
-                <label for="example-text-input" class="form-control-label"
-                  >Country</label
-                >
-                <argon-input type="text" />
-              </div>
-              <div class="col-md-4">
-                <label for="example-text-input" class="form-control-label"
-                  >Postal code</label
+                  >Longitude</label
                 >
                 <argon-input type="text" />
               </div>
             </div>
             <hr class="horizontal dark" />
-            <p class="text-uppercase text-sm">About me</p>
-            <div class="row">
-              <div class="col-md-12">
-                <label for="example-text-input" class="form-control-label"
-                  >About me</label
-                >
-                <argon-input type="text" />
-              </div>
-            </div>
+
             <div class="d-flex align-items-center">
               <button
                 to="/dashboard/pengaduanku"
@@ -91,8 +109,8 @@
 /* eslint-disable */
 import { useRouter } from "vue-router";
 import ArgonInput from "@/components/ArgonInput.vue";
-import ArgonButton from "@/components/ArgonButton.vue";
-import { QuillEditor } from "@vueup/vue-quill";
+// import ArgonButton from "@/components/ArgonButton.vue";
+// import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { reactive, ref } from "vue";
 
@@ -101,10 +119,13 @@ const router = useRouter();
 const model = reactive({
   judul: null,
   deskripsi: null,
-  prioritas: null,
-  tanggal: null,
-  status: null,
+  saranSolusi: null,
 });
 </script>
 
-<style></style>
+<style>
+/* .custom-img-size {
+  width: 200px;
+  height: auto;
+} */
+</style>

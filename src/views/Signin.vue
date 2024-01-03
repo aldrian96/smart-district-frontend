@@ -63,6 +63,7 @@
                   </p>
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                  <hr />
                   <router-link
                     to="/"
                     class="text-info text-gradient font-weight-bold"
