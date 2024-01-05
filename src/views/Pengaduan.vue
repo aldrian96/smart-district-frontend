@@ -82,11 +82,6 @@
                         >{{ row.status }}</span
                       >
                     </td>
-                    <!-- <td class="align-middle text-center">
-                <span class="text-secondary text-xs font-weight-bold"
-                  >23/04/18</span
-                >
-              </td> -->
                     <td class="align-middle">
                       <a
                         href="javascript:;"
@@ -123,9 +118,10 @@
 
 <script setup>
 /* eslint-disable */
-import { onMounted, ref } from "vue";
 import axios from "axios";
+import { onMounted, ref } from "vue";
 import { GetReports } from "../api.js";
+
 // Ngambil data di .env
 // const { VITE_CLIENT_KEY } = import.meta.env;
 

@@ -1,5 +1,7 @@
 /* eslint-disable */
 import axios from "axios";
+
+// Pengaduan
 export async function GetReports() {
   try {
     const response = await axios.get("http://localhost:8000/api/reports", {
@@ -16,6 +18,27 @@ export async function GetReports() {
   }
 }
 
+// Pengaduanku
+export async function GetReportById(reportId) {
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/api/reports/${reportId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+}
+
+// Login
 export async function Login(email, password) {
   try {
     const response = await axios.post("http://localhost:8000/api/auth/login", {
@@ -34,6 +57,7 @@ export async function Login(email, password) {
   }
 }
 
+// Logout
 export async function Logout() {
   try {
     // Panggil endpoint logout pada server
@@ -49,6 +73,25 @@ export async function Logout() {
     sessionStorage.removeItem("smartdistrict-token");
     sessionStorage.removeItem("smartdistrict-userinfo");
     return true;
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
+// Register
+export async function Register(email, password, name, role) {
+  try {
+    const response = await axios.post(
+      "http://localhost:8000/api/auth/register",
+      {
+        email,
+        password,
+        role,
+        name,
+      }
+    );
+    return response.data;
   } catch (error) {
     console.error("Error:", error);
     return false;

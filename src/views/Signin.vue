@@ -57,6 +57,7 @@
                     <router-link
                       to="/dashboard/signup"
                       class="text-success text-gradient font-weight-bold"
+                      @keypress="enter"
                     >
                       Sign up
                     </router-link>
@@ -67,7 +68,10 @@
                   <router-link
                     to="/"
                     class="text-info text-gradient font-weight-bold"
-                  >
+                    ><i
+                      class="fa fa-chevron-circle-left"
+                      aria-hidden="true"
+                    ></i>
                     Kembali
                   </router-link>
                 </div>

@@ -42,6 +42,7 @@
                     </th>
                     <th class="text-center text-secondary opacity-7"></th>
                     <th class="text-center text-secondary opacity-7"></th>
+                    <th class="text-center text-secondary opacity-7"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -85,18 +86,22 @@
                         >{{ row.status }}</span
                       >
                     </td>
-                    <!-- <td class="align-middle text-center">
-                <span class="text-secondary text-xs font-weight-bold"
-                  >23/04/18</span
-                >
-              </td> -->
                     <td class="align-middle">
-                      <a
-                        href="javascript:;"
+                      <router-link
+                        to="pengaduanku/edit"
+                        class="text-secondary font-weight-bold text-xs text-center"
+                        data-toggle="tooltip"
+                        data-original-title="Edit user"
+                        >Edit</router-link
+                      >
+                    </td>
+                    <td class="align-middle">
+                      <router-link
+                        to="javascript:;"
                         class="text-secondary font-weight-bold text-xs text-center"
                         data-toggle="tooltip"
                         data-original-title="Detail user"
-                        >Edit</a
+                        >Detail</router-link
                       >
                     </td>
                     <td class="align-middle">
@@ -104,8 +109,8 @@
                         href="javascript:;"
                         class="text-secondary font-weight-bold text-xs text-center"
                         data-toggle="tooltip"
-                        data-original-title="Detail user"
-                        >Detail</a
+                        data-original-title="Delete user"
+                        >Delete</a
                       >
                     </td>
                   </tr>

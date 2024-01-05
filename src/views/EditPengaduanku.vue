@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
-              <p class="mb-0">Tambah Pengaduan</p>
+              <p class="mb-0">Ubah Pengaduan</p>
               <hr />
             </div>
           </div>
@@ -16,10 +16,11 @@
                 <label for="example-text-input" class="form-control-label"
                   >JUDUL PENGADUAN</label
                 >
-                <argon-input
+                <input
+                  class="form-control mb-3"
                   type="text"
                   v-model="model.judul"
-                  placeholder="Masukan Judul Pengaduan"
+                  placeholder="Ubah Judul Pengaduan"
                 />
               </div>
               <div class="mb-3">
@@ -57,16 +58,16 @@
             </div>
             <!-- Quill EDITOR -->
             <!-- <div class="col-12">
-                <label for="example-text-input" class="form-control-label"
-                  >DESKRIPSI</label
-                >
-                <QuillEditor
-                  theme="snow"
-                  toolbar="essential"
-                  v-model:content="model.deskripsi"
-                  contentType="html"
-                />
-              </div> -->
+                  <label for="example-text-input" class="form-control-label"
+                    >DESKRIPSI</label
+                  >
+                  <QuillEditor
+                    theme="snow"
+                    toolbar="essential"
+                    v-model:content="model.deskripsi"
+                    contentType="html"
+                  />
+                </div> -->
             <!-- {{ model.deskripsi }} -->
 
             <div class="row mb-3">
@@ -77,13 +78,13 @@
                 <label for="example-text-input" class="form-control-label"
                   >Latitude
                 </label>
-                <argon-input type="text" />
+                <input class="form-control" type="text" disabled />
               </div>
               <div class="col-md-6">
                 <label for="example-text-input" class="form-control-label"
                   >Longitude</label
                 >
-                <argon-input type="text" />
+                <input class="form-control" type="text" disabled />
               </div>
             </div>
             <hr class="horizontal dark" />
@@ -125,7 +126,7 @@ const model = reactive({
 
 <style>
 /* .custom-img-size {
-  width: 200px;
-  height: auto;
-} */
+    width: 200px;
+    height: auto;
+  } */
 </style>

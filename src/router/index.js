@@ -7,7 +7,8 @@ import Profile from "../views/Profile.vue";
 import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
 import PengaduanKu from "../views/PengaduanKu.vue";
-import TambahPengaduan from "../views/TambahPengaduan.vue";
+import TambahPengaduanku from "../views/TambahPengaduanku.vue";
+import EditPengaduanku from "../views/EditPengaduanku.vue";
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
 import LandingPage from "../views/LandingPage.vue";
 
@@ -27,7 +28,7 @@ const routes = [
         component: Dashboard,
         meta: {
           requiredAuth: true,
-          role: "admin,user",
+          role: "admin,user,superadmin",
         },
       },
       {
@@ -36,7 +37,7 @@ const routes = [
         component: Pengaduan,
         meta: {
           requiredAuth: true,
-          role: "admin",
+          role: "admin,superadmin",
         },
       },
       {
@@ -45,16 +46,25 @@ const routes = [
         component: PengaduanKu,
         meta: {
           requiredAuth: true,
-          role: "user",
+          role: "user,superadmin",
         },
       },
       {
         path: "pengaduanku/tambah",
         name: "Tambah",
-        component: TambahPengaduan,
+        component: TambahPengaduanku,
         meta: {
           requiredAuth: true,
-          role: "user",
+          role: "user,superadmin",
+        },
+      },
+      {
+        path: "pengaduanku/edit",
+        name: "Edit",
+        component: EditPengaduanku,
+        meta: {
+          requiredAuth: true,
+          role: "user,superadmin",
         },
       },
       {
@@ -63,7 +73,7 @@ const routes = [
         component: Profile,
         meta: {
           requiredAuth: true,
-          role: "admin,user",
+          role: "admin,user,superadmin",
         },
       },
       {
