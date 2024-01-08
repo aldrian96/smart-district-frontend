@@ -1,14 +1,15 @@
+/* eslint-disable */
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
 import Pengaduan from "../views/Pengaduan.vue";
 import Profile from "../views/Profile.vue";
-/* eslint-disable */
 
 import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
 import PengaduanKu from "../views/PengaduanKu.vue";
 import TambahPengaduanku from "../views/TambahPengaduanku.vue";
 import EditPengaduanku from "../views/EditPengaduanku.vue";
+import DetailPengaduan from "../views/DetailPengaduan.vue";
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
 import LandingPage from "../views/LandingPage.vue";
 
@@ -40,6 +41,16 @@ const routes = [
           role: "admin,superadmin",
         },
       },
+      {
+        path: "pengaduan/detail",
+        name: "DetailPengaduan",
+        component: DetailPengaduan,
+        meta: {
+          requiredAuth: true,
+          role: "admin,superadmin",
+        },
+      },
+
       {
         path: "pengaduanku",
         name: "Pengaduanku",

@@ -56,22 +56,10 @@
                 </select>
               </div>
             </div>
-            <!-- Quill EDITOR -->
-            <!-- <div class="col-12">
-                <label for="example-text-input" class="form-control-label"
-                  >DESKRIPSI</label
-                >
-                <QuillEditor
-                  theme="snow"
-                  toolbar="essential"
-                  v-model:content="model.deskripsi"
-                  contentType="html"
-                />
-              </div> -->
-            <!-- {{ model.deskripsi }} -->
 
             <div class="row mb-3">
-              <img src="@/assets/img/coblong.jpg" class="img-fluid" alt="" />
+              <!-- <img src="@/assets/img/coblong.jpg" class="img-fluid" alt="" /> -->
+              <LeafletMap v-model="model.location" />
             </div>
             <div class="row">
               <div class="col-md-6">
@@ -95,6 +83,7 @@
                 class="btn btn-secondary btn-sm me-2"
                 @click="router.push({ name: 'Pengaduanku' })"
               >
+                <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
                 Kembali
               </button>
               <button class="btn btn-success btn-sm">Tambah</button>
@@ -108,10 +97,12 @@
 
 <script setup>
 /* eslint-disable */
-import { useRouter } from "vue-router";
-import ArgonInput from "@/components/ArgonInput.vue";
+// import LeafletMap from "./components/LeafletMap.vue";
 // import ArgonButton from "@/components/ArgonButton.vue";
 // import { QuillEditor } from "@vueup/vue-quill";
+import ArgonInput from "@/components/ArgonInput.vue";
+import LeafletMap from "@/components/LeafletMap.vue";
+import { useRouter } from "vue-router";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { reactive, ref } from "vue";
 

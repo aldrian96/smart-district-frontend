@@ -19,10 +19,15 @@ export async function GetReports() {
 }
 
 // Pengaduanku
-export async function GetReportById(reportId) {
+export async function GetReportsByUser() {
   try {
+    // Retrieve the logged-in user's ID from sessionStorage
+    const userId = JSON.parse(sessionStorage.getItem("smartdistrict-userinfo"))
+      .id;
+
+    // Fetch reports based on the logged-in user's ID
     const response = await axios.get(
-      `http://localhost:8000/api/reports/${reportId}`,
+      `http://localhost:8000/api/reports/user/`, //${userId}
       {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem(
@@ -31,10 +36,11 @@ export async function GetReportById(reportId) {
         },
       }
     );
-    return response.data;
+
+    return response.data.results;
   } catch (error) {
     console.error("Error:", error);
-    return null;
+    return [];
   }
 }
 

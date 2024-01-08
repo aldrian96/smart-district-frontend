@@ -35,29 +35,62 @@
             </div>
 
             <div class="card-body">
-              <!-- <form role="form"> -->
               <input
-                v-model="name"
-                class="form-control mb-3"
-                type="name"
-                placeholder="name"
-                aria-label="name"
-              />
-              <input
-                v-model="email"
-                class="form-control mb-3"
-                type="email"
-                placeholder="Email"
-                aria-label="Email"
-              />
-              <input
-                v-model="password"
+                v-model="model.name"
+                type="text"
                 class="form-control"
-                type="password"
-                placeholder="Password"
-                aria-label="Password"
-                @keyup.enter="registerUser"
+                :class="{
+                  'is-invalid': errors.name,
+                }"
+                id="validationServer03"
+                aria-describedby="validationServer03Feedback"
+                placeholder="Name"
               />
+              <div
+                id="validationServer03Feedback"
+                class="invalid-feedback"
+                v-if="errors.name"
+              >
+                Please provide a valid Name.
+              </div>
+              <input
+                v-model="model.email"
+                type="text"
+                class="form-control mt-3"
+                id="validationServer03"
+                aria-describedby="validationServer03Feedback"
+                placeholder="Email"
+                :class="{
+                  'is-invalid': errors.email,
+                }"
+              />
+              <div
+                id="validationServer03Feedback"
+                class="invalid-feedback"
+                v-if="errors.email"
+              >
+                Please provide a valid Email.
+              </div>
+              <input
+                v-model="model.password"
+                type="password"
+                class="form-control mt-3"
+                id="validationServer03"
+                aria-describedby="validationServer03Feedback"
+                placeholder="Password"
+                :class="{
+                  'is-invalid': errors.password,
+                }"
+              />
+              <div
+                id="validationServer03Feedback"
+                class="invalid-feedback"
+                v-if="errors.password"
+              >
+                Please provide a valid Password.
+              </div>
+              <!-- {{ errors }}
+              {{ model }} -->
               <div class="text-center d-grid gap-2">
                 <button
                   @click="registerUser"
@@ -88,7 +121,6 @@
                   Kembali
                 </router-link>
               </div>
-              <!-- </form> -->
             </div>
           </div>
         </div>
@@ -98,11 +130,101 @@
   <app-footer />
 </template>
 
-<script>
+<script setup>
+/* eslint-disable */
+import { useStore } from "vuex";
+import { ref, watch, onBeforeMount, onBeforeUnmount } from "vue";
+import { useRouter } from "vue-router";
+import { Register } from "../api";
+import Swal from "sweetalert2";
+import AppFooter from "@/examples/PageLayout/Footer.vue";
+
+const body = document.getElementsByTagName("body")[0];
+const router = useRouter();
+const store = useStore();
+
+const model = ref({
+  name: null,
+  email: null,
+  password: null,
+  role: "user",
+});
+
+const errors = ref({
+  name: false,
+  email: false,
+  password: false,
+});
+
+watch(model.value, (newModel, oldModel) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  console.log(newModel.name);
+
+  if (newModel.name != null) {
+    if (newModel.name?.length > 4) errors.value.name = false;
+    else errors.value.name = true;
+  }
+
+  if (newModel.email != null) {
+    if (emailRegex.test(newModel.email)) errors.value.email = false;
+    else errors.value.email = true;
+  }
+
+  if (newModel.password != null) {
+    if (newModel.password?.length > 4) errors.value.password = false;
+    else errors.value.password = true;
+  }
+});
+
+async function registerUser() {
+  const name = model.name;
+  const email = model.email;
+  const password = model.password;
+
+  if (!email || !password || !name) {
+    console.error("Email dan password harus diisi");
+    return;
+  }
+
+  try {
+    const registrationResult = await Register(email, password, name, this.role);
+    Swal.fire({
+      title: "Berhasil!",
+      text: "Kamu Berhasil Registrasi!",
+      icon: "success",
+    });
+    console.log("Registration successful:", registrationResult);
+    router.push("/dashboard/signin");
+  } catch (error) {
+    console.error("Registration failed:", error.message);
+  }
+}
+
+onBeforeMount(() => {
+  store.state.hideConfigButton = true;
+  store.state.showNavbar = false;
+  store.state.showSidenav = false;
+  store.state.showFooter = false;
+  body.classList.remove("bg-gray-100");
+});
+
+onBeforeUnmount(() => {
+  store.state.hideConfigButton = false;
+  store.state.showNavbar = true;
+  store.state.showSidenav = true;
+  store.state.showFooter = true;
+  body.classList.add("bg-gray-100");
+});
+</script>
+
+<!-- <script>
 /* eslint-disable */
 import { Register } from "../api";
 import Swal from "sweetalert2";
 import AppFooter from "@/examples/PageLayout/Footer.vue";
+import { useForm } from "vee-validate";
+
 const body = document.getElementsByTagName("body")[0];
 
 export default {
@@ -127,18 +249,37 @@ export default {
   },
   data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      role: "user",
+      model: {
+        name: "",
+        email: "",
+        password: "",
+        role: "user",
+      },
+      errorInput: {
+        name: true,
+        email: true,
+        password: true,
+      },
     };
   },
-
+  watch: {
+    model: {
+      handler: (newModel) => {
+        console.log(newModel.name);
+        if (newModel.name) setError("name", false);
+        else setError("name", true);
+      },
+      deep: true,
+    },
+  },
   methods: {
+    setError(field, value) {
+      this.errorInput[field] = value;
+    },
     async registerUser() {
-      const name = this.name;
-      const email = this.email;
-      const password = this.password;
+      const name = this.model.name;
+      const email = this.model.email;
+      const password = this.model.password;
 
       if (!email || !password || !name) {
         console.error("Email dan password harus diisi");
@@ -165,4 +306,4 @@ export default {
     },
   },
 };
-</script>
+</script> -->

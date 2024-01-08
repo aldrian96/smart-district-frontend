@@ -62,8 +62,8 @@
 /* eslint-disable */
 import { computed } from "vue";
 import { Logout } from "../../api";
-import SidenavItem from "./SidenavItem.vue";
 import { useRouter } from "vue-router";
+import SidenavItem from "./SidenavItem.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import Swal from "sweetalert2";
 const router = useRouter();
