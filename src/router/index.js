@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
 import Pengaduan from "../views/Pengaduan.vue";
 import Profile from "../views/Profile.vue";
-
 import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
 import PengaduanKu from "../views/PengaduanKu.vue";

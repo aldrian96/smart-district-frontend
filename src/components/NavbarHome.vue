@@ -11,12 +11,12 @@ const user_name = computed(() => {
   return JSON.parse(sessionStorage.getItem("smartdistrict-userinfo"))?.name;
 });
 
-const user_role = computed(() => {
-  return JSON.parse(sessionStorage.getItem("smartdistrict-userinfo"))?.role;
-});
+// const user_role = computed(() => {
+//   return JSON.parse(sessionStorage.getItem("smartdistrict-userinfo"))?.role;
+// });
 
 const isLoggedIn = computed(() => {
-  return !!user_role.value;
+  return !!user_name.value;
 });
 
 const logout = () => {
