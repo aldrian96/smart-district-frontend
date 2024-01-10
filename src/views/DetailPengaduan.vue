@@ -11,7 +11,10 @@
         </div>
         <div class="buku mt-2 mb-0">
           <table>
-            <p class="text-uppercase text-sm">User Information</p>
+            <p class="text-uppercase text-sm">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              User Information
+            </p>
             <hr />
             <tr>
               <td><strong>Author</strong></td>
@@ -34,7 +37,10 @@
       </div>
       <div class="card-body">
         <div class="buku">
-          <p class="text-uppercase text-sm">Deskripsi</p>
+          <p class="text-uppercase text-sm">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            Deskripsi
+          </p>
           <hr />
           <table>
             <tr>
@@ -71,12 +77,18 @@
           </table>
         </div>
         <div class="buku">
-          <p class="text-uppercase text-sm">Gambar Masalah</p>
+          <p class="text-uppercase text-sm">
+            <i class="fa fa-picture-o" aria-hidden="true"></i>
+            Gambar Masalah
+          </p>
           <hr />
           <img src="@/assets/img/coblong.jpg" class="img-fluid" alt="" />
         </div>
         <div class="buku">
-          <p class="text-uppercase text-sm">Lokasi</p>
+          <p class="text-uppercase text-sm">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            Lokasi
+          </p>
           <hr />
           <LeafletMap v-model="location" />
         </div>
