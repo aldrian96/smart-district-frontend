@@ -45,7 +45,7 @@
     </ul>
   </div>
   <div class="pt-3 mx-3 mt-3 sidenav-footer d-flex justify-content-center">
-    <argon-button class="mt-12" variant="gradient" color="danger" size="lg" @click="logout"><i
+    <argon-button class="mt-10" variant="gradient" color="danger" size="lg" @click="logout"><i
         class="fa fa-sign-out me-1"></i>
       Logout
     </argon-button>
