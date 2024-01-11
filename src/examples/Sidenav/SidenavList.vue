@@ -1,6 +1,13 @@
 <template>
   <div class="collapse navbar-collapse w-auto h-auto h-100" id="sidenav-collapse-main">
     <ul class="navbar-nav">
+       <li class="nav-item">
+        <sidenav-item url="/" navText="Home">
+          <template v-slot:icon>
+            <i class="fa fa-home text-primary text-sm opacity-10"></i>
+          </template>
+        </sidenav-item>
+      </li>
       <li class="nav-item">
         <sidenav-item url="/dashboard" navText="Dashboard">
           <template v-slot:icon>
