@@ -69,12 +69,14 @@ const initMap = () => {
   L.marker(coblongCoordinates, { icon: divIcon }).addTo(map.value);
 
   // menambahkan area coblong ke map
-  let polygon = L.polygon(coblongArea).addTo(map.value);
+  let polygon = L.polygon(coblongArea);
+  map.value.fitBounds(polygon.getBounds());
 
-  let area = L.GeometryUtil.geodesicArea(polygon.getLatLngs()[0]);
-  let readableArea = L.GeometryUtil.readableArea(area, true);
+  polygon.addTo(map.value);
+let area = L.GeometryUtil.geodesicArea(polygon.getLatLngs()[0]);
+let readableArea = L.GeometryUtil.readableArea(area, true);
 
-  polygon.bindTooltip(readableArea, { permanent: true, direction: 'bottomright' }).openTooltip();
+polygon.bindTooltip(readableArea, { permanent: true, direction: 'bottomright' }).openTooltip();
 
 }
 
