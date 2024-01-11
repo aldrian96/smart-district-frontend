@@ -14,21 +14,11 @@ import LandingPage from "../views/LandingPage.vue";
 import Home from "../views/Home.vue";
 
 const routes = [
-  {
-    path: "/2",
-    name: "LandingPage",
-    component: LandingPage,
-  },
+
   {
     path: "/",
-    component: DashboardLayout,
-    children: [
-      {
-        path: "/",
-        name: "Home",
-        component: Home,
-      },
-    ],
+    component: LandingPage, Home,
+    name: "LandingPage",
   },
   {
     path: "/dashboard",
@@ -108,6 +98,11 @@ const routes = [
         name: "Signup",
         component: Signup,
       },
+      // {
+      //   path: "/",
+      //   name: "Home",
+      //   component: Home,
+      // },
     ],
   },
 ];

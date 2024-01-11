@@ -170,7 +170,7 @@ export default {
           if (hasil) {
             // Redirect ke halaman login atau halaman awal setelah logout
             // location.reload(true);
-            this.$router.push({ name: "Signin" });
+            this.$router.push({ name: "LandingPage" });
           } else {
             console.error("Gagal Logout");
           }

@@ -119,11 +119,27 @@
 /* eslint-disable */
 import axios from "axios";
 import { onMounted, ref } from "vue";
-import { GetReports2 } from "../api.js";
+import { GetAllReport } from "../api.js";
 import { useRouter } from "vue-router";
 // import moment from 'moment';
 
 const router = useRouter();
+
+
+const truncateText = (text, maxLength) => {
+  return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+};
+
+const dataTable = ref([]);
+
+onMounted(async () => {
+  dataTable.value = await GetAllReport();
+  console.log(dataTable.value);
+});
+
+// navigateToDetailPage( async () => {
+//   this.$router.push({ name: 'DetailPengaduan' });
+// });
 
 // function formatDate(value) {
 //   if (value) {
@@ -139,20 +155,5 @@ const router = useRouter();
 //     })
 //   }
 // }
-
-const truncateText = (text, maxLength) => {
-  return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
-};
-
-const dataTable = ref([]);
-
-onMounted(async () => {
-  dataTable.value = await GetReports2();
-  console.log(dataTable.value);
-});
-
-// navigateToDetailPage( async () => {
-//   this.$router.push({ name: 'DetailPengaduan' });
-// });
 
 </script>

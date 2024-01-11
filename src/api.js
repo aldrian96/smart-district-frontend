@@ -18,9 +18,9 @@ export async function GetReports() {
   }
 }
 
-export async function GetReports2() {
+export async function GetAllReport() {
   try {
-    const response = await axios.get("http://localhost:8000/api/reports");
+    const response = await axios.get("http://localhost:8000/api/reports-all");
     return response.data.results;
   } catch (error) {
     console.error("Error:", error);
