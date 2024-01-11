@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header pb-0">
-            <h6>Tabel Pengaduan</h6>
+            <!-- <h6>Tabel Pengaduan</h6> -->
           </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
@@ -18,7 +18,7 @@
                       Prioritas
                     </th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                      Tanggal
+                      Tanggal Pelaporan
                     </th>
                     <th
                       class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -32,6 +32,9 @@
                       class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                       Status Pengaduan
                     </th>
+                    <th
+                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -41,25 +44,24 @@
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm">
                             <!-- <a :href="`/Thread/${row.id}`">{{ row.judul }}</a> -->
-                            <a href="#">{{ row.judul }}</a>
-                            <!-- {{ row.judul }} -->
+                            <a :href="`#`" @click="navigateToDetailPage">{{ row.title }}</a>
                           </h6>
                           <p class="text-xs text-secondary mb-0">
-                            {{ row.deskripsi }}
+                            {{ truncateText(row.body, 50) }}
                           </p>
                         </div>
                       </div>
                     </td>
                     <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm" :class="{
-                        'bg-gradient-info': row.prioritas == 'Low',
-                        'bg-gradient-warning': row.prioritas == 'Medium',
-                        'bg-gradient-danger': row.prioritas == 'High',
-                      }">{{ row.prioritas }}</span>
+                        'bg-gradient-info': row.priority == 'low',
+                        'bg-gradient-warning': row.priority == 'medium',
+                        'bg-gradient-danger': row.priority == 'high',
+                      }">{{ row.priority }}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
                       <p class="text-xs font-weight-bold mb-0">
-                        {{ row.tanggal }}
+                        {{ formatDate(row.created_at) }}
                       </p>
                     </td>
                     <td class="align-middle text-center text-sm">
@@ -75,10 +77,20 @@
                     <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm" :class="{
                         'bg-gradient-success': row.status == 'Selesai',
-                        'bg-gradient-warning': row.status == 'Diproses',
-                        'bg-gradient-secondary':
-                          row.status == 'Belum Diproses',
+                        'bg-gradient-warning':
+                          row.status == 'Sedang di Proses',
                       }">{{ row.status }}</span>
+                    </td>
+                    <td class="align-middle">
+                      <div class="d-flex justify-content-center">
+                        <div class="me-2">
+                          <button @click="router.push({ name: 'DetailPengaduan' })" class="btn btn-info mb-0 text-xs"
+                            data-toggle="tooltip" data-original-title="Detail user">
+                            <i class="fa fa-inbox" aria-hidden="true"></i>
+                            Detail
+                          </button>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -88,44 +100,47 @@
         </div>
       </div>
     </div>
-    <!-- <div class="mt-4 row">
-      <div class="col-12">
-        <projects-table />
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-const dataTable = ref([
-  {
-    judul: "Jalan Rusak",
-    prioritas: "High",
-    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
-    status: "Selesai",
-    reply: 1,
-    lastReply: "2023-12-19 06:22:12",
-  },
-  {
-    judul: "Fasilitas Rusak",
-    prioritas: "Medium",
-    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
-    status: "Diproses",
-    reply: 1,
-    lastReply : "2023-05-19 04:29:47",
-  },
-  {
-    judul: "Jalan Rusak",
-    prioritas: "Low",
-    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
-    status: "Belum Diproses",
-    reply: 5,
-    lastReply : "2023-05-24 17:28:12",
-  },
-]);
-console.log(dataTable);
+/* eslint-disable */
+import axios from "axios";
+import { onMounted, ref } from "vue";
+import { GetReports2 } from "../api.js";
+import { useRouter } from "vue-router";
+import moment from 'moment';
+
+const router = useRouter();
+
+function formatDate(value) {
+  if (value) {
+    return moment(String(value)).format('dddd, D MMMM YYYY');
+  }
+}
+// {
+//   {
+//     new Date(row.created_at).toLocaleDateString("id-ID", {
+//       year: "numeric",
+//       month: "long",
+//       day: "numeric",
+//     })
+//   }
+// }
+
+const truncateText = (text, maxLength) => {
+  return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+};
+
+const dataTable = ref([]);
+
+onMounted(async () => {
+  dataTable.value = await GetReports2();
+  console.log(dataTable.value);
+});
+
+// navigateToDetailPage( async () => {
+//   this.$router.push({ name: 'DetailPengaduan' });
+// });
+
 </script>

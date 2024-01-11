@@ -18,12 +18,24 @@ export async function GetReports() {
   }
 }
 
+export async function GetReports2() {
+  try {
+    const response = await axios.get("http://localhost:8000/api/reports");
+    return response.data.results;
+  } catch (error) {
+    console.error("Error:", error);
+    console.error("Details:", error.response);
+    return [];
+  }
+}
+
+
 // Pengaduanku
 export async function GetReportsByUser() {
   try {
     // Retrieve the logged-in user's ID from sessionStorage
-    const userId = JSON.parse(sessionStorage.getItem("smartdistrict-userinfo"))
-      .id;
+    // const userId = JSON.parse(sessionStorage.getItem("smartdistrict-userinfo"))
+    //   .id;
 
     // Fetch reports based on the logged-in user's ID
     const response = await axios.get(
@@ -41,6 +53,26 @@ export async function GetReportsByUser() {
   } catch (error) {
     console.error("Error:", error);
     return [];
+  }
+}
+
+// Detail Pengaduan
+export async function GetReportsDetailById(id) {
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/api/reports/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
   }
 }
 
