@@ -20,13 +20,13 @@
             />
           </div> -->
         </div>
-        <ul class="navbar-nav justify-content-end">
+        <ul v-if="user_role == 'user' || user_role == 'superadmin' || user_role == 'admin'" class="navbar-nav justify-content-end">
           <li class="nav-item d-flex align-items-center">
           </li>
           <li class="px-3 nav-item dropdown d-flex align-items-center" :class="this.$store.state.isRTL ? 'ps-2' : 'pe-2'">
             <a href="#" class="p-0 nav-link text-white" :class="[showMenu ? 'show dropdown-toggle' : 'dropdown-toggle']"
               id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" @click="showMenu = !showMenu">
-              <i class="cursor-pointer fa fa-user me-1"></i> {{ user_name }} 
+              <i class="cursor-pointer fa fa-user me-1"></i> {{ user_name }}
             </a>
             <ul class="px-2 py-3 dropdown-menu dropdown-menu-end me-sm-n4" :class="showMenu ? 'show' : ''"
               aria-labelledby="dropdownMenuButton">
@@ -89,7 +89,7 @@
             </a>
           </li>
         </ul>
-        <!-- <ul v-else class="navbar-nav justify-content-end">
+        <ul v-if="user_role == undefined" class="navbar-nav justify-content-end">
           <li class="nav-item d-flex align-items-center">
             <router-link :to="{ name: 'Signin' }" class="px-0 nav-link font-weight-bold text-white">
               <i style="color: Dodgerblue;" class="fa fa-sign-in me-1"
@@ -97,7 +97,7 @@
               <span style="color: Dodgerblue;" class="d-sm-inline d-none">Sign In</span>
             </router-link>
           </li>
-          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+          <li class="px-3 nav-item d-flex align-items-center">
             <router-link :to="{ name: 'Signup' }" class="px-0 nav-link font-weight-bold text-white">
               <i style="color: Dodgerblue;" class="fa fa-user-plus me-1"
                 :class="this.$store.state.isRTL ? 'ms-sm-2' : 'me-sm-2'"></i>
@@ -113,7 +113,7 @@
               </div>
             </a>
           </li>
-        </ul> -->
+        </ul>
         <!-- <li class="px-3 nav-item d-flex align-items-center">
             <a class="p-0 nav-link text-white" @click="toggleConfigurator">
               <i class="cursor-pointer fa fa-cog fixed-plugin-button-nav"></i>
@@ -124,8 +124,11 @@
   </nav>
 </template>
 <script>
+/* eslint-disable */
 import Breadcrumbs from "../Breadcrumbs.vue";
 import { mapMutations, mapActions } from "vuex";
+import Swal from "sweetalert2";
+import { Logout } from "../../api";
 
 export default {
   name: "navbar",
@@ -146,6 +149,35 @@ export default {
       this.toggleSidebarColor("bg-white");
       this.navbarMinimize();
     },
+    logout() {
+      Swal.fire({
+        title: "Konfirmasi",
+        text: "Apakah Anda Ingin Logout?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, Logout",
+        cancelButtonText: "Batal",
+        // customClass: {
+        //   confirmButton: "btn btn-success btn-sm", // Mengubah warna tombol "Ya, Logout"
+        //   cancelButton: "btn btn-danger btn-sm", // Mengubah warna tombol "Batal"
+        // },
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          // Lakukan proses logout
+          let hasil = await Logout();
+          if (hasil) {
+            // Redirect ke halaman login atau halaman awal setelah logout
+            // location.reload(true);
+            this.$router.push({ name: "Signin" });
+          } else {
+            console.error("Gagal Logout");
+          }
+        }
+      });
+
+    }
   },
   components: {
     Breadcrumbs,
@@ -157,8 +189,8 @@ export default {
     user_name() {
       return JSON.parse(sessionStorage.getItem("smartdistrict-userinfo"))?.name;
     },
-    isLoggedIn() {
-      return !!this.user_name.value;
+    user_role() {
+      return JSON.parse(sessionStorage.getItem("smartdistrict-userinfo"))?.role;
     },
   },
 };

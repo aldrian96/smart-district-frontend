@@ -8,13 +8,6 @@
           </template>
         </sidenav-item>
       </li>
-      <!-- <li class="nav-item">
-        <sidenav-item url="/dashboard" navText="Dashboard">
-          <template v-slot:icon>
-            <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
-      </li> -->
       <li v-if="user_role == 'admin' || user_role == 'superadmin'" class="nav-item">
         <sidenav-item url="/dashboard" navText="Dashboard">
           <template v-slot:icon>
@@ -51,12 +44,18 @@
       </li>
     </ul>
   </div>
-  <div class="pt-3 mx-3 mt-3 sidenav-footer d-flex justify-content-center">
+  <div v-if="user_role == 'user' || user_role == 'superadmin' || user_role == 'admin'"  class="pt-9 mx-3 mt-3 sidenav-footer d-flex justify-content-center">
     <argon-button class="mt-12" variant="gradient" color="danger" size="lg" @click="logout"><i
         class="fa fa-sign-out me-1"></i>
       Logout
     </argon-button>
   </div>
+  <!-- <div class="pt-9 mx-3 mt-3 sidenav-footer d-flex justify-content-center">
+    <argon-button class="mt-12" variant="gradient" color="danger" size="lg" @click="logout"><i
+        class="fa fa-sign-out me-1"></i>
+      Logout
+    </argon-button>
+  </div> -->
 </template>
 <script setup>
 /* eslint-disable */

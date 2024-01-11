@@ -11,12 +11,24 @@ import EditPengaduanku from "../views/EditPengaduanku.vue";
 import DetailPengaduan from "../views/DetailPengaduan.vue";
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
 import LandingPage from "../views/LandingPage.vue";
+import Home from "../views/Home.vue";
 
 const routes = [
   {
-    path: "/",
+    path: "/2",
     name: "LandingPage",
     component: LandingPage,
+  },
+  {
+    path: "/",
+    component: DashboardLayout,
+    children: [
+      {
+        path: "/",
+        name: "Home",
+        component: Home,
+      },
+    ],
   },
   {
     path: "/dashboard",
