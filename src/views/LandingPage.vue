@@ -15,12 +15,10 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                       Judul Pengaduan
                     </th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                      Prioritas
-                    </th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+
+                    <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                       Tanggal Pelaporan
-                    </th>
+                    </th> -->
                     <!-- <th
                       class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                       Balasan
@@ -29,10 +27,10 @@
                       class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                       Balasan Terakhir
                     </th> -->
-                    <th
+                    <!-- <th
                       class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                       Status Pengaduan
-                    </th>
+                    </th> -->
                     <th
                       class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     </th>
@@ -42,35 +40,38 @@
                   <tr v-for="row in dataTable" :key="row">
                     <td>
                       <div class="d-flex p-2">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">
+                        <div class="d-flex flex-column justify-content-center w-100">
+                          <h6 class="mb-0 text-sm w-100 d-block">
                             <!-- <a :href="`/Thread/${row.id}`">{{ row.judul }}</a> -->
-                            <a :href="`#`" @click="navigateToDetailPage">{{ row.title }}</a>
+                            <a :href="`#`" @click="navigateToDetailPage" class="judul w-100 d-block">{{
+                              row.title + " " }}</a>
+                            <br>
+                            <span class="badge badge-sm" :class="{
+                              'bg-gradient-info': row.priority == 'low',
+                              'bg-gradient-warning': row.priority == 'medium',
+                              'bg-gradient-danger': row.priority == 'high',
+                            }">{{ row.priority }}</span>
+                            {{ " " }}
+                            <span class="badge badge-sm" :class="{
+                              'bg-gradient-success': row.status == 'Selesai',
+                              'bg-gradient-warning':
+                                row.status == 'Sedang di Proses',
+                            }">{{ row.status }}</span>
                           </h6>
-                          <p class="text-xs text-secondary mb-0">
-                            {{ truncateText(row.body, 50) }}
+                          <p class="text-xs mb-0 text-secondary font-weight-bolder">
+                            <!-- {{ formatDate(row.created_at) }} -->
+                            {{
+                              new Date(row.created_at).toLocaleDateString("id-ID", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })
+                            }}
+
+                            oleh Muhammad Kadir
                           </p>
                         </div>
                       </div>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm" :class="{
-                        'bg-gradient-info': row.priority == 'low',
-                        'bg-gradient-warning': row.priority == 'medium',
-                        'bg-gradient-danger': row.priority == 'high',
-                      }">{{ row.priority }}</span>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <p class="text-xs font-weight-bold mb-0">
-                        <!-- {{ formatDate(row.created_at) }} -->
-                        {{
-                          new Date(row.created_at).toLocaleDateString("id-ID", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })
-                        }}
-                      </p>
                     </td>
                     <!-- <td class="align-middle text-center text-sm">
                       <p class="text-xs font-weight-bold mb-0">
@@ -82,29 +83,25 @@
                         {{ row.lastReply }}
                       </p>
                     </td> -->
-                    <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm" :class="{
-                            'bg-gradient-success': row.status == 'Selesai',
-                            'bg-gradient-warning':
-                              row.status == 'Sedang di Proses',
-                          }">{{ row.status }}</span>
+                    <td>
+                      <p class="h6">10 <i class="fa fa-regular fa-comment"></i></p>
                     </td>
-                    <td class="align-middle">
+                    <!-- <td class="align-middle">
                       <div class="d-flex justify-content-center">
                         <div class="me-2">
                           <button @click="
-                            router.push({
-                              name: 'DetailPengaduan',
-                              params: { id: row.id },
-                            })
+                          router.push({
+                            name: 'DetailPengaduan',
+                            params: { id: row.id },
+                          })
                             " class="btn btn-info mb-0 text-xs" data-toggle="tooltip"
                             data-original-title="Detail user">
                             <i class="fa fa-inbox" aria-hidden="true"></i>
-                            Detail
+                            5Detail
                           </button>
                         </div>
                       </div>
-                    </td>
+                    </td> -->
                   </tr>
                 </tbody>
               </table>
