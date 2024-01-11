@@ -65,14 +65,29 @@ const initMap = () => {
   //   iconSize: [36, 42],
   //   popupAnchor: [0, -30]
   // });
-
-  L.marker(coblongCoordinates, { icon: divIcon }).addTo(map.value);
-
   // menambahkan area coblong ke map
   let polygon = L.polygon(coblongArea);
   map.value.fitBounds(polygon.getBounds());
 
   polygon.addTo(map.value);
+
+  // menambahkan event klik ke dalam map
+  let theMarker = {};
+  let choosenCoord = {};
+
+  map.value.on('click', function (e) {
+
+    if (theMarker != undefined) {
+      map.value.removeLayer(theMarker);
+    };
+    choosenCoord = e.latlng;
+    theMarker = L.marker(e.latlng, { icon: divIcon }).addTo(map.value);
+    console.log("Koordinat yang di klik adalah : " + choosenCoord)
+  });
+
+  if (choosenCoord == undefined) {
+    console.log("Harap klik map untuk menambahkan koordinat terlebih dahulu.")
+  }
 }
 
 
