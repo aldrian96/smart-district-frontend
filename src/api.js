@@ -18,6 +18,18 @@ export async function GetReports() {
   }
 }
 
+export async function GetAllReport() {
+  try {
+    const response = await axios.get("http://localhost:8000/api/reports-all");
+    return response.data.results;
+  } catch (error) {
+    console.error("Error:", error);
+    console.error("Details:", error.response);
+    return [];
+  }
+}
+
+
 // Pengaduanku
 export async function GetReportsByUser() {
   try {

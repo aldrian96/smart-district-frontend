@@ -1,4 +1,5 @@
 <template>
+  <NavbarHome title="ADUIN" :navs="navs" />
   <div class="py-4 container-fluid">
     <div class="row">
       <div class="col-12">
@@ -117,6 +118,8 @@
 
 <script setup>
 /* eslint-disable */
+
+import NavbarHome from "../components/NavbarHome.vue";
 import axios from "axios";
 import { onMounted, ref } from "vue";
 import { GetAllReport } from "../api.js";
@@ -136,24 +139,5 @@ onMounted(async () => {
   dataTable.value = await GetAllReport();
   console.log(dataTable.value);
 });
-
-// navigateToDetailPage( async () => {
-//   this.$router.push({ name: 'DetailPengaduan' });
-// });
-
-// function formatDate(value) {
-//   if (value) {
-//     return moment(String(value)).format('dddd, D MMMM YYYY');
-//   }
-// }
-// {
-//   {
-//     new Date(row.created_at).toLocaleDateString("id-ID", {
-//       year: "numeric",
-//       month: "long",
-//       day: "numeric",
-//     })
-//   }
-// }
 
 </script>

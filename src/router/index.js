@@ -10,18 +10,15 @@ import TambahPengaduanku from "../views/TambahPengaduanku.vue";
 import EditPengaduanku from "../views/EditPengaduanku.vue";
 import DetailPengaduan from "../views/DetailPengaduan.vue";
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
+import LandingPage from "../views/LandingPage.vue";
+import Home from "../views/Home.vue";
 
 const routes = [
+
   {
-    path: '/',
-    component: DashboardLayout,
-    children: [
-      {
-        path: '/',
-        Name: "Home",
-        component: Home,
-      }
-    ],
+    path: "/",
+    component: LandingPage, Home,
+    name: "LandingPage",
   },
   {
     path: "/dashboard",
@@ -102,6 +99,11 @@ const routes = [
         name: "Signup",
         component: Signup,
       },
+      // {
+      //   path: "/",
+      //   name: "Home",
+      //   component: Home,
+      // },
     ],
   },
 ];
