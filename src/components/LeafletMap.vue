@@ -73,11 +73,6 @@ const initMap = () => {
   map.value.fitBounds(polygon.getBounds());
 
   polygon.addTo(map.value);
-let area = L.GeometryUtil.geodesicArea(polygon.getLatLngs()[0]);
-let readableArea = L.GeometryUtil.readableArea(area, true);
-
-polygon.bindTooltip(readableArea, { permanent: true, direction: 'bottomright' }).openTooltip();
-
 }
 
 
