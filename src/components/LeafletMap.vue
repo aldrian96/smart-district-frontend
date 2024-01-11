@@ -69,10 +69,14 @@ const initMap = () => {
 
   map.value.on('click', function (e) {
 
+
     if (theMarker != undefined) {
       map.value.removeLayer(theMarker);
     };
-    choosenCoord = e.latlng;
+    let coord = e.latlng;
+    let lat = coord.lat;
+    let lng = coord.lng;
+    choosenCoord = [lat, lng];
     theMarker = L.marker(e.latlng, { icon: divIcon }).addTo(map.value);
     console.log("Koordinat yang di klik adalah : " + choosenCoord)
   });
