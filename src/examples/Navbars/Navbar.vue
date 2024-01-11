@@ -20,7 +20,7 @@
           class="pe-md-3 d-flex align-items-center"
           :class="this.$store.state.isRTL ? 'me-md-auto' : 'ms-md-auto'"
         >
-          <div class="input-group">
+          <!-- <div class="input-group">
             <span class="input-group-text text-body">
               <i class="fas fa-search" aria-hidden="true"></i>
             </span>
@@ -31,7 +31,7 @@
                 this.$store.state.isRTL ? 'أكتب هنا...' : 'Type here...'
               "
             />
-          </div>
+          </div> -->
         </div>
         <ul class="navbar-nav justify-content-end">
           <li class="nav-item d-flex align-items-center">
@@ -44,10 +44,7 @@
                 class="fa fa-user"
                 :class="this.$store.state.isRTL ? 'ms-sm-2' : 'me-sm-2'"
               ></i>
-              <span v-if="this.$store.state.isRTL" class="d-sm-inline d-none"
-                >يسجل دخول</span
-              >
-              <span v-else class="d-sm-inline d-none">Sign In</span>
+              <span class="d-sm-inline d-none">{{ user_name }}</span>
             </router-link>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -227,6 +224,9 @@ export default {
   computed: {
     currentRouteName() {
       return this.$route.name;
+    },
+    user_name() {
+      return JSON.parse(sessionStorage.getItem("smartdistrict-userinfo"))?.name;
     },
   },
 };

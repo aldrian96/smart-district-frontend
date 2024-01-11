@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-header pb-0">
             <div class="d-flex justify-content-between align-items-center">
-              <h6>Tabel Pengaduan</h6>
+              <h6>Pengaduanku</h6>
               <button
                 class="btn btn-success d-flex align-items-center"
                 @click="router.push({ name: 'Tambah' })"
@@ -40,18 +40,21 @@
                     >
                       Status Pengaduan
                     </th>
-                    <th class="text-center text-secondary opacity-7"></th>
-                    <th class="text-center text-secondary opacity-7"></th>
+                    <th
+                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                    >
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="row in dataTable" :key="row">
                     <td>
-                      <div class="d-flex p-2">
+                      <div class="d-flex p-2 ps-3">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ row.judul }}</h6>
+                          <h6 class="mb-0 text-sm">{{ row.title }}</h6>
                           <p class="text-xs text-secondary mb-0">
-                            {{ row.deskripsi }}
+                            {{ truncateText(row.body, 50) }}
                           </p>
                         </div>
                       </div>
@@ -60,16 +63,22 @@
                       <span
                         class="badge badge-sm"
                         :class="{
-                          'bg-gradient-info': row.prioritas == 'Low',
-                          'bg-gradient-warning': row.prioritas == 'Medium',
-                          'bg-gradient-danger': row.prioritas == 'High',
+                          'bg-gradient-info': row.priority == 'low',
+                          'bg-gradient-warning': row.priority == 'medium',
+                          'bg-gradient-danger': row.priority == 'high',
                         }"
-                        >{{ row.prioritas }}</span
+                        >{{ row.priority }}</span
                       >
                     </td>
                     <td class="align-middle text-center text-sm">
                       <p class="text-xs font-weight-bold mb-0">
-                        {{ row.tanggal }}
+                        {{
+                          new Date(row.created_at).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })
+                        }}
                       </p>
                     </td>
 
@@ -78,35 +87,49 @@
                         class="badge badge-sm"
                         :class="{
                           'bg-gradient-success': row.status == 'Selesai',
-                          'bg-gradient-warning': row.status == 'Diproses',
-                          'bg-gradient-secondary':
-                            row.status == 'Belum Diproses',
+                          'bg-gradient-warning':
+                            row.status == 'Sedang di Proses',
                         }"
                         >{{ row.status }}</span
                       >
                     </td>
-                    <!-- <td class="align-middle text-center">
-                <span class="text-secondary text-xs font-weight-bold"
-                  >23/04/18</span
-                >
-              </td> -->
                     <td class="align-middle">
-                      <a
-                        href="javascript:;"
-                        class="text-secondary font-weight-bold text-xs text-center"
-                        data-toggle="tooltip"
-                        data-original-title="Detail user"
-                        >Edit</a
-                      >
-                    </td>
-                    <td class="align-middle">
-                      <a
-                        href="javascript:;"
-                        class="text-secondary font-weight-bold text-xs text-center"
-                        data-toggle="tooltip"
-                        data-original-title="Detail user"
-                        >Detail</a
-                      >
+                      <div class="d-flex justify-content-center">
+                        <div class="me-2">
+                          <button
+                            @click="router.push({ path: 'pengaduanku/edit' })"
+                            class="btn btn-warning mb-0 text-xs"
+                            data-toggle="tooltip"
+                            data-original-title="Detail user"
+                          >
+                            <i
+                              class="fa fa-pencil-square-o"
+                              aria-hidden="true"
+                            ></i>
+                            Edit
+                          </button>
+                        </div>
+                        <div class="me-2">
+                          <button
+                            class="btn btn-info mb-0 text-xs"
+                            data-toggle="tooltip"
+                            data-original-title="Detail user"
+                          >
+                            <i class="fa fa-inbox" aria-hidden="true"></i>
+                            Detail
+                          </button>
+                        </div>
+                        <div>
+                          <button
+                            class="btn btn-danger mb-0 text-xs"
+                            data-toggle="tooltip"
+                            data-original-title="Detail user"
+                          >
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            Delete
+                          </button>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -126,32 +149,22 @@
 
 <script setup>
 /* eslint-disable */
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-const dataTable = ref([
-  {
-    judul: "Jalan Rusak",
-    prioritas: "High",
-    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
-    status: "Selesai",
-  },
-  {
-    judul: "Fasilitas Rusak",
-    prioritas: "Medium",
-    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
-    status: "Diproses",
-  },
-  {
-    judul: "Jalan Rusak",
-    prioritas: "Low",
-    deskripsi: "Lorem, ipsum dolor sit amet consectetur",
-    tanggal: "28 Januari 2023",
-    status: "Belum Diproses",
-  },
-]);
+import { GetReportsByUser } from "../api.js";
+
 const router = useRouter();
 
+const dataTable = ref([]);
+
+// Triple Dot
+const truncateText = (text, maxLength) => {
+  return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+};
+
+onMounted(async () => {
+  dataTable.value = await GetReportsByUser();
+  console.log(dataTable.value);
+});
 console.log(dataTable);
 </script>
