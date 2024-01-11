@@ -103,7 +103,7 @@
                         </div>
                         <div>
                           <button
-                            @click="router.push({ name: 'DetailPengaduan' })"
+                            @click="redirectToDetail"
                             class="btn btn-info mb-0 text-xs"
                             data-toggle="tooltip"
                             data-original-title="Detail user"
@@ -138,12 +138,9 @@
 /* eslint-disable */
 import axios from "axios";
 import { onMounted, ref } from "vue";
-import { GetReports } from "../api.js";
+import { GetReports, GetReportsDetailById } from "../api.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
-
-// Ngambil data di .env
-// const { VITE_CLIENT_KEY } = import.meta.env;
 
 const dataTable = ref([]);
 
@@ -152,9 +149,37 @@ const truncateText = (text, maxLength) => {
   return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
 };
 
-onMounted(async () => {
-  // Login("superadmin@smartdistrict.com", "123456");
-  dataTable.value = await GetReports();
-  console.log(dataTable.value);
+// onMounted(async () => {
+//   dataTable.value = await GetReports();
+//   console.log(dataTable.value);
+// });
+onMounted(() => {
+  GetReports().then((data) => {
+    dataTable.value = data;
+    console.log(dataTable.value);
+  });
 });
+
+// Detail Pengaduan
+// Mendapatkan ID laporan dari parameter URL
+const reportId = router.currentRoute.value.params.id;
+console.log("Report ID:", reportId);
+const redirectToDetail = async () => {
+  try {
+    // Panggil fungsi GetReportsDetailById untuk mendapatkan detail laporan
+    const reportDetail = await GetReportsDetailById(reportId);
+    console.log("Report Detail:", reportDetail);
+    // Jika berhasil mendapatkan detail, arahkan ke halaman DetailPengaduan.vue
+    if (reportDetail) {
+      router.push({
+        name: "DetailPengaduan",
+        params: { id: reportId, reportDetail },
+      });
+    } else {
+      console.error("Failed to get report detail");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 </script>

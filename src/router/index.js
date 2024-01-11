@@ -41,7 +41,7 @@ const routes = [
         },
       },
       {
-        path: "pengaduan/detail",
+        path: "pengaduan/detail/:id",
         name: "DetailPengaduan",
         component: DetailPengaduan,
         meta: {
@@ -107,6 +107,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  console.log("Navigating to:", to.name);
+  console.log("Navigating from:", from.name);
   const token = sessionStorage.getItem("smartdistrict-token") ?? null;
   const user_info = JSON.parse(
     sessionStorage.getItem("smartdistrict-userinfo") ?? null
@@ -117,12 +119,35 @@ router.beforeEach((to, from, next) => {
     else return next();
   }
 
+  // if (to?.meta?.requiredAuth) {
+  //   if (token && user_info)
+  //     if (to?.meta?.role.split(",").includes(user_info?.role)) next();
+  //     else next(from);
+  //   else next({ name: "Signin" });
+  // } else next();
   if (to?.meta?.requiredAuth) {
-    if (token && user_info)
-      if (to?.meta?.role.split(",").includes(user_info?.role)) next();
-      else next(from);
-    else next({ name: "Signin" });
-  } else next();
+    if (token && user_info) {
+      if (to?.meta?.role.split(",").includes(user_info?.role)) {
+        next();
+      } else {
+        console.error("Unauthorized access. Role mismatch.");
+        next(from);
+      }
+    } else {
+      console.error("Unauthorized access. User not authenticated.");
+      next({ name: "Signin" });
+    }
+  } else {
+    next();
+  }
+});
+
+router.afterEach((to, from) => {
+  // Handle default route or invalid route
+  if (!to.name) {
+    console.error("Invalid route. Redirecting to default route.");
+    router.push({ name: "Dashboard" });
+  }
 });
 
 export default router;
