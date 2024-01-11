@@ -90,6 +90,12 @@
                       <div class="d-flex justify-content-center">
                         <div class="me-2">
                           <button
+                            @click="
+                              router.push({
+                                name: 'DetailPengaduan',
+                                params: { id: row.id },
+                              })
+                            "
                             class="btn btn-warning mb-0 text-xs"
                             data-toggle="tooltip"
                             data-original-title="Detail user"
@@ -103,7 +109,12 @@
                         </div>
                         <div>
                           <button
-                            @click="redirectToDetail"
+                            @click="
+                              router.push({
+                                name: 'DetailPengaduan',
+                                params: { id: row.id },
+                              })
+                            "
                             class="btn btn-info mb-0 text-xs"
                             data-toggle="tooltip"
                             data-original-title="Detail user"
@@ -159,27 +170,4 @@ onMounted(() => {
     console.log(dataTable.value);
   });
 });
-
-// Detail Pengaduan
-// Mendapatkan ID laporan dari parameter URL
-const reportId = router.currentRoute.value.params.id;
-console.log("Report ID:", reportId);
-const redirectToDetail = async () => {
-  try {
-    // Panggil fungsi GetReportsDetailById untuk mendapatkan detail laporan
-    const reportDetail = await GetReportsDetailById(reportId);
-    console.log("Report Detail:", reportDetail);
-    // Jika berhasil mendapatkan detail, arahkan ke halaman DetailPengaduan.vue
-    if (reportDetail) {
-      router.push({
-        name: "DetailPengaduan",
-        params: { id: reportId, reportDetail },
-      });
-    } else {
-      console.error("Failed to get report detail");
-    }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
 </script>
