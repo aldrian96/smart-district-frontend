@@ -44,12 +44,12 @@
       </li>
     </ul>
   </div>
-  <div v-if="user_role == 'user' || user_role == 'superadmin' || user_role == 'admin'"  class="pt-9 mx-3 mt-3 sidenav-footer d-flex justify-content-center">
+  <!-- <div v-if="user_role == 'user' || user_role == 'superadmin' || user_role == 'admin'"  class="pt-9 mx-3 mt-3 sidenav-footer d-flex justify-content-center">
     <argon-button class="mt-12" variant="gradient" color="danger" size="lg" @click="logout"><i
         class="fa fa-sign-out me-1"></i>
       Logout
     </argon-button>
-  </div>
+  </div> -->
   <!-- <div class="pt-9 mx-3 mt-3 sidenav-footer d-flex justify-content-center">
     <argon-button class="mt-12" variant="gradient" color="danger" size="lg" @click="logout"><i
         class="fa fa-sign-out me-1"></i>
@@ -63,7 +63,7 @@ import { computed } from "vue";
 import { Logout } from "../../api";
 import { useRouter } from "vue-router";
 import SidenavItem from "./SidenavItem.vue";
-import ArgonButton from "@/components/ArgonButton.vue";
+// import ArgonButton from "@/components/ArgonButton.vue";
 import Swal from "sweetalert2";
 const router = useRouter();
 

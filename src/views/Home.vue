@@ -20,14 +20,14 @@
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                       Tanggal Pelaporan
                     </th>
-                    <th
+                    <!-- <th
                       class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                       Balasan
                     </th>
                     <th
                       class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                       Balasan Terakhir
-                    </th>
+                    </th> -->
                     <th
                       class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                       Status Pengaduan
@@ -61,10 +61,17 @@
                     </td>
                     <td class="align-middle text-center text-sm">
                       <p class="text-xs font-weight-bold mb-0">
-                        {{ formatDate(row.created_at) }}
+                        <!-- {{ formatDate(row.created_at) }} -->
+                        {{
+                          new Date(row.created_at).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })
+                        }}
                       </p>
                     </td>
-                    <td class="align-middle text-center text-sm">
+                    <!-- <td class="align-middle text-center text-sm">
                       <p class="text-xs font-weight-bold mb-0">
                         {{ row.reply }}
                       </p>
@@ -73,19 +80,24 @@
                       <p class="text-xs font-weight-bold mb-0">
                         {{ row.lastReply }}
                       </p>
-                    </td>
+                    </td> -->
                     <td class="align-middle text-center text-sm">
                       <span class="badge badge-sm" :class="{
-                        'bg-gradient-success': row.status == 'Selesai',
-                        'bg-gradient-warning':
-                          row.status == 'Sedang di Proses',
-                      }">{{ row.status }}</span>
+                            'bg-gradient-success': row.status == 'Selesai',
+                            'bg-gradient-warning':
+                              row.status == 'Sedang di Proses',
+                          }">{{ row.status }}</span>
                     </td>
                     <td class="align-middle">
                       <div class="d-flex justify-content-center">
                         <div class="me-2">
-                          <button @click="router.push({ name: 'DetailPengaduan' })" class="btn btn-info mb-0 text-xs"
-                            data-toggle="tooltip" data-original-title="Detail user">
+                          <button @click="
+                            router.push({
+                              name: 'DetailPengaduan',
+                              params: { id: row.id },
+                            })
+                            " class="btn btn-info mb-0 text-xs" data-toggle="tooltip"
+                            data-original-title="Detail user">
                             <i class="fa fa-inbox" aria-hidden="true"></i>
                             Detail
                           </button>
@@ -109,15 +121,15 @@ import axios from "axios";
 import { onMounted, ref } from "vue";
 import { GetReports2 } from "../api.js";
 import { useRouter } from "vue-router";
-import moment from 'moment';
+// import moment from 'moment';
 
 const router = useRouter();
 
-function formatDate(value) {
-  if (value) {
-    return moment(String(value)).format('dddd, D MMMM YYYY');
-  }
-}
+// function formatDate(value) {
+//   if (value) {
+//     return moment(String(value)).format('dddd, D MMMM YYYY');
+//   }
+// }
 // {
 //   {
 //     new Date(row.created_at).toLocaleDateString("id-ID", {
