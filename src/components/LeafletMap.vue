@@ -30,7 +30,7 @@ const initMap = () => {
     [-6.884160699997812, 107.60514260984944],
     [-6.883698482022497, 107.60508515716094]
   ]
-  map.value = L.map("leaflet-map").setView(
+  map.value = L.map("leaflet-map", { zoomControl: true, zoom: 1, zoomAnimation: false, fadeAnimation: true, markerZoomAnimation: true }).setView(
     coblongCoordinates,
     15
   );
@@ -57,14 +57,6 @@ const initMap = () => {
     popupAnchor: [0, -28]
   })
 
-  // icon active state
-  // const divIconActive = L.divIcon({
-  //   className: "leaflet-data-marker",
-  //   html: L.Util.template(iconSettings.mapIconUrl, iconSettings),
-  //   iconAnchor: [18, 42],
-  //   iconSize: [36, 42],
-  //   popupAnchor: [0, -30]
-  // });
   // menambahkan area coblong ke map
   let polygon = L.polygon(coblongArea);
   map.value.fitBounds(polygon.getBounds());
