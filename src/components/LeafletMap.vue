@@ -10,6 +10,24 @@ import "leaflet/dist/leaflet.css";
 
 const map = ref(null);
 
+const isMarkerInsidePolygon = (lat, lng, poly) => {
+  var inside = false;
+  var x = lat, y = lng;
+  for (var ii = 0; ii < poly.getLatLngs().length; ii++) {
+    var polyPoints = poly.getLatLngs()[ii];
+    for (var i = 0, j = polyPoints.length - 1; i < polyPoints.length; j = i++) {
+      var xi = polyPoints[i].lat, yi = polyPoints[i].lng;
+      var xj = polyPoints[j].lat, yj = polyPoints[j].lng;
+
+      var intersect = ((yi > y) != (yj > y))
+        && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+      if (intersect) inside = !inside;
+    }
+  }
+
+  return inside;
+};
+
 const initMap = () => {
   const coblongCoordinates = [-6.884646484984671, 107.61358014375573];
   const coblongArea = [
@@ -46,7 +64,7 @@ const initMap = () => {
     mapIconUrl: '<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 149 178"><path fill="{mapIconColor}" stroke="#FFF" stroke-width="6" stroke-miterlimit="10" d="M126 23l-6-6A69 69 0 0 0 74 1a69 69 0 0 0-51 22A70 70 0 0 0 1 74c0 21 7 38 22 52l43 47c6 6 11 6 16 0l48-51c12-13 18-29 18-48 0-20-8-37-22-51z"/><circle fill="{mapIconColorInnerCircle}" cx="74" cy="75" r="61"/><circle fill="#FFF" cx="74" cy="75" r="{pinInnerCircleRadius}"/></svg>',
     mapIconColor: 'red',
     mapIconColorInnerCircle: 'red',
-    pinInnerCircleRadius: 48
+    pinInnerCircleRadius: 30
   };
 
   const divIcon = L.divIcon({
@@ -62,28 +80,35 @@ const initMap = () => {
   map.value.fitBounds(polygon.getBounds());
 
   polygon.addTo(map.value);
+  polygon.setStyle({ fillColor: 'orange' });
 
   // menambahkan event klik ke dalam map
   let theMarker = {};
   let choosenCoord = {};
 
   map.value.on('click', function (e) {
+    // e.stopPropagation();
 
 
-    if (theMarker != undefined) {
-      map.value.removeLayer(theMarker);
-    };
     let coord = e.latlng;
     let lat = coord.lat;
     let lng = coord.lng;
-    choosenCoord = [lat, lng];
-    theMarker = L.marker(e.latlng, { icon: divIcon }).addTo(map.value);
-    console.log("Koordinat yang di klik adalah : " + choosenCoord)
+    if (isMarkerInsidePolygon(lat, lng, polygon)) {
+
+      if (theMarker != undefined) {
+        map.value.removeLayer(theMarker);
+      };
+      choosenCoord = [lat, lng];
+      theMarker = L.marker(e.latlng, { icon: divIcon }).addTo(map.value);
+      console.log("Koordinat yang di klik adalah : " + choosenCoord)
+    }
+
   });
 
   if (choosenCoord == undefined) {
     console.log("Harap klik map untuk menambahkan koordinat terlebih dahulu.")
   }
+
 }
 
 
