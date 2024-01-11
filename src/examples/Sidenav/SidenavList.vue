@@ -2,13 +2,6 @@
   <div class="collapse navbar-collapse w-auto h-auto h-100" id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <sidenav-item url="/" navText="Home">
-          <template v-slot:icon>
-            <i class="fa fa-home text-primary text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
-      </li>
-      <li v-if="user_role == 'admin' || user_role == 'superadmin'" class="nav-item">
         <sidenav-item url="/dashboard" navText="Dashboard">
           <template v-slot:icon>
             <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
@@ -30,12 +23,12 @@
         </sidenav-item>
       </li>
 
-      <li v-if="user_role == 'user' || user_role == 'superadmin' || user_role == 'admin'"  class="mt-3 nav-item">
+      <li class="mt-3 nav-item">
         <h6 class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6">
           ACCOUNT PAGES
         </h6>
       </li>
-      <li v-if="user_role == 'user' || user_role == 'superadmin' || user_role == 'admin'"  class="nav-item">
+      <li class="nav-item">
         <sidenav-item url="/dashboard/profile" navText="Profile">
           <template v-slot:icon>
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -44,18 +37,12 @@
       </li>
     </ul>
   </div>
-  <!-- <div v-if="user_role == 'user' || user_role == 'superadmin' || user_role == 'admin'"  class="pt-9 mx-3 mt-3 sidenav-footer d-flex justify-content-center">
+  <div class="pt-3 mx-3 mt-3 sidenav-footer d-flex justify-content-center">
     <argon-button class="mt-12" variant="gradient" color="danger" size="lg" @click="logout"><i
         class="fa fa-sign-out me-1"></i>
       Logout
     </argon-button>
-  </div> -->
-  <!-- <div class="pt-9 mx-3 mt-3 sidenav-footer d-flex justify-content-center">
-    <argon-button class="mt-12" variant="gradient" color="danger" size="lg" @click="logout"><i
-        class="fa fa-sign-out me-1"></i>
-      Logout
-    </argon-button>
-  </div> -->
+  </div>
 </template>
 <script setup>
 /* eslint-disable */
@@ -63,7 +50,7 @@ import { computed } from "vue";
 import { Logout } from "../../api";
 import { useRouter } from "vue-router";
 import SidenavItem from "./SidenavItem.vue";
-// import ArgonButton from "@/components/ArgonButton.vue";
+import ArgonButton from "@/components/ArgonButton.vue";
 import Swal from "sweetalert2";
 const router = useRouter();
 
