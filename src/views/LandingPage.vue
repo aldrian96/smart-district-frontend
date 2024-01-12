@@ -45,7 +45,6 @@
                             <!-- <a :href="`/Thread/${row.id}`">{{ row.judul }}</a> -->
                             <a :href="`#`" @click="navigateToDetailPage" class="judul w-100 d-block">{{
                               row.title + " " }}</a>
-                            <br>
                             <span class="badge badge-sm" :class="{
                               'bg-gradient-info': row.priority == 'low',
                               'bg-gradient-warning': row.priority == 'medium',
@@ -58,17 +57,18 @@
                                 row.status == 'Sedang di Proses',
                             }">{{ row.status }}</span>
                           </h6>
-                          <p class="text-xs mb-0 text-secondary font-weight-bolder">
+                          <p class="text-xs mb-0 text-secondary font-weight-bolder mt-1">
                             <!-- {{ formatDate(row.created_at) }} -->
+                            {{
+                              "#" + row.id + " dibuat pada" }}
                             {{
                               new Date(row.created_at).toLocaleDateString("id-ID", {
                                 year: "numeric",
                                 month: "long",
                                 day: "numeric",
                               })
-                            }}
-
-                            oleh Muhammad Kadir
+                            }},
+                            oleh {{ row.author.name }}
                           </p>
                         </div>
                       </div>
@@ -84,7 +84,8 @@
                       </p>
                     </td> -->
                     <td>
-                      <p class="h6">10 <i class="fa fa-regular fa-comment"></i></p>
+                      <p class="text-secondary"> {{ row.comment_counts }} <i class="fa fa-regular fa-comment"></i></p>
+                      <hr>
                     </td>
                     <!-- <td class="align-middle">
                       <div class="d-flex justify-content-center">
