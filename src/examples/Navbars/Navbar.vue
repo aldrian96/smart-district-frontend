@@ -35,16 +35,20 @@
         </div>
         <ul class="navbar-nav justify-content-end">
           <li class="nav-item d-flex align-items-center">
-            <router-link
+            <!-- <router-link
               :to="{ name: 'Signin' }"
               class="px-0 nav-link font-weight-bold text-white"
+            >
+            </router-link> -->
+            <span
+              class="d-sm-inline d-none px-0 nav-link font-weight-bold text-white"
             >
               <i
                 class="fa fa-user"
                 :class="this.$store.state.isRTL ? 'ms-sm-2' : 'me-sm-2'"
               ></i>
-              <span class="d-sm-inline d-none">{{ user_name }}</span>
-            </router-link>
+              {{ user_name }}</span
+            >
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
             <a

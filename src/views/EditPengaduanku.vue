@@ -56,24 +56,10 @@
                 </select>
               </div>
             </div>
-            <!-- Quill EDITOR -->
-            <!-- <div class="col-12">
-                  <label for="example-text-input" class="form-control-label"
-                    >DESKRIPSI</label
-                  >
-                  <QuillEditor
-                    theme="snow"
-                    toolbar="essential"
-                    v-model:content="model.deskripsi"
-                    contentType="html"
-                  />
-                </div> -->
-            <!-- {{ model.deskripsi }} -->
-
-            <div class="row mb-3">
+            <!-- <div class="row mb-3">
               <img src="@/assets/img/coblong.jpg" class="img-fluid" alt="" />
-            </div>
-            <div class="row">
+            </div> -->
+            <div class="row mb-3">
               <div class="col-md-6">
                 <label for="example-text-input" class="form-control-label"
                   >Latitude
@@ -86,6 +72,9 @@
                 >
                 <input class="form-control" type="text" disabled />
               </div>
+            </div>
+            <div class="row">
+              <LeafletMap v-model="location" />
             </div>
             <hr class="horizontal dark" />
 
@@ -112,6 +101,7 @@ import { useRouter } from "vue-router";
 import ArgonInput from "@/components/ArgonInput.vue";
 // import ArgonButton from "@/components/ArgonButton.vue";
 // import { QuillEditor } from "@vueup/vue-quill";
+import LeafletMap from "@/components/LeafletMap.vue";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { reactive, ref } from "vue";
 

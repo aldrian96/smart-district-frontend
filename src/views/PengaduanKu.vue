@@ -111,6 +111,12 @@
                         </div>
                         <div class="me-2">
                           <button
+                            @click="
+                              router.push({
+                                name: 'detailPengaduanku',
+                                params: { id: row.id },
+                              })
+                            "
                             class="btn btn-info mb-0 text-xs"
                             data-toggle="tooltip"
                             data-original-title="Detail user"
@@ -151,7 +157,7 @@
 /* eslint-disable */
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { GetReportsByUser } from "../api.js";
+import { GetReportsByUser, GetReports } from "../api.js";
 
 const router = useRouter();
 
@@ -167,4 +173,10 @@ onMounted(async () => {
   console.log(dataTable.value);
 });
 console.log(dataTable);
+// onMounted(() => {
+//   GetReportsByUser().then((data) => {
+//     dataTable.value = data;
+//     console.log(dataTable.value);
+//   });
+// });
 </script>
