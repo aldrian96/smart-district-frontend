@@ -105,7 +105,7 @@
             </tr>
           </table>
 
-          <LeafletMap v-model="location" longitude="data?.longitude" latitude="data?.latitude" mode="view" />
+          <LeafletMap v-model="location" :longitude="data?.longitude" :latitude="data?.lattitude" mode="view" />
         </div>
       </div>
       <div class="card-footer text-end">
