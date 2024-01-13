@@ -41,7 +41,7 @@
                     <td>
                       <div class="d-flex p-2">
                         <div class="d-flex flex-column justify-content-center w-100">
-                          <h6 class="mb-0 text-sm w-100 d-block">
+                          <h6 class="mb-0 w-100 d-block">
                             <!-- <a :href="`/Thread/${row.id}`">{{ row.judul }}</a> -->
                             <a :href="`#`" @click="navigateToDetailPage" class="judul w-100 d-block">{{
                               row.title + " " }}</a>
@@ -139,3 +139,17 @@ onMounted(async () => {
 });
 
 </script>
+
+<style>
+.judul {
+  transition: 0.1s;
+
+}
+
+.judul:hover {
+  font-size: 1.2rem;
+  color: blue;
+  font-weight: bolder;
+  /* text-decoration: underline; */
+}
+</style>
