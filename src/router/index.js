@@ -138,8 +138,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log("Navigating to:", to.name);
-  console.log("Navigating from:", from.name);
+  // console.log("Navigating to:", to.name);
+  // console.log("Navigating from:", from.name);
   const token = sessionStorage.getItem("smartdistrict-token") ?? null;
   const user_info = JSON.parse(
     sessionStorage.getItem("smartdistrict-userinfo") ?? null

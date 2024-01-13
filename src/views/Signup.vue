@@ -159,7 +159,7 @@ const errors = ref({
 watch(model.value, (newModel, oldModel) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  console.log(newModel.name);
+  // console.log(newModel.name);
 
   if (newModel.name != null) {
     if (newModel.name?.length > 4) errors.value.name = false;
@@ -178,9 +178,10 @@ watch(model.value, (newModel, oldModel) => {
 });
 
 async function registerUser() {
-  const name = model.name;
-  const email = model.email;
-  const password = model.password;
+  const name = model.value.name;
+  const email = model.value.email;
+  const password = model.value.password;
+  const role = model.value.role;
 
   if (!email || !password || !name) {
     console.error("Email dan password harus diisi");
@@ -188,7 +189,7 @@ async function registerUser() {
   }
 
   try {
-    const registrationResult = await Register(email, password, name, this.role);
+    const registrationResult = await Register(email, password, name, role);
     Swal.fire({
       title: "Berhasil!",
       text: "Kamu Berhasil Registrasi!",

@@ -43,27 +43,26 @@
                   v-model="model.solution"
                 ></textarea>
               </div>
-              <div class="mb-3">
+              <div class="">
                 <label for="formFile" class="form-label">BUKTI PENGADUAN</label>
                 <input class="form-control" type="file" id="formFile" />
               </div>
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="formCategory">PILIH KATEGORI</label>
                 <select
                   v-model="model.category"
                   class="form-select"
                   aria-label="Default select example"
                 >
-                  <option selected>Kategori Pengaduan</option>
                   <option value="1">Location</option>
                   <option value="2">Normal</option>
                 </select>
-              </div>
+              </div> -->
             </div>
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="example-text-input" class="form-control-label"
-                  >Latitude
+                  >LATITUDE
                 </label>
                 <input
                   v-model="model.lattitude"
@@ -74,7 +73,7 @@
               </div>
               <div class="col-md-6">
                 <label for="example-text-input" class="form-control-label"
-                  >Longitude</label
+                  >LONGITUDE</label
                 >
                 <input
                   v-model="model.longitude"
