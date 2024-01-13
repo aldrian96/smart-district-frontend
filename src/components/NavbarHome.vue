@@ -68,18 +68,11 @@ const props = defineProps({
           <li class="nav-item">
             <router-link to="/" class="nav-link" exact>Home</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="#" class="nav-link">List Pengaduan</router-link>
-          </li>
         </ul>
         <ul v-if="isLoggedIn" class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
-            <button
-              class="btn mb-0 btn-dark dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <button class="btn mb-0 btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               <i class="fa fa-user-circle me-1"></i> {{ user_name }}
             </button>
             <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end">
@@ -94,7 +87,9 @@ const props = defineProps({
                 </router-link>
               </li>
 
-              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
 
               <li class="nav-item">
                 <span @click="logout" class="nav-link">
@@ -114,10 +109,7 @@ const props = defineProps({
         </ul> -->
         <ul v-if="!isLoggedIn" class="navbar-nav d-flex ms-auto">
           <li class="nav-item">
-            <router-link
-              to="/dashboard/signin"
-              class="btn btn-outline-dark me-2 mb-0"
-            >
+            <router-link to="/dashboard/signin" class="btn btn-outline-dark me-2 mb-0">
               <i class="fa fa-sign-in me-1"></i> SIGN IN
             </router-link>
           </li>
@@ -130,6 +122,5 @@ const props = defineProps({
       </div>
     </div>
   </nav>
+  <router-view />
 </template>
-
-<style></style>

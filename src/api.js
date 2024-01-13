@@ -28,6 +28,16 @@ export async function GetAllReport() {
     return [];
   }
 }
+export async function GetDetailsHeadless(id) {
+  try {
+    const response = await axios.get(`http://localhost:8000/api/reports-all/${id}`);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error:", error);
+    console.error("Details:", error.response);
+    return [];
+  }
+}
 
 
 // Pengaduanku

@@ -11,15 +11,33 @@ import EditPengaduanku from "../views/EditPengaduanku.vue";
 import DetailPengaduan from "../views/DetailPengaduan.vue";
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
 import LandingPage from "../views/LandingPage.vue";
-import Home from "../views/Home.vue";
+import Thread from "../views/Thread.vue";
+import NavbarHome from "../components/NavbarHome.vue";
 
 const routes = [
 
   {
     path: "/",
-    component: LandingPage, Home,
-    name: "LandingPage",
+    component: NavbarHome,
+    name: "Home",
+    children: [
+      {
+        path: "/",
+        component: LandingPage,
+        name: "LandingPage",
+      },
+      {
+        path: "/Thread/:id",
+        name: "Thread",
+        component: Thread,
+      },
+    ]
   },
+  // {
+  // path: "/Thread/:id",
+  // name: "Thread",
+  // component: Thread,
+  // },
   {
     path: "/dashboard",
     component: DashboardLayout,
