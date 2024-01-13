@@ -73,12 +73,12 @@
                 <input class="form-control" type="text" disabled />
               </div>
             </div>
-            <div class="row">
+            <div class="row p-3">
               <LeafletMap v-model="location" />
             </div>
             <hr class="horizontal dark" />
 
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center justify-content-end">
               <button
                 to="/dashboard/pengaduanku"
                 class="btn btn-secondary btn-sm me-2"

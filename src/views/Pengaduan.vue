@@ -59,8 +59,13 @@
                           'bg-gradient-info': row.priority == 'low',
                           'bg-gradient-warning': row.priority == 'medium',
                           'bg-gradient-danger': row.priority == 'high',
+                          'bg-gradient-secondary': row.priority == 'unknown',
                         }"
-                        >{{ row.priority }}</span
+                        >{{
+                          row.priority == "unknown"
+                            ? "Menunggu Konfirmasi"
+                            : row.priority
+                        }}</span
                       >
                     </td>
                     <td class="align-middle text-center text-sm">
@@ -82,6 +87,8 @@
                           'bg-gradient-success': row.status == 'Selesai',
                           'bg-gradient-warning':
                             row.status == 'Sedang di Proses',
+                          'bg-gradient-secondary':
+                            row.status == 'Belum di Proses',
                         }"
                         >{{ row.status }}</span
                       >

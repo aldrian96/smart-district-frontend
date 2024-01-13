@@ -62,7 +62,7 @@ const routes = [
       },
       {
         path: "pengaduanku/tambah",
-        name: "Tambah",
+        name: "tambahPengaduanku",
         component: TambahPengaduanku,
         meta: {
           requiredAuth: true,
