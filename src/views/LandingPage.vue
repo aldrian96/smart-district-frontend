@@ -11,7 +11,9 @@
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    <th
+                      class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                    >
                       Judul Pengaduan
                     </th>
                     <!-- <th
@@ -27,40 +29,62 @@
                       Status Pengaduan
                     </th> -->
                     <th
-                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    </th>
+                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                    ></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="row in dataTable" :key="row">
                     <td>
-                      <div class="d-flex p-2">
-                        <div class="d-flex flex-column justify-content-center w-100">
+                      <div class="d-flex p-2 ps-3">
+                        <div
+                          class="d-flex flex-column justify-content-center w-100"
+                        >
                           <h6 class="mb-0 w-100 d-block">
                             <!-- <a :href="`#`" @click="navigateToDetailPage(row.id)" class="judul w-100 d-block">{{
                               row.title + " " }}</a> -->
-                            <a :href="`/Thread/${row.id}`" class="judul w-100 d-block">{{
-                              row.title + " " }}
-                              <span class="badge badge-sm" :class="{
-                                'bg-gradient-info': row.priority == 'low',
-                                'bg-gradient-warning': row.priority == 'medium',
-                                'bg-gradient-danger': row.priority == 'high',
-                              }">{{ row.priority }}</span>
+                            <a
+                              :href="`/Thread/${row.id}`"
+                              class="judul w-100 d-block"
+                              >{{ row.title + " " }}
+                              <span
+                                class="badge badge-sm"
+                                :class="{
+                                  'bg-gradient-info': row.priority == 'low',
+                                  'bg-gradient-warning':
+                                    row.priority == 'medium',
+                                  'bg-gradient-danger': row.priority == 'high',
+                                  'bg-gradient-secondary':
+                                    row.priority == 'unknown',
+                                }"
+                                >{{
+                                  row.priority == "unknown"
+                                    ? "Menunggu Konfirmasi"
+                                    : row.priority
+                                }}</span
+                              >
                               {{ " " }}
-                              <span class="badge badge-sm" :class="{
-                                'bg-gradient-success': row.status == 'Selesai',
-                                'bg-gradient-warning':
-                                  row.status == 'Sedang di Proses',
-                              }">{{ row.status }}</span>
+                              <span
+                                class="badge badge-sm"
+                                :class="{
+                                  'bg-gradient-success':
+                                    row.status == 'Selesai',
+                                  'bg-gradient-warning':
+                                    row.status == 'Sedang di Proses',
+                                  'bg-gradient-secondary':
+                                    row.status == 'Belum di Proses',
+                                }"
+                                >{{ row.status }}</span
+                              >
                             </a>
-
                           </h6>
-                          <p class="text-xs mb-0 text-secondary font-weight-bolder mt-1">
+                          <p
+                            class="text-xs mb-0 text-secondary font-weight-bolder mt-1"
+                          >
                             <!-- {{ formatDate(row.created_at) }} -->
-                            {{
-                              "#" + row.id + " dibuat pada" }}
-                            {{ timeAgo(row.created_at) }},
-                            oleh {{ row.author.name }}
+                            {{ "#" + row.id + " dibuat pada" }}
+                            {{ timeAgo(row.created_at) }}, oleh
+                            {{ row.author.name }}
                           </p>
                         </div>
                       </div>
@@ -77,9 +101,12 @@
                     </td> -->
                     <td>
                       <a :href="`/Thread/${row.id}`">
-                        <p class="text-secondary"> {{ row.comment_counts }} <i class="fa fa-regular fa-comment"></i></p>
+                        <p class="text-secondary">
+                          {{ row.comment_counts }}
+                          <i class="fa fa-regular fa-comment"></i>
+                        </p>
                       </a>
-                      <hr>
+                      <hr />
                     </td>
                   </tr>
                 </tbody>
@@ -105,7 +132,6 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-
 const truncateText = (text, maxLength) => {
   return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
 };
@@ -114,9 +140,19 @@ const dataTable = ref([]);
 
 // TIME CONVERSION
 const MonthName = [
-  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-]
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
+];
 
 function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
   const day = date.getDate();
@@ -145,7 +181,7 @@ function timeAgo(dateParam) {
     return null;
   }
 
-  const date = typeof dateParam === 'object' ? dateParam : new Date(dateParam);
+  const date = typeof dateParam === "object" ? dateParam : new Date(dateParam);
   const DAY_IN_MS = 86400000; // 24 * 60 * 60 * 1000
   const today = new Date();
   const yesterday = new Date(today - DAY_IN_MS);
@@ -155,19 +191,18 @@ function timeAgo(dateParam) {
   const isYesterday = yesterday.toDateString() === date.toDateString();
   const isThisYear = today.getFullYear() === date.getFullYear();
 
-
   if (seconds < 5) {
-    return 'Sekarang';
+    return "Sekarang";
   } else if (seconds < 60) {
     return `${seconds} detik yang lalu`;
   } else if (seconds < 90) {
-    return 'sekitar semenit yang lalu';
+    return "sekitar semenit yang lalu";
   } else if (minutes < 60) {
     return `${minutes} detik yang lalu`;
   } else if (isToday) {
-    return getFormattedDate(date, 'Hari Ini');
+    return getFormattedDate(date, "Hari Ini");
   } else if (isYesterday) {
-    return getFormattedDate(date, 'Kemarin');
+    return getFormattedDate(date, "Kemarin");
   } else if (isThisYear) {
     return getFormattedDate(date, false, true);
   }
@@ -175,17 +210,14 @@ function timeAgo(dateParam) {
   return getFormattedDate(date);
 }
 
-
 onMounted(async () => {
   dataTable.value = await GetAllReport();
 });
-
 </script>
 
 <style>
 .judul {
   transition: 0.1s;
-
 }
 
 .judul:hover {
