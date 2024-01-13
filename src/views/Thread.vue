@@ -2,18 +2,28 @@
   <div class="container mt-4">
     <div class="card">
       <div class="card-header pb-0">
-        <div class="kotak d-flex justify-content-between align-items-center mb-0">
+        <div
+          class="kotak d-flex justify-content-between align-items-center mb-0"
+        >
           <h6 class="mb-0">{{ data?.title }}</h6>
           <div class="d-flex align-items-center">
-            <span class="badge badge" :class="{
-              'bg-gradient-info': data?.priority == 'low',
-              'bg-gradient-warning': data?.priority == 'medium',
-              'bg-gradient-danger': data?.priority == 'high',
-            }">{{ data?.priority }}</span>
-            <span class="badge ms-2" :class="{
-              'bg-gradient-success': data?.status == 'Selesai',
-              'bg-gradient-warning': data?.status == 'Sedang di Proses',
-            }">{{ data?.status }}</span>
+            <span
+              class="badge badge"
+              :class="{
+                'bg-gradient-info': data?.priority == 'low',
+                'bg-gradient-warning': data?.priority == 'medium',
+                'bg-gradient-danger': data?.priority == 'high',
+              }"
+              >{{ data?.priority }}</span
+            >
+            <span
+              class="badge ms-2"
+              :class="{
+                'bg-gradient-success': data?.status == 'Selesai',
+                'bg-gradient-warning': data?.status == 'Sedang di Proses',
+              }"
+              >{{ data?.status }}</span
+            >
           </div>
         </div>
       </div>
@@ -105,89 +115,115 @@
             </tr>
           </table>
 
-          <LeafletMap v-model="location" :longitude="data?.longitude" :lattitude="data?.lattitude" mode="view" />
+          <LeafletMap
+            v-model="location"
+            :longitude="data?.longitude"
+            :lattitude="data?.lattitude"
+            mode="view"
+          />
         </div>
       </div>
       <div class="card-footer text-end">
-        <button @click="router.push({ name: 'LandingPage' })" class="btn btn-secondary">
+        <button
+          @click="router.push({ name: 'LandingPage' })"
+          class="btn btn-secondary"
+        >
           <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
           Back to List
         </button>
       </div>
     </div>
     <!-- kolom komentar -->
-    <section class="gradient-custom">
-      <div v-if="data?.comments.length != 0">
-        <div class="container mt-3">
-          <h2>Percakapan</h2>
-          <hr>
-          <div class="row d-flex justify-content-center">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body p-4">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="panel">
-                        <div class="panel-body">
-                          <textarea class="form-control" rows="2" placeholder="Bagaimana pendapat anda?"></textarea>
-                          <div class="mar-top clearfix">
-                            <button class="btn btn-sm btn-primary pull-right my-2" type="submit"><i
-                                class="fa fa-pencil fa-fw"></i> Tambahkan</button>
-                          </div>
-                        </div>
+    <!-- <section class="gradient-custom"> -->
+    <div v-if="data?.comments.length != 0">
+      <div class="container-fluid mt-3 p-3">
+        <h2>Komentar</h2>
+        <hr />
+        <div class="row d-flex justify-content-center">
+          <div class="card">
+            <div class="card-body p-4">
+              <div class="row">
+                <div class="col-12">
+                  <div class="panel">
+                    <div class="panel-body">
+                      <textarea
+                        class="form-control"
+                        rows="2"
+                        placeholder="Bagaimana pendapat anda?"
+                      ></textarea>
+                      <div class="mar-top clearfix">
+                        <button
+                          class="btn btn-sm btn-primary pull-right my-2"
+                          type="submit"
+                        >
+                          <i class="fa fa-pencil fa-fw"></i> Tambahkan
+                        </button>
                       </div>
                     </div>
-                    <hr>
-                    <!-- kolom chat -->
-                    <div v-for="row in data?.comments" :key="row">
-                      <ul>
-                        <li>
-                          <Comment v-bind:author_name="row.author.name" v-bind:created_date="row.created_at"
-                            v-bind:body="row.body" v-bind:child="row.all_replies" />
-                        </li>
-                      </ul>
-                    </div>
                   </div>
+                </div>
+                <hr />
+                <!-- kolom chat -->
+                <div v-for="row in data?.comments" :key="row">
+                  <ul>
+                    <li>
+                      <Comment
+                        v-bind:author_name="row.author.name"
+                        v-bind:created_date="row.created_at"
+                        v-bind:body="row.body"
+                        v-bind:child="row.all_replies"
+                      />
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div v-else>
-        <div class="container mt-5">
-          <h2>Percakapan</h2>
-          <hr>
-          <div class="row">
-            <div class="col-12">
-              <div class="panel">
-                <div class="panel-body">
-                  <textarea class="form-control" rows="2" placeholder="Bagaimana pendapat anda?"></textarea>
-                  <div class="mar-top clearfix">
-                    <button class="btn btn-sm btn-primary pull-right my-2" type="submit"><i
-                        class="fa fa-pencil fa-fw"></i> Tambahkan</button>
-                  </div>
+    <div v-else>
+      <div class="container mt-5">
+        <h2>Komentar</h2>
+        <hr />
+        <div class="row">
+          <div class="col-12">
+            <div class="panel">
+              <div class="panel-body">
+                <textarea
+                  class="form-control"
+                  rows="2"
+                  placeholder="Bagaimana pendapat anda?"
+                ></textarea>
+                <div class="mar-top clearfix">
+                  <button
+                    class="btn btn-sm btn-primary pull-right my-2"
+                    type="submit"
+                  >
+                    <i class="fa fa-pencil fa-fw"></i> Tambahkan
+                  </button>
                 </div>
               </div>
             </div>
-            <div class="col">
-              <h1>Belum ada yang berkomentar di laporan ini :(</h1>
-            </div>
-            <div class="col">
-              <img class="rounded-circle shadow-1-strong"
-                src="https://cdn.dribbble.com/users/1003944/screenshots/10032634/media/a3165ce3eed01d0913652902582fe39f.gif"
-                height="500" />
-            </div>
           </div>
-
+          <div class="col">
+            <h1>Belum ada yang berkomentar di laporan ini :(</h1>
+          </div>
+          <div class="col">
+            <img
+              class="rounded-circle shadow-1-strong"
+              src="https://cdn.dribbble.com/users/1003944/screenshots/10032634/media/a3165ce3eed01d0913652902582fe39f.gif"
+              height="500"
+            />
+          </div>
         </div>
       </div>
-
-    </section>
+    </div>
+    <!-- </section> -->
   </div>
 </template>
-  
+
 <script setup>
 /* eslint-disable */
 import { useRouter, useRoute } from "vue-router";
@@ -208,7 +244,7 @@ onMounted(async () => {
   data.value = await GetDetailsHeadless(route.params.id);
 });
 </script>
-  
+
 <style scoped>
 .kotak {
   padding: 20px;
@@ -228,11 +264,11 @@ ul input {
   clip: rect(0, 0, 0, 0);
 }
 
-ul input~ul {
+ul input ~ ul {
   display: none;
 }
 
-ul input:checked~ul {
+ul input:checked ~ ul {
   display: block;
 }
 
@@ -249,7 +285,7 @@ ul ul li {
   padding: 1 0 0 1em;
 }
 
-ul>li:last-child {
+ul > li:last-child {
   padding-bottom: 0;
 }
 
@@ -282,13 +318,13 @@ label.tree_label:before {
   width: 1em;
   height: 1em;
   border-radius: 1em;
-  content: '+';
+  content: "+";
   text-align: center;
-  line-height: .9em;
+  line-height: 0.9em;
 }
 
-:checked~label.tree_label:before {
-  content: '–';
+:checked ~ label.tree_label:before {
+  content: "–";
 }
 
 /* ————————————————————–
@@ -298,7 +334,7 @@ ul li:before {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -.5em;
+  left: -0.5em;
   display: block;
   width: 0;
   border-left: 1px solid #777;
@@ -314,16 +350,16 @@ ul li:before {
   width: 1em;
   border-bottom: 1px solid #777;
   border-left: 1px solid #777;
-  border-radius: 0 0 0 .3em;
-  content: '';
+  border-radius: 0 0 0 0.3em;
+  content: "";
 }
 
 label.tree_label:after {
   border-bottom: 0;
 }
 
-:checked~label.tree_label:after {
-  border-radius: 0 .3em 0 0;
+:checked ~ label.tree_label:after {
+  border-radius: 0 0.3em 0 0;
   border-top: 1px solid #777;
   border-right: 1px solid #777;
   border-bottom: 0;
@@ -338,7 +374,7 @@ ul li:last-child:before {
   bottom: auto;
 }
 
-ul>li:last-child:before {
+ul > li:last-child:before {
   display: none;
 }
 
@@ -355,4 +391,3 @@ a:hover {
 
 /* margin-bottom: 20px; */
 </style>
-  

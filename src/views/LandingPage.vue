@@ -43,8 +43,8 @@
                           <h6 class="mb-0 w-100 d-block">
                             <!-- <a :href="`#`" @click="navigateToDetailPage(row.id)" class="judul w-100 d-block">{{
                               row.title + " " }}</a> -->
-                            <a
-                              :href="`/Thread/${row.id}`"
+                            <router-link
+                              :to="`/Thread/${row.id}`"
                               class="judul w-100 d-block"
                               >{{ row.title + " " }}
                               <span
@@ -76,7 +76,7 @@
                                 }"
                                 >{{ row.status }}</span
                               >
-                            </a>
+                            </router-link>
                           </h6>
                           <p
                             class="text-xs mb-0 text-secondary font-weight-bolder mt-1"
@@ -106,7 +106,6 @@
                           <i class="fa fa-regular fa-comment"></i>
                         </p>
                       </a>
-                      <hr />
                     </td>
                   </tr>
                 </tbody>
