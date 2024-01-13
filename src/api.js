@@ -145,3 +145,34 @@ export async function Register(email, password, name, role) {
     return false;
   }
 }
+
+// Create Laporan
+export async function createReports(data) {
+  try {
+    const response = await axios.post(
+      "http://localhost:8000/api/reports",
+      {
+        title: data.title,
+        category: data.category,
+        body: data.body,
+        longitude: data.longitude,
+        lattitude: data.lattitude,
+        solution: data.solution,
+        attachment: data.attachment,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
+
+    // Jika respons berhasil, kembalikan data laporan yang baru dibuat
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}

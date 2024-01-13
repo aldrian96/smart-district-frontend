@@ -9,6 +9,7 @@ import PengaduanKu from "../views/PengaduanKu.vue";
 import TambahPengaduanku from "../views/TambahPengaduanku.vue";
 import EditPengaduanku from "../views/EditPengaduanku.vue";
 import DetailPengaduan from "../views/DetailPengaduan.vue";
+import DetailPengaduanku from "../views/DetailPengaduanku.vue";
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
 import LandingPage from "../views/LandingPage.vue";
 import Thread from "../views/Thread.vue";
@@ -76,7 +77,7 @@ const routes = [
       },
       {
         path: "pengaduanku/tambah",
-        name: "Tambah",
+        name: "tambahPengaduanku",
         component: TambahPengaduanku,
         meta: {
           requiredAuth: true,
@@ -93,6 +94,15 @@ const routes = [
         },
       },
 
+      {
+        path: "pengaduanku/detail/:id",
+        name: "detailPengaduanku",
+        component: DetailPengaduanku,
+        meta: {
+          requiredAuth: true,
+          role: "user,superadmin",
+        },
+      },
       {
         path: "profile",
         name: "Profile",

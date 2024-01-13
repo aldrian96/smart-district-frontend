@@ -124,12 +124,13 @@
           <LeafletMap
             :lattitude="data?.lattitude"
             :longitude="data?.longitude"
+            mode="view"
           />
         </div>
       </div>
       <div class="card-footer text-end">
         <button
-          @click="router.push({ name: 'Pengaduan' })"
+          @click="router.push({ name: 'Pengaduanku' })"
           class="btn btn-secondary"
         >
           <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>

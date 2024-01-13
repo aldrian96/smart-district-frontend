@@ -45,11 +45,20 @@
                       </div>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm" :class="{
-                        'bg-gradient-info': row.priority == 'low',
-                        'bg-gradient-warning': row.priority == 'medium',
-                        'bg-gradient-danger': row.priority == 'high',
-                      }">{{ row.priority }}</span>
+                      <span
+                        class="badge badge-sm"
+                        :class="{
+                          'bg-gradient-info': row.priority == 'low',
+                          'bg-gradient-warning': row.priority == 'medium',
+                          'bg-gradient-danger': row.priority == 'high',
+                          'bg-gradient-secondary': row.priority == 'unknown',
+                        }"
+                        >{{
+                          row.priority == "unknown"
+                            ? "Menunggu Konfirmasi"
+                            : row.priority
+                        }}</span
+                      >
                     </td>
                     <td class="align-middle text-center text-sm">
                       <p class="text-xs font-weight-bold mb-0">
@@ -64,11 +73,17 @@
                     </td>
 
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm" :class="{
-                            'bg-gradient-success': row.status == 'Selesai',
-                            'bg-gradient-warning':
-                              row.status == 'Sedang di Proses',
-                          }">{{ row.status }}</span>
+                      <span
+                        class="badge badge-sm"
+                        :class="{
+                          'bg-gradient-success': row.status == 'Selesai',
+                          'bg-gradient-warning':
+                            row.status == 'Sedang di Proses',
+                          'bg-gradient-secondary':
+                            row.status == 'Belum di Proses',
+                        }"
+                        >{{ row.status }}</span
+                      >
                     </td>
                     <td class="align-middle">
                       <div class="d-flex justify-content-center">
