@@ -88,6 +88,7 @@
               <LeafletMap
                 v-model:lattitude="model.lattitude"
                 v-model:longitude="model.longitude"
+                mode="input"
               />
             </div>
 

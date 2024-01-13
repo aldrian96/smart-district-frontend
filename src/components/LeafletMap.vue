@@ -6,6 +6,8 @@
 import { ref, onMounted, watch } from "vue";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { defineProps, defineEmits } from "vue";
+
 
 const iconSettings = {
   mapIconUrl:
@@ -23,8 +25,9 @@ const divIcon = L.divIcon({
   popupAnchor: [0, -28],
 });
 const props = defineProps({
-  lattitude: { type: Number, required: true },
-  longitude: { type: Number, required: true },
+  lattitude: { type: Number },
+  longitude: { type: Number },
+  mode: { type: String, required: true }
 });
 const emit = defineEmits(["update:lattitude", "update:longitude"]);
 const map = ref(null);
@@ -221,7 +224,7 @@ const initMap = () => {
   }).setView(coblongCoordinates, 15);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap contributors",
+    attribution: "Â© OpenStreetMap contributors",
   }).addTo(map.value);
 
   //marker map
@@ -239,23 +242,31 @@ const initMap = () => {
   let theMarker = {};
   let choosenCoord = {};
 
-  map.value.on("click", function (e) {
-    // e.stopPropagation();
+  if (props.mode == "view") {
+    map.value.on("click", function () {
+    });
+  } else if (props.mode == "input") {
+    map.value.on("click", function (e) {
+      // e.stopPropagation();
 
-    let coord = e.latlng;
-    let lat = coord.lat;
-    let lng = coord.lng;
-    if (isMarkerInsidePolygon(lat, lng, polygon)) {
-      if (theMarker != undefined) {
-        map.value.removeLayer(theMarker);
+      let coord = e.latlng;
+      let lat = coord.lat;
+      let lng = coord.lng;
+      if (isMarkerInsidePolygon(lat, lng, polygon)) {
+        if (theMarker != undefined) {
+          map.value.removeLayer(theMarker);
+        }
+        choosenCoord = [lat, lng];
+        theMarker = L.marker(e.latlng, { icon: divIcon }).addTo(map.value);
+        console.log("Koordinat yang di klik adalah : " + choosenCoord);
+        emit("update:lattitude", lat);
+        emit("update:longitude", lng);
       }
-      choosenCoord = [lat, lng];
-      theMarker = L.marker(e.latlng, { icon: divIcon }).addTo(map.value);
-      console.log("Koordinat yang di klik adalah : " + choosenCoord);
-      emit("update:lattitude", lat);
-      emit("update:longitude", lng);
-    }
-  });
+    });
+  } else {
+    console.log(props.mode)
+  }
+
 
   if (choosenCoord == undefined) {
     console.log("Harap klik map untuk menambahkan koordinat terlebih dahulu.");
@@ -272,11 +283,13 @@ onMounted(() => {
   });
   // console.log(map.value.getSize());
   // map.value.setView(L.latLng(props.lattitude, props.longitude));
-  setTimeout(() => {
-    L.marker([props.lattitude, props.longitude], { icon: divIcon }).addTo(
-      map.value
-    );
-  }, 1000);
+  if (props.mode == "view") {
+    setTimeout(() => {
+      L.marker([props.lattitude, props.longitude], { icon: divIcon }).addTo(
+        map.value
+      );
+    }, 1000);
+  }
   console.log(props);
 });
 </script>

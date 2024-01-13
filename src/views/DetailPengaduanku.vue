@@ -124,6 +124,7 @@
           <LeafletMap
             :lattitude="data?.lattitude"
             :longitude="data?.longitude"
+            mode="view"
           />
         </div>
       </div>
