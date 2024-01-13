@@ -33,11 +33,6 @@ const routes = [
       },
     ]
   },
-  // {
-  // path: "/Thread/:id",
-  // name: "Thread",
-  // component: Thread,
-  // },
   {
     path: "/dashboard",
     component: DashboardLayout,
