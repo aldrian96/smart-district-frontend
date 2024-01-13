@@ -133,9 +133,6 @@
                           <div class="mar-top clearfix">
                             <button class="btn btn-sm btn-primary pull-right my-2" type="submit"><i
                                 class="fa fa-pencil fa-fw"></i> Tambahkan</button>
-                            <!-- <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
-                          <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
-                          <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a> -->
                           </div>
                         </div>
                       </div>
@@ -148,55 +145,6 @@
                           <Comment v-bind:author_name="row.author.name" v-bind:created_date="row.created_at"
                             v-bind:body="row.body" v-bind:child="row.all_replies" />
                         </li>
-                        <!-- <li>
-                        <div class="d-flex flex-start">
-                          <img class="rounded-circle shadow-1-strong me-3"
-                            src="https://cdn.dribbble.com/users/1030477/screenshots/4704756/media/b0c16b938c5ff35cde82a63fa23c196f.gif"
-                            alt="avatar" width="65" height="65" />
-                          <div class="flex-grow-1 flex-shrink-1">
-                            <div>
-                              <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-1 font-weight-bold">
-                                  {{ row.author.name }} <span class="small">- {{ row.created_at }}</span>
-                                </p>
-                                <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> balas</span></a>
-                              </div>
-                              <p class="small mb-0">{{ row.body }}</p>
-                            </div>
-                            <hr>
-                            jika memiliki replies
-                        <div v-if="row.all_replies != undefined">
-                          <ul>
-                            <li v-for="replies in row.all_replies" :key="replies">
-                              <div class="d-flex flex-start tree_label">
-                                <a class="me-3" href="#">
-                                  <img class="rounded-circle shadow-1-strong"
-                                    src="https://cdn.dribbble.com/users/1030477/screenshots/4704756/media/b0c16b938c5ff35cde82a63fa23c196f.gif"
-                                    alt="avatar" width="65" height="65" />
-                                </a>
-                                <div class="flex-grow-1 flex-shrink-1">
-                                  <div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                      <p class="mb-1 font-weight-bold">
-                                        Simona Disa <span class="small">- 3 hours ago</span>
-                                      </p>
-                                      <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small">
-                                          balas</span></a>
-                                    </div>
-                                    <p class="small mb-0">
-                                      letters, as opposed to using 'Content here, content here',
-                                      making it look like readable English.
-                                    </p>
-                                  </div>
-                                  <hr>
-                                </div>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                  </div>
-                </div>
-                </li> -->
                       </ul>
                     </div>
                   </div>
@@ -209,7 +157,20 @@
 
       <div v-else>
         <div class="container mt-5">
+          <h2>Percakapan</h2>
+          <hr>
           <div class="row">
+            <div class="col-12">
+              <div class="panel">
+                <div class="panel-body">
+                  <textarea class="form-control" rows="2" placeholder="Bagaimana pendapat anda?"></textarea>
+                  <div class="mar-top clearfix">
+                    <button class="btn btn-sm btn-primary pull-right my-2" type="submit"><i
+                        class="fa fa-pencil fa-fw"></i> Tambahkan</button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="col">
               <h1>Belum ada yang berkomentar di laporan ini :(</h1>
             </div>
