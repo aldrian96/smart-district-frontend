@@ -120,7 +120,7 @@
                           <button
                             @click="
                               router.push({
-                                name: 'detailPengaduanku',
+                                name: 'Thread',
                                 params: { id: row.id },
                               })
                             "

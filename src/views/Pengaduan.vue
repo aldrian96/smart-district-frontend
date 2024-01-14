@@ -11,22 +11,30 @@
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    <th
+                      class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                    >
                       Judul Pengaduan
                     </th>
 
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    <th
+                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                    >
                       Prioritas
                     </th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    <th
+                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                    >
                       Tanggal
                     </th>
                     <th
-                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                    >
                       Status Pengaduan
                     </th>
                     <th
-                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                    >
                       Action
                     </th>
                     <!-- <th class="text-center text-secondary opacity-7"></th> -->
@@ -88,25 +96,36 @@
                     <td class="align-middle">
                       <div class="d-flex justify-content-center">
                         <div class="me-2">
-                          <button @click="
-                            router.push({
-                              name: 'DetailPengaduan',
-                              params: { id: row.id },
-                            })
-                            " class="btn btn-warning mb-0 text-xs" data-toggle="tooltip"
-                            data-original-title="Detail user">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          <button
+                            @click="
+                              router.push({
+                                name: 'DetailPengaduan',
+                                params: { id: row.id },
+                              })
+                            "
+                            class="btn btn-warning mb-0 text-xs"
+                            data-toggle="tooltip"
+                            data-original-title="Detail user"
+                          >
+                            <i
+                              class="fa fa-pencil-square-o"
+                              aria-hidden="true"
+                            ></i>
                             Edit
                           </button>
                         </div>
                         <div>
-                          <button @click="
-                            router.push({
-                              name: 'DetailPengaduan',
-                              params: { id: row.id },
-                            })
-                            " class="btn btn-info mb-0 text-xs" data-toggle="tooltip"
-                            data-original-title="Detail user">
+                          <button
+                            @click="
+                              router.push({
+                                name: 'Thread',
+                                params: { id: row.id },
+                              })
+                            "
+                            class="btn btn-info mb-0 text-xs"
+                            data-toggle="tooltip"
+                            data-original-title="Detail user"
+                          >
                             <i class="fa fa-inbox" aria-hidden="true"></i>
                             Detail
                           </button>

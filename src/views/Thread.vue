@@ -124,10 +124,7 @@
         </div>
       </div>
       <div class="card-footer text-end">
-        <button
-          @click="router.push({ name: 'LandingPage' })"
-          class="btn btn-secondary"
-        >
+        <button @click="router.go(-1)" class="btn btn-secondary">
           <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
           Back to List
         </button>
@@ -227,7 +224,7 @@
 <script setup>
 /* eslint-disable */
 import { useRouter, useRoute } from "vue-router";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, inject } from "vue";
 import LeafletMap from "@/components/LeafletMap.vue";
 import { GetDetailsHeadless } from "../api.js";
 import Comment from "@/components/Comment.vue";

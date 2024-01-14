@@ -16,7 +16,6 @@ import Thread from "../views/Thread.vue";
 import NavbarHome from "../components/NavbarHome.vue";
 
 const routes = [
-
   {
     path: "/",
     component: NavbarHome,
@@ -32,7 +31,7 @@ const routes = [
         name: "Thread",
         component: Thread,
       },
-    ]
+    ],
   },
   {
     path: "/dashboard",
