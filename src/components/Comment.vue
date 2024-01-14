@@ -14,7 +14,8 @@
       <div>
         <div class="d-flex justify-content-between align-items-center">
           <p class="mb-1 font-weight-bold">
-            {{ author_name }} <span class="small">- {{ created_date }}</span>
+            {{ author_name }}
+            <span class="small">- {{ formatDate(created_date) }}</span>
           </p>
           <a href="#!"
             ><i class="fas fa-reply fa-xs"></i
@@ -43,6 +44,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "comment",
   props: {
@@ -63,6 +66,10 @@ export default {
     },
   },
   methods: {
+    formatDate: (date) => {
+      moment.lang('id');
+      return moment(date).fromNow();
+    },
     // getClasses: (color, dismissible) => {
     //     let colorValue, dismissibleValue;
     //     colorValue = color ? `alert-${color}` : null;

@@ -235,6 +235,7 @@ import Comment from "@/components/Comment.vue";
 const router = useRouter();
 const route = useRoute();
 const data = ref(null);
+
 onMounted(async () => {
   if (!route.params?.id) {
     // kondisi ketika parameter id tidak ada / null / undefined
