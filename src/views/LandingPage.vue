@@ -1,113 +1,59 @@
 <template>
-  <div class="py-4 container-fluid">
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <!-- <div class="card-header pb-0">
-            <h6>Tabel Pengaduan</h6>
-          </div> -->
-          <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
-                <thead>
-                  <tr>
-                    <th
-                      class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                    >
-                      Judul Pengaduan
-                    </th>
-                    <!-- <th
-                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                      Balasan
-                    </th>
-                    <th
-                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                      Balasan Terakhir
-                    </th> -->
-                    <!-- <th
-                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                      Status Pengaduan
-                    </th> -->
-                    <th
-                      class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                    ></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="row in dataTable" :key="row">
-                    <td>
-                      <div class="d-flex p-2 ps-3">
-                        <div
-                          class="d-flex flex-column justify-content-center w-100"
-                        >
-                          <h6 class="mb-0 w-100 d-block">
-                            <!-- <a :href="`#`" @click="navigateToDetailPage(row.id)" class="judul w-100 d-block">{{
-                              row.title + " " }}</a> -->
-                            <router-link
-                              :to="`/Thread/${row.id}`"
-                              class="judul w-100 d-block"
-                              >{{ row.title + " " }}
-                              <span
-                                class="badge badge-sm"
-                                :class="{
-                                  'bg-gradient-info': row.priority == 'low',
-                                  'bg-gradient-warning':
-                                    row.priority == 'medium',
-                                  'bg-gradient-danger': row.priority == 'high',
-                                  'bg-gradient-secondary':
-                                    row.priority == 'unknown',
-                                }"
-                                >{{
-                                  row.priority == "unknown"
-                                    ? "Menunggu Konfirmasi"
-                                    : row.priority
-                                }}</span
-                              >
-                              {{ " " }}
-                              <span
-                                class="badge badge-sm"
-                                :class="{
-                                  'bg-gradient-success':
-                                    row.status == 'Selesai',
-                                  'bg-gradient-warning':
-                                    row.status == 'Sedang di Proses',
-                                  'bg-gradient-secondary':
-                                    row.status == 'Belum di Proses',
-                                }"
-                                >{{ row.status }}</span
-                              >
-                            </router-link>
-                          </h6>
-                          <p
-                            class="text-xs mb-0 text-secondary font-weight-bolder mt-1"
-                          >
-                            Dibuat hari {{ formatDate(row.created_at) }}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <!-- <td class="align-middle text-center text-sm">
-                      <p class="text-xs font-weight-bold mb-0">
-                        {{ row.reply }}
-                      </p>
-                    </td>
-                    <td class="align-middle text-center text-sm">
-                      <p class="text-xs font-weight-bold mb-0">
-                        {{ row.lastReply }}
-                      </p>
-                    </td> -->
-                    <td>
-                      <a :href="`/Thread/${row.id}`">
-                        <p class="text-secondary">
-                          {{ row.comment_counts }}
-                          <i class="fa fa-regular fa-comment"></i>
-                        </p>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+  <div class="bg-white mx-0 mt-0 mb-4 p-0">
+    <div class="pt-4 container">
+      <div
+        v-for="(row, i) in dataTable"
+        @click="router.push({ name: 'Thread', params: { id: row.id } })"
+        :key="row"
+        class="row d-flex justify-content-between align-items-center p-3 border-bottom border-1 pengaduan"
+        data-aos="fade-left"
+        data-aos-once="true"
+        :data-aos-delay="i * 50"
+      >
+        <div class="row">
+          <span class="row px-3 fw-semibold fs-4">
+            {{ row.title }}
+          </span>
+          <div class="d-flex flex-row align-items-center px-0 py-1 info">
+            <span
+              class="badge badge-sm"
+              :class="{
+                'bg-gradient-info': row.priority == 'low',
+                'bg-gradient-warning': row.priority == 'medium',
+                'bg-gradient-danger': row.priority == 'high',
+                'bg-gradient-secondary': row.priority == 'unknown',
+              }"
+              >{{
+                row.priority == "unknown" ? "Menunggu Konfirmasi" : row.priority
+              }}</span
+            >
+            <span
+              class="badge badge-sm mx-2"
+              :class="{
+                'bg-gradient-success': row.status == 'Selesai',
+                'bg-gradient-warning': row.status == 'Sedang di Proses',
+                'bg-gradient-secondary': row.status == 'Belum di Proses',
+              }"
+              >{{ row.status }}</span
+            >
+            |
+            <span class="mx-2 text-primary">
+              <i class="fa fa-regular fa-user me-2"></i>
+              <span class="border-bottom border-1 border-primary">{{
+                row.author.name
+              }}</span>
+            </span>
+
+            <span class="me-2">
+              {{ formatDate(row.created_at) }}
+            </span>
+            &#x2022;
+            <span class="ms-2 text-danger">
+              <i class="fa fa-regular fa-comment me-1"></i>
+              <span class="border-bottom border-1 border-danger">
+                {{ row.comment_counts }} comments
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -126,7 +72,8 @@ import moment from "moment";
 
 const formatDate = (date) => {
   moment.lang("id");
-  return moment(date).format("dddd, DD MMMM YYYY [pukul] HH:mm");
+  // return moment(date).format("dddd, DD MMMM YYYY [pukul] HH:mm");
+  return moment(date).fromNow();
 };
 // import moment from 'moment';
 
@@ -217,15 +164,15 @@ onMounted(async () => {
 });
 </script>
 
-<style>
-.judul {
-  transition: 0.1s;
+<style scoped>
+.pengaduan {
+  transition: 0.2s;
 }
 
-.judul:hover {
-  font-size: 1.2rem;
-  color: blue;
-  font-weight: bolder;
+.pengaduan:hover {
+  /* font-size: 1.2rem; */
+  background-color: #fafafa;
+  cursor: pointer;
   /* text-decoration: underline; */
 }
 </style>

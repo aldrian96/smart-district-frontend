@@ -94,7 +94,14 @@
             Gambar Masalah
           </p>
           <hr />
-          <img src="@/assets/img/coblong.jpg" class="img-fluid" alt="" />
+          <img
+            :src="
+              'http://localhost:8000/api/image?attachment_path=' +
+              data?.attachment_path
+            "
+            height="400px"
+            alt=""
+          />
         </div>
         <div class="kotak">
           <p class="text-uppercase">
@@ -124,7 +131,8 @@
         </div>
       </div>
       <div class="card-footer text-end">
-        <button @click="router.go(-1)" class="btn btn-secondary">
+        <!-- @click="router.go(-1)" -->
+        <button @click="router.back()" class="btn btn-secondary">
           <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
           Back to List
         </button>

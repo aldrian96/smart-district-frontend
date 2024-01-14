@@ -30,7 +30,9 @@ export async function GetAllReport() {
 }
 export async function GetDetailsHeadless(id) {
   try {
-    const response = await axios.get(`http://localhost:8000/api/reports-all/${id}`);
+    const response = await axios.get(
+      `http://localhost:8000/api/reports-all/${id}`
+    );
     return response.data.results;
   } catch (error) {
     console.error("Error:", error);
@@ -38,7 +40,6 @@ export async function GetDetailsHeadless(id) {
     return [];
   }
 }
-
 
 // Pengaduanku
 export async function GetReportsByUser() {
@@ -149,17 +150,13 @@ export async function Register(email, password, name, role) {
 // Create Laporan
 export async function createReports(data) {
   try {
+    const form = new FormData();
+    Object.keys(data).map((item) => {
+      form.append(item, data[item]);
+    });
     const response = await axios.post(
       "http://localhost:8000/api/reports",
-      {
-        title: data.title,
-        category: data.category,
-        body: data.body,
-        longitude: data.longitude,
-        lattitude: data.lattitude,
-        solution: data.solution,
-        attachment: data.attachment,
-      },
+      form,
       {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem(

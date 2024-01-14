@@ -60,8 +60,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
-    <div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary shadow-xs">
+    <div class="container">
       <router-link to="/" class="navbar-brand">ADUINN</router-link>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
@@ -71,8 +71,12 @@ const props = defineProps({
         </ul>
         <ul v-if="isLoggedIn" class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
-            <button class="btn mb-0 btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <button
+              class="btn mb-0 btn-dark dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               <i class="fa fa-user-circle me-1"></i> {{ user_name }}
             </button>
             <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end">
@@ -109,7 +113,10 @@ const props = defineProps({
         </ul> -->
         <ul v-if="!isLoggedIn" class="navbar-nav d-flex ms-auto">
           <li class="nav-item">
-            <router-link to="/dashboard/signin" class="btn btn-outline-dark me-2 mb-0">
+            <router-link
+              to="/dashboard/signin"
+              class="btn btn-outline-dark me-2 mb-0"
+            >
               <i class="fa fa-sign-in me-1"></i> SIGN IN
             </router-link>
           </li>
@@ -122,5 +129,23 @@ const props = defineProps({
       </div>
     </div>
   </nav>
-  <router-view />
+  <transition name="slide-fade">
+    <router-view />
+  </transition>
 </template>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+</style>

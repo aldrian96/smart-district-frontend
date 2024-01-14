@@ -45,19 +45,13 @@
               </div>
               <div class="">
                 <label for="formFile" class="form-label">BUKTI PENGADUAN</label>
-                <input class="form-control" type="file" id="formFile" />
+                <input
+                  @change="uploadFile"
+                  class="form-control"
+                  type="file"
+                  id="formFile"
+                />
               </div>
-              <!-- <div class="mb-3">
-                <label for="formCategory">PILIH KATEGORI</label>
-                <select
-                  v-model="model.category"
-                  class="form-select"
-                  aria-label="Default select example"
-                >
-                  <option value="1">Location</option>
-                  <option value="2">Normal</option>
-                </select>
-              </div> -->
             </div>
             <div class="row mb-3">
               <div class="col-md-6">
@@ -115,11 +109,10 @@
 
 <script setup>
 /* eslint-disable */
-import ArgonInput from "@/components/ArgonInput.vue";
 import LeafletMap from "@/components/LeafletMap.vue";
 import { useRouter } from "vue-router";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 import { createReports } from "../api.js";
 
 const router = useRouter();
@@ -133,6 +126,11 @@ const model = reactive({
   lattitude: null,
   longitude: null,
 });
+
+function uploadFile(e) {
+  console.log("Gambar", e.target.files[0]);
+  model.attachment = e.target.files[0];
+}
 
 const tambahPengaduan = async () => {
   // Validasi
@@ -151,6 +149,7 @@ const tambahPengaduan = async () => {
     category: model.category,
     longitude: model.longitude,
     lattitude: model.lattitude,
+    attachment: model.attachment,
   };
 
   try {
