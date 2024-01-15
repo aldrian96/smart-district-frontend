@@ -15,41 +15,69 @@
     </a>
     <div class="flex-grow-1 flex-shrink-1">
       <div>
-        <div class="d-flex justify-content-between align-items-center">
+        <div
+          class="d-flex justify-content-between align-items-center"
+          id="to-hover"
+        >
           <p class="mb-1 font-weight-bold">
             {{ author_name }}
             <span class="small">- {{ formatDate(created_date) }}</span>
           </p>
-          <button class="btn btn-transparent shadow-none border-none tombol" onclick="addReply( id)">
+          <button
+            class="btn btn-transparent shadow-none border-none w-100"
+            :data-bs-toggle="'modal'"
+            :data-bs-target="'#modalComment' + id"
+            id="to-show"
+          >
             <i class="fas fa-reply fa-xs"></i><span class="small"> balas</span>
           </button>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            :id="'modalComment' + id"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <ModalComment
+                  v-bind:id="id"
+                  v-bind:profile_picture_path="profile_picture_path"
+                  v-bind:author_name="author_name"
+                  v-bind:created_date="created_date"
+                  v-bind:body="body"
+                  v-bind:child="all_replies"
+                />
+              </div>
+            </div>
+          </div>
         </div>
         <p class="small mb-0">
           {{ body }}
         </p>
       </div>
       <!-- replies -->
-      <div v-if="child != undefined">
-        <ul>
-          <li v-for="row in child" :key="row">
-            <Comment
-              v-bind:id="row.id"
-              v-bind:profile_picture_path="row.author.profile_picture_path"
-              v-bind:author_name="row.author.name"
-              v-bind:created_date="row.created_at"
-              v-bind:body="row.body"
-              v-bind:child="row.all_replies"
-            />
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li v-for="row in child" :key="row">
+          <Comment
+            v-bind:id="row.id"
+            v-bind:profile_picture_path="row.author.profile_picture_path"
+            v-bind:author_name="row.author.name"
+            v-bind:created_date="row.created_at"
+            v-bind:body="row.body"
+            v-bind:child="row.all_replies"
+          />
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
 import moment from "moment";
+import ModalComment from "@/components/ModalComment.vue";
 
+// let name = this.author_name;
 export default {
   name: "comment",
   props: {
@@ -71,23 +99,66 @@ export default {
     profile_picture_path: {
       type: String,
     },
+    id: {
+      type: Number,
+    },
   },
+  data: function () {
+    return {
+      currentModal: null,
+    };
+  },
+  components: {
+    ModalComment,
+  },
+  // data: function () {
+  //   let theData = {
+  //     somevar: "",
+  //     // other object attributes
+  //   };
+
+  //   return theData;
+  // },
+
+  // data: () => {},
   methods: {
     formatDate: (date) => {
       moment.lang("id");
       return moment(date).fromNow();
     },
-    // getClasses: (color, dismissible) => {
-    //     let colorValue, dismissibleValue;
-    //     colorValue = color ? `alert-${color}` : null;
-    //     dismissibleValue = dismissible ? "alert-dismissible fade show" : null;
-    //     return `${colorValue} ${dismissibleValue}`;
-    // },
-    // getIcon: (icon) => (icon ? icon : null),
-  },
+    changeModalValue(Modal) {
+      // this.modal_author_name = this.author_name;
+      // this.modal_body = this.body;
+      // this.modal_created_date = this.created_date;
+      // this.modal_child = this.child;
+      // this.modal_profile_picture_path = this.profile_picture_path;
+      // this.modal_id = this.id;
 
-  addReply: (id) => {
-    console.log(id);
+      this.currentModal = Modal;
+    },
+    // changeModalValue: (
+    //   author_name,
+    //   body,
+    //   created_date,
+    //   child,
+    //   profile_picture_path,
+    //   id
+    // ) => {
+    //   console.log(this.body);
+    //   console.log(this.author_name);
+    //   console.log(this.body);
+    //   console.log(this.created_date);
+    //   console.log(this.child);
+    //   console.log(this.profile_picture_path);
+    //   console.log(this.id);
+    //   console.log(body);
+    //   console.log(author_name);
+    //   console.log(body);
+    //   console.log(created_date);
+    //   console.log(child);
+    //   console.log(profile_picture_path);
+    //   console.log(id);
+    // },
   },
 };
 </script>
@@ -99,7 +170,17 @@ export default {
 ul {
   list-style-type: none;
 }
-
+#to-show {
+  display: none;
+}
+#to-hover:hover > #to-show {
+  display: block;
+}
+#to-show {
+  float: right;
+  position: absolute;
+  right: 0;
+}
 ul input {
   position: absolute;
   clip: rect(0, 0, 0, 0);
