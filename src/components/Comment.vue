@@ -3,8 +3,11 @@
   <div class="d-flex flex-start tree_label">
     <a class="me-3" href="#">
       <img
-        class="rounded-circle shadow-1-strong"
-        src="https://cdn.dribbble.com/users/1030477/screenshots/4704756/media/b0c16b938c5ff35cde82a63fa23c196f.gif"
+        class="rounded-circle border border-secondary shadow-sm"
+        :src="
+          'http://localhost:8000/api/image?attachment_path=' +
+          profile_picture_path
+        "
         alt="avatar"
         width="65"
         height="65"
@@ -17,10 +20,9 @@
             {{ author_name }}
             <span class="small">- {{ formatDate(created_date) }}</span>
           </p>
-          <a href="#!"
-            ><i class="fas fa-reply fa-xs"></i
-            ><span class="small"> balas</span></a
-          >
+          <button class="btn btn-transparent shadow-none border-none tombol" onclick="addReply( id)">
+            <i class="fas fa-reply fa-xs"></i><span class="small"> balas</span>
+          </button>
         </div>
         <p class="small mb-0">
           {{ body }}
@@ -31,6 +33,8 @@
         <ul>
           <li v-for="row in child" :key="row">
             <Comment
+              v-bind:id="row.id"
+              v-bind:profile_picture_path="row.author.profile_picture_path"
               v-bind:author_name="row.author.name"
               v-bind:created_date="row.created_at"
               v-bind:body="row.body"
@@ -64,10 +68,13 @@ export default {
     child: {
       type: Array,
     },
+    profile_picture_path: {
+      type: String,
+    },
   },
   methods: {
     formatDate: (date) => {
-      moment.lang('id');
+      moment.lang("id");
       return moment(date).fromNow();
     },
     // getClasses: (color, dismissible) => {
@@ -77,6 +84,10 @@ export default {
     //     return `${colorValue} ${dismissibleValue}`;
     // },
     // getIcon: (icon) => (icon ? icon : null),
+  },
+
+  addReply: (id) => {
+    console.log(id);
   },
 };
 </script>
@@ -183,7 +194,12 @@ ul li:before {
   border-radius: 0 0 0 0.3em;
   content: "";
 }
-
+.tombol {
+  text-decoration: none;
+}
+.tombol:hover {
+  text-decoration: underline;
+}
 label.tree_label:after {
   border-bottom: 0;
 }

@@ -94,14 +94,16 @@
             Gambar Masalah
           </p>
           <hr />
-          <img
+          <center>
+            <img
             :src="
               'http://localhost:8000/api/image?attachment_path=' +
               data?.attachment_path
             "
             height="400px"
             alt=""
-          />
+            />
+          </center>
         </div>
         <div class="kotak">
           <p class="text-uppercase">
@@ -173,7 +175,11 @@
                   <ul>
                     <li>
                       <Comment
+                        v-bind:id="row.id"
                         v-bind:author_name="row.author.name"
+                        v-bind:profile_picture_path="
+                          row.author.profile_picture_path
+                        "
                         v-bind:created_date="row.created_at"
                         v-bind:body="row.body"
                         v-bind:child="row.all_replies"
@@ -217,7 +223,7 @@
           </div>
           <div class="col">
             <img
-              class="rounded-circle shadow-1-strong"
+              class="rounded-circle"
               src="https://cdn.dribbble.com/users/1003944/screenshots/10032634/media/a3165ce3eed01d0913652902582fe39f.gif"
               height="500"
             />
