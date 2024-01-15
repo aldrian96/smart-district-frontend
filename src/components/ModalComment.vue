@@ -33,7 +33,7 @@
       <div class="panel">
         <div class="panel-body">
           <textarea
-            v-model="textBody"
+            v-model="model.textBody"
             class="form-control"
             rows="2"
             :placeholder="'Balasan anda kepada ' + author_name + '...'"
@@ -58,7 +58,14 @@
 import moment from "moment";
 import { createComment } from "../api.js";
 import { defineProps } from "vue";
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
+
+const model = reactive({
+  textBody: null,
+});
 const props = defineProps({
   author_name: {
     type: String,
@@ -90,7 +97,7 @@ const formatDate = (date) => {
 
 const addComment = async () => {
   const dataComment = {
-    body: props.textBody,
+    body: model.textBody,
     parent_id: props.id,
   };
 
@@ -98,6 +105,7 @@ const addComment = async () => {
     const response = await createComment(dataComment);
 
     if (response.success === "OK") {
+      router.go({ name: "Thread", params: { id: props.report_id } });
       console.log("Komentar berhasil ditambahkan");
       console.log("reportid: " + props.report_id);
     } else {
