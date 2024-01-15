@@ -154,6 +154,7 @@
                   <div class="panel">
                     <div class="panel-body">
                       <textarea
+                        v-model="model.body"
                         class="form-control"
                         rows="2"
                         placeholder="Bagaimana pendapat anda?"
@@ -161,7 +162,7 @@
                       <div class="mar-top clearfix">
                         <button
                           class="btn btn-sm btn-primary pull-right my-2"
-                          type="submit"
+                          @click="addComment"
                         >
                           <i class="fa fa-pencil fa-fw"></i> Tambahkan
                         </button>
@@ -240,15 +241,43 @@
 <script setup>
 /* eslint-disable */
 import { useRouter, useRoute } from "vue-router";
-import { ref, onMounted, inject } from "vue";
+import { ref, onMounted } from "vue";
 import LeafletMap from "@/components/LeafletMap.vue";
 import { GetDetailsHeadless } from "../api.js";
 import Comment from "@/components/Comment.vue";
+import { reactive } from "vue";
+import { createComment } from "../api.js";
 
 const router = useRouter();
 const route = useRoute();
 const data = ref(null);
 
+const model = reactive({
+  body: null,
+});
+const addComment = async () => {
+  console.log(model.body);
+  console.log(data.value.id);
+  const dataComment = {
+    body: model.body,
+    report_id: data.value.id,
+  };
+  try {
+    // Panggil fungsi createReports untuk menambahkan pengaduan
+    const response = await createComment(dataComment);
+    console.log(response);
+    // Handle respon dari backend
+    if (response.success === "OK") {
+      console.log("Komentar berhasil ditambahkan");
+      router.go({ name: "Thread", params: { id: data.value.id } });
+      // Redirect ke halaman Pengaduanku setelah berhasil menambahkan
+    } else {
+      console.error("Gagal menambahkan komentar", response);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 onMounted(async () => {
   if (!route.params?.id) {
     // kondisi ketika parameter id tidak ada / null / undefined
