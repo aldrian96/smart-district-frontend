@@ -46,7 +46,7 @@
                   v-bind:author_name="author_name"
                   v-bind:created_date="created_date"
                   v-bind:body="body"
-                  v-bind:child="all_replies"
+                  v-bind:report_id="report_id"
                 />
               </div>
             </div>
@@ -66,6 +66,7 @@
             v-bind:created_date="row.created_at"
             v-bind:body="row.body"
             v-bind:child="row.all_replies"
+            v-bind:report_id="report_id"
           />
         </li>
       </ul>
@@ -102,6 +103,9 @@ export default {
     id: {
       type: Number,
     },
+    report_id: {
+      type: Number,
+    },
   },
   data: function () {
     return {
@@ -111,54 +115,14 @@ export default {
   components: {
     ModalComment,
   },
-  // data: function () {
-  //   let theData = {
-  //     somevar: "",
-  //     // other object attributes
-  //   };
-
-  //   return theData;
-  // },
-
-  // data: () => {},
   methods: {
     formatDate: (date) => {
-      moment.lang("id");
+      moment.locale("id");
       return moment(date).fromNow();
     },
     changeModalValue(Modal) {
-      // this.modal_author_name = this.author_name;
-      // this.modal_body = this.body;
-      // this.modal_created_date = this.created_date;
-      // this.modal_child = this.child;
-      // this.modal_profile_picture_path = this.profile_picture_path;
-      // this.modal_id = this.id;
-
       this.currentModal = Modal;
     },
-    // changeModalValue: (
-    //   author_name,
-    //   body,
-    //   created_date,
-    //   child,
-    //   profile_picture_path,
-    //   id
-    // ) => {
-    //   console.log(this.body);
-    //   console.log(this.author_name);
-    //   console.log(this.body);
-    //   console.log(this.created_date);
-    //   console.log(this.child);
-    //   console.log(this.profile_picture_path);
-    //   console.log(this.id);
-    //   console.log(body);
-    //   console.log(author_name);
-    //   console.log(body);
-    //   console.log(created_date);
-    //   console.log(child);
-    //   console.log(profile_picture_path);
-    //   console.log(id);
-    // },
   },
 };
 </script>

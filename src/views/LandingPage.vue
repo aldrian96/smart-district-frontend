@@ -71,7 +71,7 @@ import { useRouter } from "vue-router";
 import moment from "moment";
 
 const formatDate = (date) => {
-  moment.lang("id");
+  moment.locale("id");
   // return moment(date).format("dddd, DD MMMM YYYY [pukul] HH:mm");
   return moment(date).fromNow();
 };

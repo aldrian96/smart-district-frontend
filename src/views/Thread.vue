@@ -176,6 +176,7 @@
                     <li>
                       <Comment
                         v-bind:id="row.id"
+                        v-bind:report_id="data?.id"
                         v-bind:author_name="row.author.name"
                         v-bind:profile_picture_path="
                           row.author.profile_picture_path
@@ -211,6 +212,7 @@
                   <button
                     class="btn btn-sm btn-primary pull-right my-2"
                     type="submit"
+                    @click="addComment"
                   >
                     <i class="fa fa-pencil fa-fw"></i> Tambahkan
                   </button>

@@ -173,3 +173,28 @@ export async function createReports(data) {
     throw error;
   }
 }
+export async function createComment(data) {
+  try {
+    const form = new FormData();
+    Object.keys(data).map((item) => {
+      form.append(item, data[item]);
+    });
+    const response = await axios.post(
+      "http://localhost:8000/api/comments",
+      form,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
+
+    // Jika respons berhasil, kembalikan data laporan yang baru dibuat
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
