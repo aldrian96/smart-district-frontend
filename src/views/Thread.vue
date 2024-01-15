@@ -208,6 +208,7 @@
                   class="form-control"
                   rows="2"
                   placeholder="Bagaimana pendapat anda?"
+                  v-model="model.body"
                 ></textarea>
                 <div class="mar-top clearfix">
                   <button
