@@ -13,14 +13,20 @@
                 'bg-gradient-info': data?.priority == 'low',
                 'bg-gradient-warning': data?.priority == 'medium',
                 'bg-gradient-danger': data?.priority == 'high',
+                'bg-gradient-secondary': data?.priority == 'unknown',
               }"
-              >{{ data?.priority }}</span
+              >{{
+                data?.priority == "unknown"
+                  ? "Menunggu Konfirmasi"
+                  : data?.priority
+              }}</span
             >
             <span
               class="badge ms-2"
               :class="{
                 'bg-gradient-success': data?.status == 'Selesai',
                 'bg-gradient-warning': data?.status == 'Sedang di Proses',
+                'bg-gradient-secondary': data?.status == 'Belum di Proses',
               }"
               >{{ data?.status }}</span
             >

@@ -55,6 +55,8 @@
 </template>
 
 <script setup>
+/* eslint-disable */
+
 import moment from "moment";
 import { createComment } from "../api.js";
 import { defineProps } from "vue";
