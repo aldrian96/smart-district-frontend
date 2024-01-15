@@ -72,13 +72,8 @@ import moment from "moment";
 
 const formatDate = (date) => {
   moment.locale("id");
-  // return moment(date).format("dddd, DD MMMM YYYY [pukul] HH:mm");
   return moment(date).fromNow();
 };
-// import moment from 'moment';
-
-// moment.locale('id')
-
 const router = useRouter();
 
 const truncateText = (text, maxLength) => {
@@ -86,78 +81,6 @@ const truncateText = (text, maxLength) => {
 };
 
 const dataTable = ref([]);
-
-// TIME CONVERSION
-const MonthName = [
-  "Januari",
-  "Februari",
-  "Maret",
-  "April",
-  "Mei",
-  "Juni",
-  "Juli",
-  "Agustus",
-  "September",
-  "Oktober",
-  "November",
-  "Desember",
-];
-
-// function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
-//   const day = date.getDate();
-//   const month = MonthName[date.getMonth()];
-//   const year = date.getFullYear();
-//   const hours = date.getHours();
-//   let minutes = date.getMinutes();
-
-//   if (minutes < 10) {
-//     minutes = `0${minutes}`;
-//   }
-
-//   if (prefomattedDate) {
-//     return `${prefomattedDate} jam ${hours}:${minutes}`;
-//   }
-
-//   if (hideYear) {
-//     return `${day}. ${month} jam ${hours}:${minutes}`;
-//   }
-
-//   return `${day}. ${month} ${year}. jam ${hours}:${minutes}`;
-// }
-
-// function timeAgo(dateParam) {
-//   if (!dateParam) {
-//     return null;
-//   }
-
-//   const date = typeof dateParam === "object" ? dateParam : new Date(dateParam);
-//   const DAY_IN_MS = 86400000; // 24 * 60 * 60 * 1000
-//   const today = new Date();
-//   const yesterday = new Date(today - DAY_IN_MS);
-//   const seconds = Math.round((today - date) / 1000);
-//   const minutes = Math.round(seconds / 60);
-//   const isToday = today.toDateString() === date.toDateString();
-//   const isYesterday = yesterday.toDateString() === date.toDateString();
-//   const isThisYear = today.getFullYear() === date.getFullYear();
-
-//   if (seconds < 5) {
-//     return "Sekarang";
-//   } else if (seconds < 60) {
-//     return `${seconds} detik yang lalu`;
-//   } else if (seconds < 90) {
-//     return "sekitar semenit yang lalu";
-//   } else if (minutes < 60) {
-//     return `${minutes} detik yang lalu`;
-//   } else if (isToday) {
-//     return getFormattedDate(date, "Hari Ini");
-//   } else if (isYesterday) {
-//     return getFormattedDate(date, "Kemarin");
-//   } else if (isThisYear) {
-//     return getFormattedDate(date, false, true);
-//   }
-
-//   return getFormattedDate(date);
-// }
 
 onMounted(async () => {
   dataTable.value = await GetAllReport();

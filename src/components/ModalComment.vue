@@ -60,77 +60,70 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import moment from "moment";
 import { createComment } from "../api.js";
+import { defineProps, onMounted } from "vue";
+// import { reactive } from "vue";
 
-export default {
-  name: "modalcomment",
-  data() {
-    return {
-      textBody: "", // Define textBody in data
+const props = defineProps({
+  author_name: {
+    type: String,
+    default: "unknown",
+  },
+  body: {
+    type: String,
+    default: "",
+  },
+  created_date: {
+    type: String,
+    default: "",
+  },
+  child: {
+    type: Array,
+  },
+  profile_picture_path: {
+    type: String,
+  },
+  id: {
+    type: Number,
+  },
+  report_id: {
+    type: Number,
+  },
+});
+const initComment = () => {
+  const formatDate = (date) => {
+    moment.locale("id");
+    return moment(date).fromNow();
+  };
+
+  const addComment = async () => {
+    const dataComment = {
+      body: props.textBody,
+      parent_id: props.id,
     };
-  },
-  props: {
-    author_name: {
-      type: String,
-      default: "unknown",
-    },
-    body: {
-      type: String,
-      default: "",
-    },
-    created_date: {
-      type: String,
-      default: "",
-    },
-    child: {
-      type: Array,
-    },
-    profile_picture_path: {
-      type: String,
-    },
-    id: {
-      type: Number,
-    },
-    report_id: {
-      type: Number,
-    },
-  },
-  methods: {
-    formatDate: (date) => {
-      moment.locale("id");
-      return moment(date).fromNow();
-    },
-
-    callModal: (id) => {
-      console.log(id);
-    },
-
-    addComment: async function () {
-      const dataComment = {
-        body: this.textBody,
-        parent_id: this.id,
-      };
-      console.log(this.textBody)
-      console.log(this.id)
-      try {
-        // Panggil fungsi createReports untuk menambahkan pengaduan
-        const response = await createComment(dataComment);
-        console.log(response);
-        // Handle respon dari backend
-        if (response.success === "OK") {
-          console.log("Komentar berhasil ditambahkan");
-          // Redirect ke halaman Pengaduanku setelah berhasil menambahkan
-          console.log("reportid: " + this.report_id);
-        } else {
-          console.error("Gagal menambahkan komentar", response);
-        }
-      } catch (error) {
-        console.error("Error:", error);
+    console.log(props.textBody);
+    console.log(props.id);
+    try {
+      // Panggil fungsi createReports untuk menambahkan pengaduan
+      const response = await createComment(dataComment);
+      console.log(response);
+      // Handle respon dari backend
+      if (response.success === "OK") {
+        console.log("Komentar berhasil ditambahkan");
+        // Redirect ke halaman Pengaduanku setelah berhasil menambahkan
+        console.log("reportid: " + props.report_id);
+      } else {
+        console.error("Gagal menambahkan komentar", response);
       }
-    },
-  },
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 };
+onMounted(() => {
+  initComment();
+});
 </script>
 <style></style>
