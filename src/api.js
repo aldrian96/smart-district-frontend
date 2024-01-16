@@ -173,3 +173,19 @@ export async function createReports(data) {
     throw error;
   }
 }
+
+
+export async function ProfileInfo() {
+  try {
+    const response = await axios.get("http://localhost:8000/api/profile/", {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem(
+          "smartdistrict-token"
+        )}`,
+      },
+    });
+    return response.data.profile;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
