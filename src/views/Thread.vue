@@ -150,18 +150,20 @@
           <div class="card">
             <div class="card-body p-4">
               <div class="row">
-                <div class="col-12">
-                  <div class="panel">
-                    <div class="panel-body">
+                <div class="col-12 my-3">
+                  <div class="row">
+                    <div class="col-6">
                       <textarea
                         v-model="model.body"
                         class="form-control"
                         rows="2"
                         placeholder="Bagaimana pendapat anda?"
                       ></textarea>
+                    </div>
+                    <div class="col-6">
                       <div class="mar-top clearfix">
                         <button
-                          class="btn btn-sm btn-primary pull-right my-2"
+                          class="btn btn-sm btn-secondary pull-right my-2"
                           @click="addComment"
                         >
                           <i class="fa fa-pencil fa-fw"></i> Tambahkan
@@ -182,6 +184,7 @@
                         v-bind:profile_picture_path="
                           row.author.profile_picture_path
                         "
+                        v-bind:author_role="row.author.role"
                         v-bind:created_date="row.created_at"
                         v-bind:body="row.body"
                         v-bind:child="row.all_replies"

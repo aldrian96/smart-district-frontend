@@ -11,7 +11,7 @@
         :data-aos-delay="i * 50"
       >
         <div class="row">
-          <span class="row px-3 fw-semibold fs-4">
+          <span class="row px-3 fw-semibold fs-4 forum-font">
             {{ row.title }}
           </span>
           <div class="d-flex flex-row align-items-center px-0 py-1 info">
@@ -88,6 +88,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "Poppins";
+  src: url("~@/assets/fonts/Dosis-Medium.ttf");
+}
 .pengaduan {
   transition: 0.2s;
 }
@@ -97,5 +101,9 @@ onMounted(async () => {
   background-color: #fafafa;
   cursor: pointer;
   /* text-decoration: underline; */
+}
+
+.forum-font {
+  font-family: Poppins, sans-serif;
 }
 </style>
