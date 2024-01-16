@@ -73,12 +73,12 @@
               }}
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-2 d-flex justify-content-between">
               <b>Kategori</b> :
             </div>
             <div class="col">{{ data?.category }}</div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col-2 d-flex justify-content-between">
               <b>Keterangan</b> :
