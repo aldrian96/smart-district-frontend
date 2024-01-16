@@ -198,3 +198,31 @@ export async function createComment(data) {
     throw error;
   }
 }
+
+// Update
+export async function updateReports(id, data) {
+  try {
+    const form = new FormData();
+    Object.keys(data).map((item) => {
+      if (item == "attachment" && !data[item]) {
+        return;
+      }
+      form.append(item, data[item]);
+    });
+    const response = await axios.post(
+      `http://localhost:8000/api/reports/${id}`,
+      form,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}

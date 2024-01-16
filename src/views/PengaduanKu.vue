@@ -104,7 +104,12 @@
                       <div class="d-flex justify-content-center">
                         <div class="me-2">
                           <button
-                            @click="router.push({ path: 'pengaduanku/edit' })"
+                            @click="
+                              router.push({
+                                name: 'editPengaduanku',
+                                params: { id: row.id },
+                              })
+                            "
                             class="btn btn-warning mb-0 text-xs"
                             data-toggle="tooltip"
                             data-original-title="Detail user"

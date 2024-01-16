@@ -84,8 +84,8 @@ const routes = [
         },
       },
       {
-        path: "pengaduanku/edit",
-        name: "Edit",
+        path: "pengaduanku/edit/:id",
+        name: "editPengaduanku",
         component: EditPengaduanku,
         meta: {
           requiredAuth: true,
