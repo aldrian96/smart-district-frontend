@@ -1,13 +1,7 @@
 <template>
   <div class="container top-0 position-sticky z-index-sticky">
     <div class="row">
-      <div class="col-12">
-        <!-- <navbar
-          isBlur="blur  border-radius-lg my-3 py-2 start-0 end-0 mx-4 shadow"
-          v-bind:darkMode="true"
-          isBtn="bg-gradient-success"
-        /> -->
-      </div>
+      <div class="col-12"></div>
     </div>
   </div>
   <main class="mt-0 main-content">
@@ -15,7 +9,17 @@
       <div class="page-header min-vh-100">
         <div class="container">
           <div class="row">
-            <div class="mx-auto col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0">
+            <div
+              class="mx-auto col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0"
+            >
+              <div
+                v-if="loginFailed"
+                class="alert alert-danger alert-dismissible fade show"
+                role="alert"
+              >
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                Email atau Password Anda Salah
+              </div>
               <div class="card card-plain">
                 <div class="pb-0 card-header text-start">
                   <h4 class="font-weight-bolder">Sign In</h4>
@@ -23,46 +27,80 @@
                 </div>
                 <div class="card-body">
                   <div class="mb-3">
-                    <input class="form-control" type="email" placeholder="Email" name="email" size="lg" v-model="email" />
+                    <input
+                      class="form-control"
+                      type="email"
+                      placeholder="Email"
+                      name="email"
+                      size="lg"
+                      v-model="email"
+                    />
                   </div>
                   <div class="mb-3">
-                    <input class="form-control" type="password" placeholder="Password" name="password" size="lg"
-                      v-model="password" @keyup.enter="Signin" />
+                    <input
+                      class="form-control"
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      size="lg"
+                      v-model="password"
+                      @keyup.enter="Signin"
+                    />
                   </div>
 
                   <div class="text-center">
-                    <argon-button class="mt-4" variant="gradient" color="success" fullWidth size="lg" @click="Signin"
-                      :disabled="isLoading">Sign in</argon-button>
+                    <argon-button
+                      class="mt-4"
+                      variant="gradient"
+                      color="success"
+                      fullWidth
+                      size="lg"
+                      @click="Signin"
+                      :disabled="isLoading"
+                      >Sign in</argon-button
+                    >
                   </div>
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
                     Don't have an account?
-                    <router-link to="/dashboard/signup" class="text-success text-gradient font-weight-bold"
-                      @keypress="enter">
+                    <router-link
+                      to="/dashboard/signup"
+                      class="text-success text-gradient font-weight-bold"
+                      @keypress="enter"
+                    >
                       Sign up
                     </router-link>
                   </p>
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <hr />
-                  <router-link to="/" class="text-info text-gradient font-weight-bold"><i
-                      class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+                  <router-link
+                    to="/"
+                    class="text-info text-gradient font-weight-bold"
+                    ><i
+                      class="fa fa-chevron-circle-left"
+                      aria-hidden="true"
+                    ></i>
                     Kembali
                   </router-link>
                 </div>
               </div>
             </div>
             <div
-              class="top-0 my-auto text-center col-6 d-lg-flex d-none h-100 pe-0 position-absolute end-0 justify-content-center flex-column">
+              class="top-0 my-auto text-center col-6 d-lg-flex d-none h-100 pe-0 position-absolute end-0 justify-content-center flex-column"
+            >
               <div
                 class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
                 style="
                   background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
                   background-size: cover;
-                ">
+                "
+              >
                 <span class="mask bg-gradient-success opacity-6"></span>
-                <h4 class="mt-5 text-white font-weight-bolder position-relative">
+                <h4
+                  class="mt-5 text-white font-weight-bolder position-relative"
+                >
                   "Attention is the new currency"
                 </h4>
                 <p class="text-white position-relative">

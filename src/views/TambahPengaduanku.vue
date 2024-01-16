@@ -17,13 +17,17 @@
                   >JUDUL PENGADUAN</label
                 >
                 <input
-                  class="form-control mb-3"
+                  class="form-control"
                   type="text"
                   v-model="model.title"
                   placeholder="Masukan Judul Pengaduan"
+                  :class="{ 'is-invalid': errors.title }"
                 />
+                <div v-if="errors.title" class="invalid-feedback">
+                  Judul Pengaduan harus diisi!
+                </div>
               </div>
-              <div class="mb-3">
+              <div class="mt-3">
                 <label class="form-label">DESKRIPSI</label>
                 <textarea
                   class="form-control"
@@ -31,10 +35,14 @@
                   rows="3"
                   placeholder="Jelaskan Tentang Pengaduan Kamu"
                   v-model="model.body"
+                  :class="{ 'is-invalid': errors.body }"
                 ></textarea>
+                <div v-if="errors.body" class="invalid-feedback">
+                  Deskripsi harus diisi!
+                </div>
               </div>
-              <div class="mb-3">
-                <label class="form-label">SARAN DAN SOLUSI</label>
+              <div class="mt-3">
+                <label class="form-label">SARAN DAN SOLUSI (Opsional)</label>
                 <textarea
                   class="form-control"
                   id="exampleFormControlTextarea1"
@@ -43,17 +51,24 @@
                   v-model="model.solution"
                 ></textarea>
               </div>
-              <div class="">
+              <div class="mt-3">
                 <label for="formFile" class="form-label">BUKTI PENGADUAN</label>
                 <input
                   @change="uploadFile"
                   class="form-control"
                   type="file"
+                  accept="image/*"
                   id="formFile"
                 />
+                <p
+                  v-if="errors.attachment && errors.attachmentMessage"
+                  class="text-danger"
+                >
+                  {{ errors.attachmentMessage }}
+                </p>
               </div>
             </div>
-            <div class="row mb-3">
+            <div class="row mt-3">
               <div class="col-md-6">
                 <label for="example-text-input" class="form-control-label"
                   >LATITUDE
@@ -77,7 +92,7 @@
                 />
               </div>
             </div>
-            <div class="row mb-3 p-3">
+            <div class="row mt-3 p-3">
               <LeafletMap
                 v-model:lattitude="model.lattitude"
                 v-model:longitude="model.longitude"
@@ -109,10 +124,10 @@
 
 <script setup>
 /* eslint-disable */
+import { reactive, watch } from "vue";
 import LeafletMap from "@/components/LeafletMap.vue";
 import { useRouter } from "vue-router";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import { reactive } from "vue";
 import { createReports } from "../api.js";
 
 const router = useRouter();
@@ -127,15 +142,66 @@ const model = reactive({
   longitude: null,
 });
 
+const errors = reactive({
+  title: false,
+  body: false,
+  attachment: false,
+});
+
+const validateForm = (newModel) => {
+  if (newModel.title != null) {
+    if (newModel.title?.length > 0) errors.title = false;
+    else errors.title = true;
+  }
+  if (newModel.body != null) {
+    if (newModel.body?.length > 0) errors.body = false;
+    else errors.body = true;
+  }
+  if (newModel.attachment != null) {
+    if (isImageFile(model.attachment)) errors.attachment = false;
+    else errors.attachment = true;
+  }
+  // errors.title = !model.title;
+  // errors.body = !model.body;
+  // errors.attachment = !model.attachment || !isImageFile(model.attachment);
+};
+
 function uploadFile(e) {
   console.log("Gambar", e.target.files[0]);
-  model.attachment = e.target.files[0];
+  const file = e.target.files[0];
+
+  // Reset pesan error
+  errors.attachmentMessage = null;
+
+  if (!file) {
+    errors.attachment = true;
+    errors.attachmentMessage = "Tolong Sertakan Bukti Pengaduan!";
+    return;
+  }
+
+  if (!isImageFile(file)) {
+    errors.attachment = true;
+    errors.attachmentMessage =
+      "Format file yang didukung: JPG, JPEG, PNG, WEBP, HEIC";
+  } else {
+    errors.attachment = false;
+  }
+
+  // Lanjutkan logika upload atau validasi lainnya jika diperlukan
+}
+
+watch(model, validateForm, { deep: true });
+
+function isImageFile(file) {
+  const allowedExtensions = ["jpg", "jpeg", "png", "webp", "heic"];
+  const extension = file.name.split(".").pop().toLowerCase();
+  return allowedExtensions.includes(extension);
 }
 
 const tambahPengaduan = async () => {
   // Validasi
-  if (!model.title || !model.body) {
-    // || !model.category
+  validateForm();
+  if (Object.values(errors).some((error) => error)) {
     // Handle kesalahan validasi
     console.error("Harap isi semua kolom yang diperlukan");
     return;
