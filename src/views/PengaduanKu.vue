@@ -48,7 +48,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="row in dataTable" :key="row">
+                  <tr
+                    v-for="(row, i) in dataTable"
+                    :key="row"
+                    data-aos="fade-in"
+                    data-aos-once="true"
+                    :data-aos-delay="i * 100"
+                  >
                     <td>
                       <div class="d-flex p-2 ps-3">
                         <div class="d-flex flex-column justify-content-center">

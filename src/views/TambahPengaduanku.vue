@@ -16,12 +16,14 @@
                 <label for="example-text-input" class="form-control-label"
                   >JUDUL PENGADUAN</label
                 >
-                <input
-                  class="form-control"
+                <Input
                   type="text"
                   v-model="model.title"
+                  v-model:errorList="errors"
+                  name="title"
                   placeholder="Masukan Judul Pengaduan"
                   :class="{ 'is-invalid': errors.title }"
+                  :isRequired="true"
                 />
                 <div v-if="errors.title" class="invalid-feedback">
                   Judul Pengaduan harus diisi!
@@ -29,14 +31,16 @@
               </div>
               <div class="mt-3">
                 <label class="form-label">DESKRIPSI</label>
-                <textarea
+                <Textarea
                   class="form-control"
-                  id="exampleFormControlTextarea1"
+                  name="body"
                   rows="3"
                   placeholder="Jelaskan Tentang Pengaduan Kamu"
                   v-model="model.body"
+                  v-model:errorList="errors"
                   :class="{ 'is-invalid': errors.body }"
-                ></textarea>
+                  :isRequired="true"
+                />
                 <div v-if="errors.body" class="invalid-feedback">
                   Deskripsi harus diisi!
                 </div>
@@ -132,12 +136,14 @@
 
 <script setup>
 /* eslint-disable */
-import { reactive, watch, computed } from "vue";
+import { reactive, computed } from "vue";
 import LeafletMap from "@/components/LeafletMap.vue";
 import { useRouter } from "vue-router";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { createReports } from "../api.js";
 import Swal from "sweetalert2";
+import Input from "@/components/Input.vue";
+import Textarea from "@/components/Textarea.vue";
 
 const router = useRouter();
 
@@ -152,25 +158,34 @@ const model = reactive({
 });
 
 const errors = reactive({
-  title: null,
-  body: null,
-  attachment: null,
+  title: false,
+  body: false,
+  attachment: false,
 });
 
-const validateForm = (newModel) => {
-  // console.log(newModel);
+const validateForm = () => {
+  let errs = Object.keys(errors);
+  let isError = false;
+  errs.map((err) => {
+    Object.keys(model).map((m) => {
+      if (model[m] == null) {
+        errors[m] = true;
+        isError = true;
+      } else {
+        isError = false;
+      }
+    });
+  });
 
-  if (newModel.title?.length > 0) errors.title = false;
-  else errors.title = true;
-
-  if (newModel.body?.length > 0) errors.body = false;
-  else errors.body = true;
-
+  console.log(isError);
   if (isImageFile(model.attachment)) errors.attachment = false;
-  else errors.attachment = true;
-  // errors.title = !model.title;
-  // errors.body = !model.body;
-  // errors.attachment = !model.attachment || !isImageFile(model.attachment);
+  else {
+    errors.attachment = true;
+    errors.attachmentMessage = "Tolong Sertakan Bukti Pengaduan!";
+  }
+
+  if (!isError && isImageFile(model.attachment)) return true;
+  return false;
 };
 const previewImage = computed(() => {
   return URL.createObjectURL(model.attachment);
@@ -201,22 +216,14 @@ function uploadFile(e) {
   console.log(e.target.files);
 }
 
-watch(model, validateForm, { deep: true });
-
 function isImageFile(file) {
   const allowedExtensions = ["jpg", "jpeg", "png", "webp", "heic"];
-  const extension = file.name.split(".").pop().toLowerCase();
+  const extension = file?.name.split(".").pop().toLowerCase();
   return allowedExtensions.includes(extension);
 }
 
 const tambahPengaduan = async () => {
-  // Validasi
-  validateForm(model);
-  if (Object.values(errors).some((error) => error || error == null)) {
-    // Handle kesalahan validasi
-    console.error("Harap isi semua kolom yang diperlukan");
-    return;
-  }
+  if (!validateForm()) return;
 
   try {
     // Panggil fungsi createReports untuk menambahkan pengaduan
