@@ -66,9 +66,16 @@
                 >
                   {{ errors.attachmentMessage }}
                 </p>
+                <img
+                  class="mt-3"
+                  v-if="model.attachment"
+                  :src="previewImage"
+                  height="400px"
+                  alt=""
+                />
               </div>
             </div>
-            <div class="row mt-3">
+            <div class="row">
               <div class="col-md-6">
                 <label for="example-text-input" class="form-control-label"
                   >LATITUDE
@@ -112,6 +119,7 @@
                 Kembali
               </button>
               <button @click="tambahPengaduan" class="btn btn-success">
+                <i class="fa fa-plus" aria-hidden="true"></i>
                 Tambah
               </button>
             </div>
@@ -124,11 +132,12 @@
 
 <script setup>
 /* eslint-disable */
-import { reactive, watch } from "vue";
+import { reactive, watch, computed } from "vue";
 import LeafletMap from "@/components/LeafletMap.vue";
 import { useRouter } from "vue-router";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { createReports } from "../api.js";
+import Swal from "sweetalert2";
 
 const router = useRouter();
 
@@ -143,28 +152,29 @@ const model = reactive({
 });
 
 const errors = reactive({
-  title: false,
-  body: false,
-  attachment: false,
+  title: null,
+  body: null,
+  attachment: null,
 });
 
 const validateForm = (newModel) => {
-  if (newModel.title != null) {
-    if (newModel.title?.length > 0) errors.title = false;
-    else errors.title = true;
-  }
-  if (newModel.body != null) {
-    if (newModel.body?.length > 0) errors.body = false;
-    else errors.body = true;
-  }
-  if (newModel.attachment != null) {
-    if (isImageFile(model.attachment)) errors.attachment = false;
-    else errors.attachment = true;
-  }
+  // console.log(newModel);
+
+  if (newModel.title?.length > 0) errors.title = false;
+  else errors.title = true;
+
+  if (newModel.body?.length > 0) errors.body = false;
+  else errors.body = true;
+
+  if (isImageFile(model.attachment)) errors.attachment = false;
+  else errors.attachment = true;
   // errors.title = !model.title;
   // errors.body = !model.body;
   // errors.attachment = !model.attachment || !isImageFile(model.attachment);
 };
+const previewImage = computed(() => {
+  return URL.createObjectURL(model.attachment);
+});
 
 function uploadFile(e) {
   console.log("Gambar", e.target.files[0]);
@@ -176,6 +186,7 @@ function uploadFile(e) {
   if (!file) {
     errors.attachment = true;
     errors.attachmentMessage = "Tolong Sertakan Bukti Pengaduan!";
+    model.attachment = null;
     return;
   }
 
@@ -186,8 +197,8 @@ function uploadFile(e) {
   } else {
     errors.attachment = false;
   }
-
-  // Lanjutkan logika upload atau validasi lainnya jika diperlukan
+  model.attachment = e.target.files[0];
+  console.log(e.target.files);
 }
 
 watch(model, validateForm, { deep: true });
@@ -200,31 +211,25 @@ function isImageFile(file) {
 
 const tambahPengaduan = async () => {
   // Validasi
-  validateForm();
-  if (Object.values(errors).some((error) => error)) {
+  validateForm(model);
+  if (Object.values(errors).some((error) => error || error == null)) {
     // Handle kesalahan validasi
     console.error("Harap isi semua kolom yang diperlukan");
     return;
   }
 
-  // Persiapan data untuk dikirim ke API
-  const dataPengaduan = {
-    title: model.title,
-    body: model.body,
-    solution: model.solution,
-    category: model.category,
-    longitude: model.longitude,
-    lattitude: model.lattitude,
-    attachment: model.attachment,
-  };
-
   try {
     // Panggil fungsi createReports untuk menambahkan pengaduan
-    const response = await createReports(dataPengaduan);
+    const response = await createReports(model);
     console.log(response);
     // Handle respon dari backend
     if (response.success === "OK") {
       console.log("Pengaduan berhasil ditambahkan");
+      Swal.fire({
+        title: "Hore!",
+        text: "Berhasil Menambahkan Laporan!",
+        icon: "success",
+      });
       // Redirect ke halaman Pengaduanku setelah berhasil menambahkan
       router.push({ name: "Pengaduanku" });
     } else {

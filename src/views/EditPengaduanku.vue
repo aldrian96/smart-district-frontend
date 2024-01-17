@@ -67,6 +67,7 @@
                   {{ errors.attachmentMessage }}
                 </p>
                 <img
+                  class="mt-3"
                   :src="
                     model.attachment
                       ? previewImage
@@ -122,7 +123,8 @@
                 Kembali
               </button>
               <button @click="updatePengaduan" class="btn btn-success">
-                Tambah
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                Update
               </button>
             </div>
           </div>
@@ -139,6 +141,7 @@ import LeafletMap from "@/components/LeafletMap.vue";
 import { useRouter, useRoute } from "vue-router";
 import { updateReports, GetDetailsHeadless } from "../api.js";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import Swal from "sweetalert2";
 
 const router = useRouter();
 const route = useRoute();
@@ -160,7 +163,7 @@ const errors = reactive({
 });
 
 const validateForm = (newModel) => {
-  console.log(newModel);
+  // console.log(newModel);
   if (newModel.title != null) {
     if (newModel.title?.length > 0) errors.title = false;
     else errors.title = true;
@@ -173,9 +176,6 @@ const validateForm = (newModel) => {
     if (isImageFile(model.attachment)) errors.attachment = false;
     else errors.attachment = true;
   }
-  // errors.title = !model.title;
-  // errors.body = !model.body;
-  // errors.attachment = !model.attachment || !isImageFile(model.attachment);
 };
 
 const previewImage = computed(() => {
@@ -231,6 +231,11 @@ const updatePengaduan = async () => {
     // Handle respon dari backend
     if (response.success === "OK") {
       console.log("Pengaduan berhasil ditambahkan");
+      Swal.fire({
+        title: "Hore!",
+        text: "Berhasil Mengubah Laporan!",
+        icon: "success",
+      });
       // Redirect ke halaman Pengaduanku setelah berhasil menambahkan
       router.push({ name: "Pengaduanku" });
     } else {
@@ -251,12 +256,6 @@ onMounted(async () => {
     model.attachment_path = response.attachment_path;
     model.lattitude = response.lattitude;
     model.longitude = response.longitude;
-    //   title: null,
-    // body: null,
-    // solution: null,
-    // attachment: null,
-    // lattitude: null,
-    // longitude: null,
   } else {
     router.back();
   }
