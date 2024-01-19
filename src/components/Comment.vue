@@ -1,7 +1,7 @@
 <!-- Comment.vue -->
 <template>
   <div class="d-flex flex-start tree_label">
-    <a class="me-3" href="#">
+    <div class="me-3">
       <img
         class="rounded-circle border border-secondary shadow-sm"
         :src="
@@ -12,17 +12,22 @@
         width="65"
         height="65"
       />
-    </a>
+    </div>
     <div class="flex-grow-1 flex-shrink-1">
       <div>
         <div
           class="d-flex justify-content-between align-items-center"
           id="to-hover"
         >
-          <p class="mb-1 font-weight-bold">
-            {{ author_name }}
-            <span class="small">- {{ formatDate(created_date) }}</span>
+          <p class="mb-1">
+            <b>{{ author_name + " " }}</b>
+            <span class="badge bg-primary" v-if="author_role == 'admin'">{{
+              author_role
+            }}</span>
+            <br />
+            <span class="small">{{ formatDate(created_date) }}</span>
           </p>
+
           <button
             class="btn btn-transparent shadow-none border-none w-100"
             :data-bs-toggle="'modal'"
@@ -44,6 +49,7 @@
                   v-bind:id="id"
                   v-bind:profile_picture_path="profile_picture_path"
                   v-bind:author_name="author_name"
+                  v-bind:author_role="author_role"
                   v-bind:created_date="created_date"
                   v-bind:body="body"
                   v-bind:report_id="report_id"
@@ -52,7 +58,7 @@
             </div>
           </div>
         </div>
-        <p class="small mb-0">
+        <p class="mb-2">
           {{ body }}
         </p>
       </div>
@@ -64,6 +70,7 @@
             v-bind:profile_picture_path="row.author.profile_picture_path"
             v-bind:author_name="row.author.name"
             v-bind:created_date="row.created_at"
+            v-bind:author_role="row.author.role"
             v-bind:body="row.body"
             v-bind:child="row.all_replies"
             v-bind:report_id="report_id"
@@ -105,6 +112,9 @@ export default {
     },
     report_id: {
       type: Number,
+    },
+    author_role: {
+      type: String,
     },
   },
   data: function () {

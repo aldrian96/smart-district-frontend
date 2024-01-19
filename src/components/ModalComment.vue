@@ -17,9 +17,13 @@
           </a>
           <div class="flex-grow-1 flex-shrink-1">
             <div class="d-flex justify-content-between align-items-center">
-              <p class="mb-1 font-weight-bold">
-                {{ author_name }}
-                <span class="small">- {{ formatDate(created_date) }}</span>
+              <p class="mb-1">
+                <b>{{ author_name + " " }}</b>
+                <span class="badge bg-primary" v-if="author_role == 'admin'">{{
+                  author_role
+                }}</span>
+                <br />
+                <span class="small">{{ formatDate(created_date) }}</span>
               </p>
             </div>
             <p class="small mb-0">
@@ -90,6 +94,9 @@ const props = defineProps({
   report_id: {
     type: Number,
   },
+  author_role: {
+    type: String
+  }
 });
 
 const formatDate = (date) => {
