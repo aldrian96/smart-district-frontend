@@ -174,7 +174,6 @@ export async function createReports(data) {
   }
 }
 
-
 export async function ProfileInfo() {
   try {
     const response = await axios.get("http://localhost:8000/api/profile/", {
@@ -187,5 +186,29 @@ export async function ProfileInfo() {
     return response.data.profile;
   } catch (error) {
     console.error("Error:", error);
+  }
+}
+
+export async function UpdateProfile(data) {
+  try {
+    const form = new FormData();
+    Object.keys(data).map((item) => {
+      form.append(item, data[item]);
+    });
+    const response = await axios.post(
+      `http://localhost:8000/api/profile/`,
+      form,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
   }
 }

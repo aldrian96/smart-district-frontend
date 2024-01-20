@@ -13,7 +13,9 @@
           <div class="row gx-4">
             <div class="col-auto">
               <div class="avatar avatar-xl position-relative">
-                <img src="../assets/img/team-1.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" />
+                <!-- <img src="../assets/img/team-1.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" /> -->
+                <img :src="'http://localhost:8000/api/image?attachment_path=' +
+                  dataTable.profile_picture_path" alt="Profile Picture" />
               </div>
             </div>
             <div class="col-auto my-auto">
@@ -117,17 +119,19 @@
             <div class="card-body">
               <p class="text-uppercase text-sm">Informasi Pengguna</p>
               <div class="row">
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <label for="example-text-input" class="form-control-label">Nama Pengguna</label>
                   <argon-input type="text" :value="dataTable.username" />
-                </div>
-                <div class="col-md-6">
+                </div> -->
+                <div class="col-md-12">
                   <label for="example-text-input" class="form-control-label">Alamat Email</label>
-                  <argon-input type="email" :value="dataTable.email" />
+                  <!-- <argon-input type="email" v-model="email" @input="handleInput" :value="dataTable.email" /> -->
+                  <input class="form-control" type="text" v-model="dataTable.email" />
                 </div>
                 <div class="col-md-12">
                   <label for="example-text-input" class="form-control-label">Nama</label>
-                  <argon-input type="text" :value="dataTable.name" />
+                  <!-- <argon-input type="text" v-model="name" @input="handleInput" :value="dataTable.name" /> -->
+                  <input class="form-control" type="text" v-model="dataTable.name" />
                 </div>
                 <!-- <div class="col-md-6">
                   <label for="example-text-input" class="form-control-label">Last name</label>
@@ -139,7 +143,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <label for="example-text-input" class="form-control-label">Alamat</label>
-                  <argon-input type="text" :value="dataTable.address" />
+                  <!-- <argon-input type="text" v-model="address" @input="handleInput" :value="dataTable.address" /> -->
+                  <input class="form-control" type="text" v-model="dataTable.address" @input="handleInput" />
                 </div>
                 <!-- <div class="col-md-4">
                   <label for="example-text-input" class="form-control-label">City</label>
@@ -154,8 +159,10 @@
                   <argon-input type="text" value="437300" />
                 </div> -->
               </div>
-              <div class="d-flex align-items-center">
-                <argon-button color="success" size="sm" class="ms-auto">Simpan</argon-button>
+              <div class="my-3 d-flex align-items-center">
+                <button @click="updateProfile" class="btn btn-success sm ms-auto">
+                  Simpan
+                </button>
               </div>
             </div>
           </div>
@@ -168,20 +175,24 @@
   </main>
 </template>
 
-<script>
-
-import ArgonInput from "@/components/ArgonInput.vue";
-import ArgonButton from "@/components/ArgonButton.vue";
-import { ref, onMounted } from "vue";
-import { ProfileInfo } from "../api.js";
+<!-- <script>
+// import ArgonInput from "@/components/ArgonInput.vue";
+import { onMounted, reactive } from "vue";
+import { ProfileInfo, UpdateProfile } from "../api.js";
+import Swal from "sweetalert2";
 
 export default {
   name: "profile",
-  components: { ArgonButton, ArgonInput },
+  // components: { ArgonInput },
+
+  // create array object to get data from form vmodel
 
   setup() {
-    const dataTable = ref([]);
-
+    const dataTable = reactive({
+      email: '',
+      name: '',
+      address: '',
+    });
     onMounted(async () => {
       dataTable.value = await ProfileInfo();
       console.log(dataTable.value);
@@ -190,47 +201,92 @@ export default {
     return { dataTable };
   },
 
-  mounted() {
-    this.$store.state.isAbsolute = true;
-  },
-};
-</script>
+  methods: {
+    async updateProfile() {
 
-<!-- <script>
-/* eslint-disable */
+      try {
 
-import ArgonInput from "@/components/ArgonInput.vue";
-import ArgonButton from "@/components/ArgonButton.vue";
-import { ProfileInfo } from "../api.js";
-import { ref } from "vue";
+        const response = await UpdateProfile();
+        console.log(response);
 
-export default {
-  name: "profile",
-  data() {
-    return {
-      showMenu: false
-    };
-  },
-  components: { ArgonButton , ArgonInput},
 
-  mounted() {
-    this.$store.state.isAbsolute = true;
+        if (response.success === "OK") {
+          console.log("Profile berhasil diubah");
+          Swal.fire({
+            title: "Hore!",
+            text: "Berhasil Mengubah Profile!",
+            icon: "success",
+          });
+
+          this.$router.push({ name: "Profile" });
+        } else {
+          console.error("Gagal mengedit profile", response);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    },
+    handleInput(event) {
+      console.log(event.target.value);
+      console.log("email", this.dataTable.email);
+      console.log("alamat", this.dataTable.address);
+      console.log("nama", this.dataTable.name);
+    },
   },
-  beforeMount() {
-    this.$store.state.imageLayout = "profile-overview";
-    this.$store.state.showNavbar = true;
-    this.$store.state.showFooter = true;
-    this.$store.state.hideConfigButton = true;
-    body.classList.add("profile-overview");
-  },
-  beforeUnmount() {
-    this.$store.state.isAbsolute = true;
-    this.$store.state.imageLayout = "default";
-    this.$store.state.showNavbar = true;
-    this.$store.state.showFooter = true;
-    this.$store.state.hideConfigButton = false;
-    body.classList.remove("profile-overview");
-  }
 };
 </script> -->
 
+
+<script setup>
+/* eslint-disable */
+import { onMounted, reactive } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { ProfileInfo, UpdateProfile } from "../api.js";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import Swal from "sweetalert2";
+
+
+const router = useRouter();
+const route = useRoute();
+
+const dataTable = reactive({
+  email: '',
+  name: '',
+  address: '',
+  username: '',
+  profile_picture_path:'',
+});
+
+const updateProfile = async () => {
+  try {
+    const response = await UpdateProfile(dataTable);
+
+    if (response.success === "OK") {
+      console.log("Profile berhasil diubah");
+      Swal.fire({
+        title: "Hore!",
+        text: "Berhasil Mengubah Profile!",
+        icon: "success",
+      });
+
+      this.$router.push({ name: "Profile" });
+    } else {
+      console.error("Gagal mengedit profile", response);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+onMounted(async () => {
+  let response = await ProfileInfo(dataTable);
+  dataTable.email = response.email;
+  dataTable.name = response.name;
+  dataTable.address = response.address;
+  dataTable.profile_picture_path = response.profile_picture_path;
+  dataTable.username = response.username;
+  dataTable.role = response.role;
+});
+
+
+</script>
