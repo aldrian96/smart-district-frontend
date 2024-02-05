@@ -173,6 +173,7 @@ export async function createReports(data) {
     throw error;
   }
 }
+
 export async function createComment(data) {
   try {
     const form = new FormData();
@@ -196,5 +197,72 @@ export async function createComment(data) {
   } catch (error) {
     console.error("Error:", error);
     throw error;
+  }
+}
+
+// Update
+export async function updateReports(id, data) {
+  try {
+    const form = new FormData();
+    Object.keys(data).map((item) => {
+      if (item == "attachment" && !data[item]) {
+        return;
+      }
+      form.append(item, data[item]);
+    });
+    const response = await axios.post(
+      `http://localhost:8000/api/reports/${id}`,
+      form,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
+export async function ProfileInfo() {
+  try {
+    const response = await axios.get("http://localhost:8000/api/profile/", {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem(
+          "smartdistrict-token"
+        )}`,
+      },
+    });
+    return response.data.profile;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+export async function UpdateProfile(data) {
+  try {
+    const form = new FormData();
+    Object.keys(data).map((item) => {
+      form.append(item, data[item]);
+    });
+    const response = await axios.post(
+      `http://localhost:8000/api/profile/`,
+      form,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
   }
 }
