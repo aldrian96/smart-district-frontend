@@ -152,7 +152,7 @@ export default {
         if (result) {
           console.log("Berhasil");
 
-          this.$router.push("/dashboard");
+          this.$router.push("/");
         } else {
           console.log("Error");
           this.loginFailed = true;

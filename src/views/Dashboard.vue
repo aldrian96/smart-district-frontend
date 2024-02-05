@@ -53,7 +53,7 @@
           <!-- <div class="col-lg-7 mb-lg"> -->
           <!-- line chart -->
           <div class="card z-index-2">
-            <gradient-line-chart />
+            <!-- <gradient-line-chart /> -->
             <!-- </div> -->
           </div>
           <!-- <div class="col-lg-5">
@@ -135,26 +135,26 @@ export default {
       stats: {
         money: {
           title: "Jumlah Pengaduan",
-          value: "325",
+          value: "9",
           iconClass: "ni ni-bullet-list-67",
           iconBackground: "bg-gradient-primary",
         },
         users: {
           title: "Pengaduan Selesai",
-          value: "112",
+          value: "2",
           iconClass: "ni ni-check-bold",
           iconBackground: "bg-gradient-success",
         },
         clients: {
           title: "Pengaduan Diproses",
-          value: "150",
+          value: "3",
           iconClass: "ni ni-archive-2",
           percentageColor: "text-danger",
           iconBackground: "bg-gradient-warning",
         },
         sales: {
-          title: "Pengaduan Ditolak",
-          value: "62",
+          title: "Belum Diproses",
+          value: "3",
           iconClass: "ni ni-fat-remove",
           iconBackground: "bg-gradient-danger",
         },

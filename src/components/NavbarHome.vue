@@ -82,7 +82,7 @@ const props = defineProps({
             <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end">
               <li class="nav-item">
                 <router-link to="/dashboard" class="nav-link">
-                  <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                  <i class="fas fa-tachometer-alt me-1"></i> Beranda
                 </router-link>
               </li>
               <li class="nav-item">
