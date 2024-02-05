@@ -7,7 +7,7 @@
             <img
               class="rounded-circle border border-secondary shadow-sm"
               :src="
-                'http://localhost:8000/api/image?attachment_path=' +
+                'https://api-smartdistrict.luthordev.com/api/image?attachment_path=' +
                 profile_picture_path
               "
               alt="avatar"
@@ -59,6 +59,8 @@
 </template>
 
 <script setup>
+/* eslint-disable */
+
 import moment from "moment";
 import { createComment } from "../api.js";
 import { defineProps } from "vue";
@@ -93,8 +95,8 @@ const props = defineProps({
     type: Number,
   },
   author_role: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 const formatDate = (date) => {

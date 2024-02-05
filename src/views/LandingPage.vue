@@ -94,6 +94,7 @@ onMounted(async () => {
 }
 .pengaduan {
   transition: 0.2s;
+  font-family: "Roboto", sans-serif; /* Ganti dengan nama font Mona Sans yang benar */
 }
 
 .pengaduan:hover {

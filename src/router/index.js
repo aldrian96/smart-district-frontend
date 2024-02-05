@@ -8,6 +8,8 @@ import Signin from "../views/Signin.vue";
 import PengaduanKu from "../views/PengaduanKu.vue";
 import TambahPengaduanku from "../views/TambahPengaduanku.vue";
 import EditPengaduanku from "../views/EditPengaduanku.vue";
+import hapusPengaduanku from "../views/hapusPengaduanku.vue";
+import editAdmin from "../views/editAdmin.vue";
 import DetailPengaduan from "../views/DetailPengaduan.vue";
 import DetailPengaduanku from "../views/DetailPengaduanku.vue";
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
@@ -64,6 +66,15 @@ const routes = [
           role: "admin,superadmin",
         },
       },
+      {
+        path: "pengaduan/edit/:id",
+        name: "editAdmin",
+        component: editAdmin,
+        meta: {
+          requiredAuth: true,
+          role: "admin,superadmin",
+        },
+      },
 
       {
         path: "pengaduanku",
@@ -84,9 +95,18 @@ const routes = [
         },
       },
       {
-        path: "pengaduanku/edit",
-        name: "Edit",
+        path: "pengaduanku/edit/:id",
+        name: "editPengaduanku",
         component: EditPengaduanku,
+        meta: {
+          requiredAuth: true,
+          role: "user,superadmin",
+        },
+      },
+      {
+        path: "pengaduanku/edit/:id",
+        name: "hapusPengaduanku",
+        component: hapusPengaduanku,
         meta: {
           requiredAuth: true,
           role: "user,superadmin",
@@ -149,12 +169,6 @@ router.beforeEach((to, from, next) => {
     else return next();
   }
 
-  // if (to?.meta?.requiredAuth) {
-  //   if (token && user_info)
-  //     if (to?.meta?.role.split(",").includes(user_info?.role)) next();
-  //     else next(from);
-  //   else next({ name: "Signin" });
-  // } else next();
   if (to?.meta?.requiredAuth) {
     if (token && user_info) {
       if (to?.meta?.role.split(",").includes(user_info?.role)) {

@@ -13,14 +13,20 @@
                 'bg-gradient-info': data?.priority == 'low',
                 'bg-gradient-warning': data?.priority == 'medium',
                 'bg-gradient-danger': data?.priority == 'high',
+                'bg-gradient-secondary': data?.priority == 'unknown',
               }"
-              >{{ data?.priority }}</span
+              >{{
+                data?.priority == "unknown"
+                  ? "Menunggu Konfirmasi"
+                  : data?.priority
+              }}</span
             >
             <span
               class="badge ms-2"
               :class="{
                 'bg-gradient-success': data?.status == 'Selesai',
                 'bg-gradient-warning': data?.status == 'Sedang di Proses',
+                'bg-gradient-secondary': data?.status == 'Belum di Proses',
               }"
               >{{ data?.status }}</span
             >
@@ -67,12 +73,12 @@
               }}
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-2 d-flex justify-content-between">
               <b>Kategori</b> :
             </div>
             <div class="col">{{ data?.category }}</div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col-2 d-flex justify-content-between">
               <b>Keterangan</b> :
@@ -97,7 +103,7 @@
           <center>
             <img
               :src="
-                'http://localhost:8000/api/image?attachment_path=' +
+                'https://api-smartdistrict.luthordev.com/api/image?attachment_path=' +
                 data?.attachment_path
               "
               height="400px"

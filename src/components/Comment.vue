@@ -5,7 +5,7 @@
       <img
         class="rounded-circle border border-secondary shadow-sm"
         :src="
-          'http://localhost:8000/api/image?attachment_path=' +
+          'https://api-smartdistrict.luthordev.com/api/image?attachment_path=' +
           profile_picture_path
         "
         alt="avatar"

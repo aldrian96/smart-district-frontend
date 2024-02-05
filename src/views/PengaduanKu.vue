@@ -48,7 +48,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="row in dataTable" :key="row">
+                  <tr
+                    v-for="(row, i) in dataTable"
+                    :key="row"
+                    data-aos="fade-in"
+                    data-aos-once="true"
+                    :data-aos-delay="i * 100"
+                  >
                     <td>
                       <div class="d-flex p-2 ps-3">
                         <div class="d-flex flex-column justify-content-center">
@@ -104,7 +110,12 @@
                       <div class="d-flex justify-content-center">
                         <div class="me-2">
                           <button
-                            @click="router.push({ path: 'pengaduanku/edit' })"
+                            @click="
+                              router.push({
+                                name: 'editPengaduanku',
+                                params: { id: row.id },
+                              })
+                            "
                             class="btn btn-warning mb-0 text-xs"
                             data-toggle="tooltip"
                             data-original-title="Detail user"
@@ -132,11 +143,15 @@
                             Detail
                           </button>
                         </div>
+
                         <div>
                           <button
                             class="btn btn-danger mb-0 text-xs"
                             data-toggle="tooltip"
                             data-original-title="Detail user"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            @click="deletePengaduan(row.id)"
                           >
                             <i class="fa fa-trash" aria-hidden="true"></i>
                             Delete
@@ -165,6 +180,8 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { GetReportsByUser, GetReports } from "../api.js";
+import { deleteReports, GetDetailsHeadless } from "../api.js";
+import Swal from "sweetalert2";
 
 const router = useRouter();
 
@@ -174,7 +191,28 @@ const dataTable = ref([]);
 const truncateText = (text, maxLength) => {
   return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
 };
-
+const deletePengaduan = async (id) => {
+  try {
+    // Panggil fungsi updateReports untuk menambahkan pengaduan
+    const response = await deleteReports(id);
+    console.log(response);
+    // Handle respon dari backend
+    if (response.success === "OK") {
+      console.log("Pengaduan berhasil ditambahkan");
+      Swal.fire({
+        title: "Hore!",
+        text: "Berhasil Menghapus Laporan!",
+        icon: "success",
+      });
+      // Redirect ke halaman Pengaduanku setelah berhasil menambahkan
+      router.go();
+    } else {
+      console.error("Gagal Menghapus pengaduan", response);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 onMounted(async () => {
   dataTable.value = await GetReportsByUser();
   console.log(dataTable.value);

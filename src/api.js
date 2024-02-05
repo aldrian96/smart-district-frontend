@@ -4,13 +4,16 @@ import axios from "axios";
 // Pengaduan
 export async function GetReports() {
   try {
-    const response = await axios.get("http://localhost:8000/api/reports", {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem(
-          "smartdistrict-token"
-        )}`,
-      },
-    });
+    const response = await axios.get(
+      "https://api-smartdistrict.luthordev.com/api/reports",
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
     return response.data.results;
   } catch (error) {
     console.error("Error:", error);
@@ -20,7 +23,9 @@ export async function GetReports() {
 
 export async function GetAllReport() {
   try {
-    const response = await axios.get("http://localhost:8000/api/reports-all");
+    const response = await axios.get(
+      "https://api-smartdistrict.luthordev.com/api/reports-all"
+    );
     return response.data.results;
   } catch (error) {
     console.error("Error:", error);
@@ -31,7 +36,7 @@ export async function GetAllReport() {
 export async function GetDetailsHeadless(id) {
   try {
     const response = await axios.get(
-      `http://localhost:8000/api/reports-all/${id}`
+      `https://api-smartdistrict.luthordev.com/api/reports-all/${id}`
     );
     return response.data.results;
   } catch (error) {
@@ -50,7 +55,7 @@ export async function GetReportsByUser() {
 
     // Fetch reports based on the logged-in user's ID
     const response = await axios.get(
-      `http://localhost:8000/api/reports/user/`, //${userId}
+      `https://api-smartdistrict.luthordev.com/api/reports/user/`, //${userId}
       {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem(
@@ -71,7 +76,7 @@ export async function GetReportsByUser() {
 export async function GetReportsDetailById(id) {
   try {
     const response = await axios.get(
-      `http://localhost:8000/api/reports/${id}`,
+      `https://api-smartdistrict.luthordev.com/api/reports/${id}`,
       {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem(
@@ -90,10 +95,13 @@ export async function GetReportsDetailById(id) {
 // Login
 export async function Login(email, password) {
   try {
-    const response = await axios.post("http://localhost:8000/api/auth/login", {
-      email,
-      password,
-    });
+    const response = await axios.post(
+      "https://api-smartdistrict.luthordev.com/api/auth/login",
+      {
+        email,
+        password,
+      }
+    );
     sessionStorage.setItem("smartdistrict-token", response.data.token);
     sessionStorage.setItem(
       "smartdistrict-userinfo",
@@ -110,13 +118,17 @@ export async function Login(email, password) {
 export async function Logout() {
   try {
     // Panggil endpoint logout pada server
-    await axios.post("http://localhost:8000/api/auth/logout", null, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem(
-          "smartdistrict-token"
-        )}`,
-      },
-    });
+    await axios.post(
+      "https://api-smartdistrict.luthordev.com/api/auth/logout",
+      null,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
 
     // Hapus token autentikasi dari sessionStorage
     sessionStorage.removeItem("smartdistrict-token");
@@ -132,7 +144,7 @@ export async function Logout() {
 export async function Register(email, password, name, role) {
   try {
     const response = await axios.post(
-      "http://localhost:8000/api/auth/register",
+      "https://api-smartdistrict.luthordev.com/api/auth/register",
       {
         email,
         password,
@@ -155,7 +167,7 @@ export async function createReports(data) {
       form.append(item, data[item]);
     });
     const response = await axios.post(
-      "http://localhost:8000/api/reports",
+      "https://api-smartdistrict.luthordev.com/api/reports",
       form,
       {
         headers: {
@@ -181,7 +193,7 @@ export async function createComment(data) {
       form.append(item, data[item]);
     });
     const response = await axios.post(
-      "http://localhost:8000/api/comments",
+      "https://api-smartdistrict.luthordev.com/api/comments",
       form,
       {
         headers: {
@@ -211,7 +223,7 @@ export async function updateReports(id, data) {
       form.append(item, data[item]);
     });
     const response = await axios.post(
-      `http://localhost:8000/api/reports/${id}`,
+      `https://api-smartdistrict.luthordev.com/api/reports/${id}`,
       form,
       {
         headers: {
@@ -230,13 +242,16 @@ export async function updateReports(id, data) {
 
 export async function ProfileInfo() {
   try {
-    const response = await axios.get("http://localhost:8000/api/profile/", {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem(
-          "smartdistrict-token"
-        )}`,
-      },
-    });
+    const response = await axios.get(
+      "https://api-smartdistrict.luthordev.com/api/profile/",
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
     return response.data.profile;
   } catch (error) {
     console.error("Error:", error);
@@ -250,8 +265,27 @@ export async function UpdateProfile(data) {
       form.append(item, data[item]);
     });
     const response = await axios.post(
-      `http://localhost:8000/api/profile/`,
+      `https://api-smartdistrict.luthordev.com/api/profile/`,
       form,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
+export async function deleteReports(id) {
+  try {
+    const response = await axios.delete(
+      `https://api-smartdistrict.luthordev.com/api/reports/${id}`,
       {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem(

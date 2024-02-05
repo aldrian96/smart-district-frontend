@@ -1,11 +1,14 @@
 <template>
   <main>
     <div class="container-fluid">
-      <div class="page-header min-height-300" style="
+      <div
+        class="page-header min-height-300"
+        style="
           background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
           margin-right: -24px;
           margin-left: -34%;
-        ">
+        "
+      >
         <span class="mask bg-gradient-success opacity-6"></span>
       </div>
       <div class="card shadow-lg mt-n6">
@@ -14,14 +17,21 @@
             <div class="col-auto">
               <div class="avatar avatar-xl position-relative">
                 <!-- <img src="../assets/img/team-1.jpg" alt="profile_image" class="shadow-sm w-100 border-radius-lg" /> -->
-                <img :src="'http://localhost:8000/api/image?attachment_path=' +
-                  dataTable.profile_picture_path" alt="Profile Picture" />
+                <img
+                  :src="
+                    'https://api-smartdistrict.luthordev.com/api/image?attachment_path=' +
+                    dataTable.profile_picture_path
+                  "
+                  alt="Profile Picture"
+                />
               </div>
             </div>
             <div class="col-auto my-auto">
               <div class="h-100">
                 <h5 class="mb-1">{{ dataTable.name }}</h5>
-                <p class="mb-0 font-weight-bold text-sm">{{ dataTable.role }}</p>
+                <p class="mb-0 font-weight-bold text-sm">
+                  {{ dataTable.role }}
+                </p>
               </div>
             </div>
             <!-- <div class="mx-auto mt-3 col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0">
@@ -124,14 +134,26 @@
                   <argon-input type="text" :value="dataTable.username" />
                 </div> -->
                 <div class="col-md-12">
-                  <label for="example-text-input" class="form-control-label">Alamat Email</label>
+                  <label for="example-text-input" class="form-control-label"
+                    >Alamat Email</label
+                  >
                   <!-- <argon-input type="email" v-model="email" @input="handleInput" :value="dataTable.email" /> -->
-                  <input class="form-control" type="text" v-model="dataTable.email" />
+                  <input
+                    class="form-control"
+                    type="text"
+                    v-model="dataTable.email"
+                  />
                 </div>
                 <div class="col-md-12">
-                  <label for="example-text-input" class="form-control-label">Nama</label>
+                  <label for="example-text-input" class="form-control-label"
+                    >Nama</label
+                  >
                   <!-- <argon-input type="text" v-model="name" @input="handleInput" :value="dataTable.name" /> -->
-                  <input class="form-control" type="text" v-model="dataTable.name" />
+                  <input
+                    class="form-control"
+                    type="text"
+                    v-model="dataTable.name"
+                  />
                 </div>
                 <!-- <div class="col-md-6">
                   <label for="example-text-input" class="form-control-label">Last name</label>
@@ -142,9 +164,16 @@
               <p class="text-uppercase text-sm">Informasi Kontak</p>
               <div class="row">
                 <div class="col-md-12">
-                  <label for="example-text-input" class="form-control-label">Alamat</label>
+                  <label for="example-text-input" class="form-control-label"
+                    >Alamat</label
+                  >
                   <!-- <argon-input type="text" v-model="address" @input="handleInput" :value="dataTable.address" /> -->
-                  <input class="form-control" type="text" v-model="dataTable.address" @input="handleInput" />
+                  <input
+                    class="form-control"
+                    type="text"
+                    v-model="dataTable.address"
+                    @input="handleInput"
+                  />
                 </div>
                 <!-- <div class="col-md-4">
                   <label for="example-text-input" class="form-control-label">City</label>
@@ -160,7 +189,10 @@
                 </div> -->
               </div>
               <div class="my-3 d-flex align-items-center">
-                <button @click="updateProfile" class="btn btn-success sm ms-auto">
+                <button
+                  @click="updateProfile"
+                  class="btn btn-success sm ms-auto"
+                >
                   Simpan
                 </button>
               </div>
@@ -236,7 +268,6 @@ export default {
 };
 </script> -->
 
-
 <script setup>
 /* eslint-disable */
 import { onMounted, reactive } from "vue";
@@ -245,16 +276,15 @@ import { ProfileInfo, UpdateProfile } from "../api.js";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import Swal from "sweetalert2";
 
-
 const router = useRouter();
 const route = useRoute();
 
 const dataTable = reactive({
-  email: '',
-  name: '',
-  address: '',
-  username: '',
-  profile_picture_path:'',
+  email: "",
+  name: "",
+  address: "",
+  username: "",
+  profile_picture_path: "",
 });
 
 const updateProfile = async () => {
@@ -276,7 +306,7 @@ const updateProfile = async () => {
   } catch (error) {
     console.error("Error:", error);
   }
-}
+};
 
 onMounted(async () => {
   let response = await ProfileInfo(dataTable);
@@ -287,6 +317,4 @@ onMounted(async () => {
   dataTable.username = response.username;
   dataTable.role = response.role;
 });
-
-
 </script>

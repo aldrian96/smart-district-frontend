@@ -5,12 +5,43 @@
         <div class="card">
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
-              <p class="mb-0">Ubah Pengaduan</p>
+              <p class="mb-0">Ubah Pengaduan Admin</p>
               <hr />
             </div>
           </div>
+
           <div class="card-body">
             <!-- <p class="text-uppercase text-sm">Informasi Pengaduan</p> -->
+            <div class="row mb-3">
+              <div class="col-6">
+                <label for="">PRIORITAS</label>
+                {{ model.priority }}
+                <select
+                  v-model="model.priority"
+                  class="form-select"
+                  aria-label="Default select example"
+                >
+                  <option value="unknown">Menunggu Konfirmasi</option>
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <label>STATUS PENGADUAN</label>
+                {{ model.status }}
+
+                <select
+                  v-model="model.status"
+                  class="form-select"
+                  aria-label="Default select example"
+                >
+                  <option value="Selesai">Selesai</option>
+                  <option value="Sedang di Proses">Sedang di Proses</option>
+                  <option value="Belum di Proses">Belum di Proses</option>
+                </select>
+              </div>
+            </div>
             <div class="row mb-3">
               <div class="col-12">
                 <label for="example-text-input" class="form-control-label"
@@ -22,6 +53,7 @@
                   v-model="model.title"
                   placeholder="Masukan Judul Pengaduan"
                   :class="{ 'is-invalid': errors.title }"
+                  disabled
                 />
                 <div v-if="errors.title" class="invalid-feedback">
                   Judul Pengaduan harus diisi!
@@ -36,6 +68,7 @@
                   placeholder="Jelaskan Tentang Pengaduan Kamu"
                   v-model="model.body"
                   :class="{ 'is-invalid': errors.body }"
+                  disabled
                 ></textarea>
                 <div v-if="errors.body" class="invalid-feedback">
                   Deskripsi harus diisi!
@@ -49,6 +82,7 @@
                   rows="3"
                   placeholder="Jika Kamu Mempunyai Saran dan Solusi Bisa Tulis Disini Ya"
                   v-model="model.solution"
+                  disabled
                 ></textarea>
               </div>
               <div class="mt-3">
@@ -59,6 +93,7 @@
                   type="file"
                   accept="image/*"
                   id="formFile"
+                  disabled
                 />
                 <p
                   v-if="errors.attachment && errors.attachmentMessage"
@@ -107,7 +142,7 @@
               <LeafletMap
                 v-model:longitude="model.longitude"
                 v-model:lattitude="model.lattitude"
-                mode="edit"
+                mode="view"
               />
             </div>
 
@@ -154,6 +189,8 @@ const model = reactive({
   attachment: null,
   lattitude: null,
   longitude: null,
+  priority: null,
+  status: null,
 });
 
 const errors = reactive({
@@ -230,14 +267,14 @@ const updatePengaduan = async () => {
     console.log(response);
     // Handle respon dari backend
     if (response.success === "OK") {
-      console.log("Pengaduan berhasil ditambahkan");
+      //   console.log("Pengaduan berhasil diubah");
       Swal.fire({
         title: "Hore!",
         text: "Berhasil Mengubah Laporan!",
         icon: "success",
       });
       // Redirect ke halaman Pengaduanku setelah berhasil menambahkan
-      router.push({ name: "Pengaduanku" });
+      router.push({ name: "Pengaduan" });
     } else {
       console.error("Gagal menambahkan pengaduan", response);
     }
@@ -256,6 +293,8 @@ onMounted(async () => {
     model.attachment_path = response.attachment_path;
     model.lattitude = response.lattitude;
     model.longitude = response.longitude;
+    model.priority = response.priority;
+    model.status = response.status;
   } else {
     router.back();
   }
