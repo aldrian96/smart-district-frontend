@@ -139,7 +139,7 @@
 import { onMounted, reactive, watch, computed } from "vue";
 import LeafletMap from "@/components/LeafletMap.vue";
 import { useRouter, useRoute } from "vue-router";
-import { updateReports, GetDetailsHeadless } from "../api.js";
+import { deleteReports, GetDetailsHeadless } from "../api.js";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import Swal from "sweetalert2";
 
@@ -156,84 +156,17 @@ const model = reactive({
   longitude: null,
 });
 
-const errors = reactive({
-  title: false,
-  body: false,
-  attachment: false,
-});
-
-const validateForm = (newModel) => {
-  // console.log(newModel);
-  if (newModel.title != null) {
-    if (newModel.title?.length > 0) errors.title = false;
-    else errors.title = true;
-  }
-  if (newModel.body != null) {
-    if (newModel.body?.length > 0) errors.body = false;
-    else errors.body = true;
-  }
-  if (newModel.attachment != null) {
-    if (isImageFile(model.attachment)) errors.attachment = false;
-    else errors.attachment = true;
-  }
-};
-
-const previewImage = computed(() => {
-  return URL.createObjectURL(model.attachment);
-});
-
-function uploadFile(e) {
-  console.log("Gambar", e.target.files[0]);
-  const file = e.target.files[0];
-
-  // Reset pesan error
-  errors.attachmentMessage = null;
-
-  if (!file) {
-    errors.attachment = true;
-    errors.attachmentMessage = "Tolong Sertakan Bukti Pengaduan!";
-    return;
-  }
-
-  if (!isImageFile(file)) {
-    errors.attachment = true;
-    errors.attachmentMessage =
-      "Format file yang didukung: JPG, JPEG, PNG, WEBP, HEIC";
-  } else {
-    errors.attachment = false;
-  }
-
-  model.attachment = e.target.files[0];
-  console.log(e.target.files);
-}
-
-watch(model, validateForm, { deep: true });
-
-function isImageFile(file) {
-  const allowedExtensions = ["jpg", "jpeg", "png", "webp", "heic"];
-  const extension = file.name.split(".").pop().toLowerCase();
-  return allowedExtensions.includes(extension);
-}
-
 const updatePengaduan = async () => {
-  // Validasi
-  validateForm(model);
-  if (Object.values(errors).some((error) => error)) {
-    // Handle kesalahan validasi
-    console.error("Harap isi semua kolom yang diperlukan");
-    return;
-  }
-
   try {
     // Panggil fungsi updateReports untuk menambahkan pengaduan
-    const response = await updateReports(route.params.id, model);
+    const response = await deleteReports(route.params.id, model);
     console.log(response);
     // Handle respon dari backend
     if (response.success === "OK") {
       console.log("Pengaduan berhasil ditambahkan");
       Swal.fire({
         title: "Hore!",
-        text: "Berhasil Mengubah Laporan!",
+        text: "Berhasil Menghapus Laporan!",
         icon: "success",
       });
       // Redirect ke halaman Pengaduanku setelah berhasil menambahkan

@@ -226,3 +226,21 @@ export async function updateReports(id, data) {
     return false;
   }
 }
+export async function deleteReports(id) {
+  try {
+    const response = await axios.delete(
+      `http://localhost:8000/api/reports/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem(
+            "smartdistrict-token"
+          )}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}

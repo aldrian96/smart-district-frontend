@@ -143,15 +143,63 @@
                             Detail
                           </button>
                         </div>
+
                         <div>
                           <button
                             class="btn btn-danger mb-0 text-xs"
                             data-toggle="tooltip"
                             data-original-title="Detail user"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
                           >
                             <i class="fa fa-trash" aria-hidden="true"></i>
                             Delete
                           </button>
+                        </div>
+
+                        <!-- Modal -->
+                        <div
+                          class="modal fade"
+                          id="exampleModal"
+                          tabindex="-1"
+                          aria-labelledby="exampleModalLabel"
+                          aria-hidden="true"
+                        >
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1
+                                  class="modal-title fs-5"
+                                  id="exampleModalLabel"
+                                >
+                                  Apakah anda Yakin?
+                                </h1>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div class="modal-body">...</div>
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary"
+                                  data-bs-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn btn-primary"
+                                  @click="deletePengaduan(row.id)"
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </td>
@@ -176,6 +224,8 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { GetReportsByUser, GetReports } from "../api.js";
+import { deleteReports, GetDetailsHeadless } from "../api.js";
+import Swal from "sweetalert2";
 
 const router = useRouter();
 
@@ -185,7 +235,28 @@ const dataTable = ref([]);
 const truncateText = (text, maxLength) => {
   return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
 };
-
+const deletePengaduan = async (id) => {
+  try {
+    // Panggil fungsi updateReports untuk menambahkan pengaduan
+    const response = await deleteReports(id);
+    console.log(response);
+    // Handle respon dari backend
+    if (response.success === "OK") {
+      console.log("Pengaduan berhasil ditambahkan");
+      Swal.fire({
+        title: "Hore!",
+        text: "Berhasil Menghapus Laporan!",
+        icon: "success",
+      });
+      // Redirect ke halaman Pengaduanku setelah berhasil menambahkan
+      router.go();
+    } else {
+      console.error("Gagal Menghapus pengaduan", response);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 onMounted(async () => {
   dataTable.value = await GetReportsByUser();
   console.log(dataTable.value);

@@ -41,7 +41,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="row in dataTable" :key="row">
+                  <tr
+                    v-for="(row, i) in dataTable"
+                    :key="row"
+                    data-aos="fade-in"
+                    data-aos-once="true"
+                    :data-aos-delay="i * 100"
+                  >
                     <td>
                       <div class="d-flex p-2 ps-3">
                         <div class="d-flex flex-column justify-content-center">
@@ -99,7 +105,7 @@
                           <button
                             @click="
                               router.push({
-                                name: 'DetailPengaduan',
+                                name: 'editAdmin',
                                 params: { id: row.id },
                               })
                             "
@@ -157,7 +163,8 @@
 import axios from "axios";
 import { onMounted, ref } from "vue";
 import { GetReports, GetReportsDetailById } from "../api.js";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+
 const router = useRouter();
 
 const dataTable = ref([]);
